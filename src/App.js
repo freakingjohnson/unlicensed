@@ -1,7 +1,10 @@
 import React from 'react';
+import router from './router/router'
 
 const App = () => (
-  <div>Hello</div>
+  <div>
+    { router }
+  </div>
 )
 
 export default App;
