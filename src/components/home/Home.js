@@ -1,7 +1,12 @@
 import React from 'react'
 
 const Home = () => (
-  <div>Hello World!</div>
+  <div>
+    <div>
+      Hello World!
+    </div>
+    <a id='results' href='/results'>results</a>
+  </div>
 )
 
 export default Home
