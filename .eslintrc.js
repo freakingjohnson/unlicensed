@@ -30,6 +30,7 @@ module.exports = {
         "no-unused-vars": 1,
         "react/prop-types": 1,
         "no-shadow": 0,
-        "no-console": 0
+        "no-console": 0,
+        "linebreak-style":0,
     }
 };
