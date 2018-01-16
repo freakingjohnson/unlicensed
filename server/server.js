@@ -7,6 +7,7 @@ const express = require('express'),
   axios = require('axios')
 
 const app = express();
+const userInfo = require('./decoratorUserInfo')
 
 const getUser = require('./resultsController')
 
@@ -25,6 +26,8 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }))
+
+userInfo(app)
 
 
 app.use(express.static(`${__dirname}/../build`))
