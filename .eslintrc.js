@@ -25,6 +25,11 @@ module.exports = {
         "react/jsx-filename-extension": 0,
         "semi": 0,
         "eol-last": 0,
-        "jsx-a11y/anchor-is-valid": 0
+        "jsx-a11y/anchor-is-valid": 0,
+        "one-var": 0,
+        "no-unused-vars": 1,
+        "react/prop-types": 1,
+        "no-shadow": 0,
+        "no-console": 0
     }
 };
