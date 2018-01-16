@@ -31,6 +31,9 @@ module.exports = {
         "react/prop-types": 1,
         "no-shadow": 0,
         "no-console": 0,
+        "react/forbid-prop-types": 0,
+        "no-use-before-define": 0,
+        "max-len": 0,
         "linebreak-style":0,
     }
 };
