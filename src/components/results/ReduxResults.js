@@ -8,38 +8,38 @@ import Typography from 'material-ui/Typography/Typography';
 import { getUserData } from '../../ducks/reducers/resultsReducer'
 
 
-const Results = ({ userData, getUserData }) => {
-    console.log(userData)
-    const userTile = userData && userData.map(user => (
-        <Card key={user.id}>
-            <CardHeader
-                avatar={
-                    <Avatar src={user.profile_photo} />
+const Results = ({ userData }) => {
+  console.log(userData)
+  const userTile = userData && userData.map(user => (
+    <Card key={user.id}>
+      <CardHeader
+        avatar={
+          <Avatar src={user.profile_photo} />
                 }
-                title={user.first_name + ' ' + user.last_name}
-            />
-            <CardContent>
-                <Typography component="p">
-                    {user.bio_info}
-                </Typography>
-            </CardContent>
-        </Card>
-    ))
+        title={`${user.first_name} ${user.last_name}`}
+      />
+      <CardContent>
+        <Typography component="p">
+          {user.bio_info}
+        </Typography>
+      </CardContent>
+    </Card>
+  ))
 
-    return (
-        <div>
-            <div>
-                <Button
-                    raised
-                    onClick={getUserData}
-                >
+  return (
+    <div>
+      <div>
+        <Button
+          raised
+          onClick={getUserData}
+        >
                     get users
-                    </Button>
-            </div>
-            {userTile}
+        </Button>
+      </div>
+      {userTile}
 
-        </div>
-    )
+    </div>
+  )
 }
 
 // Results.propTypes = {
@@ -47,7 +47,7 @@ const Results = ({ userData, getUserData }) => {
 
 // }
 function mapStateToProps(state) {
-    return state
+  return state
 }
 
 export default connect(mapStateToProps, { getUserData })(Results)

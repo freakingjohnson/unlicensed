@@ -29,13 +29,5 @@ module.exports = {
         "one-var": 0,
         "no-unused-vars": 1,
         "react/prop-types": 1,
-        "no-shadow": 0,
-        "no-console": 0,
-        "indent": 0,
-        "react/jsx-indent": 0,
-        "react/jsx-indent-props": 0,
-        "jsx-quotes": 0,
-        "arrow-parens": 0,
-        "react/prefer-stateless-function": 0
     }
 };

@@ -12,7 +12,7 @@ export const getUserData = () => {
     .then((res) => {
       console.log('success', res.data)
       return res.data
-    }).catch(res => {
+    }).catch((res) => {
       console.log('failed to get users', res.response)
       return res
     })
