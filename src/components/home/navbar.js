@@ -50,6 +50,8 @@ class NavBar extends React.Component {
             <Divider />
             <ListItem component={Link} to="/signupaspro" onClick={this.handleClose}><ListItemText primary="Signup As Pro" disableTypography /></ListItem>
           </List>
+          {/* <Divider />
+          <ListItem component={Link} to="/results" onClick={this.handleClose}><ListItemText primary="Results" disableTypography /></ListItem> */}
         </div>)
       return (
         <div className={classes.navWrapper}>
