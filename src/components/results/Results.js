@@ -17,6 +17,7 @@ class Results extends Component {
 
     getUsers = (event) => {
       axios.get('/api/users').then((res) => {
+        console.log(res.data)
         this.setState({
           userData: res.data,
         })
