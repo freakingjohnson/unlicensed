@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import Stepper, { Step, StepButton } from 'material-ui/Stepper'
-import { Button, withStyles } from 'material-ui'
+import Stepper, { Step, StepLabel, StepContent } from 'material-ui/Stepper'
+import { Button, withStyles, Paper } from 'material-ui'
 import PropTypes from 'prop-types'
 import PersonalInfo from './PersonalInfo'
 import ServicesProvided from './ServicesProvided'
+import PastProjects from './PastProjects'
+import ReviewInfo from './ReviewInfo'
 
 const styles = theme => ({
   root: {
@@ -12,12 +14,13 @@ const styles = theme => ({
   button: {
     marginRight: theme.spacing.unit,
   },
-  completed: {
-    display: 'inline-block',
-  },
-  instructions: {
+  actionsContainer: {
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
+  },
+  resetContainer: {
+    marginTop: 0,
+    padding: theme.spacing.unit * 3, // TODO: See TODO note on Stepper
   },
 });
 
@@ -32,9 +35,9 @@ function getStepContent(step) {
     case 1:
       return <ServicesProvided />;
     case 2:
-      return 'Step 3: Let us know what work you want to show off!';
+      return <PastProjects />;
     case 3:
-      return 'Step 4: Make sure we have the right info.'
+      return <ReviewInfo />;
     default:
       return 'Unknown step';
   }
@@ -43,51 +46,28 @@ function getStepContent(step) {
 class Steps extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-  }
+  };
 
   state = {
     activeStep: 0,
-    completed: {},
   };
-
-
-  completedSteps() {
-    return Object.keys(this.state.completed).length;
-  }
-
-  totalSteps = () => getSteps().length;
-
-  isLastStep() {
-    return this.state.activeStep === this.totalSteps() - 1;
-  }
-
-  allStepsCompleted() {
-    return this.completedSteps() === this.totalSteps();
-  }
 
   handleNext = () => {
-    let activeStep;
-
-    if (this.isLastStep() && !this.allStepsCompleted()) {
-      // It's the last step, but not all steps have been completed,
-      // find the first step that has been completed
-      const steps = getSteps();
-      activeStep = steps.findIndex((step, i) => !(i in this.state.completed));
-    } else {
-      activeStep = this.state.activeStep + 1;
-    }
     this.setState({
-      activeStep,
+      activeStep: this.state.activeStep + 1,
     });
   };
 
-  handleComplete = () => {
-    const { completed } = this.state;
-    completed[this.state.activeStep] = true;
+  handleBack = () => {
     this.setState({
-      completed,
+      activeStep: this.state.activeStep - 1,
     });
-    this.handleNext();
+  };
+
+  handleReset = () => {
+    this.setState({
+      activeStep: 0,
+    });
   };
 
   render() {
@@ -97,48 +77,47 @@ class Steps extends Component {
 
     return (
       <div className={classes.root}>
-        <Stepper nonLinear activeStep={activeStep}>
+        <Stepper activeStep={activeStep} orientation="vertical">
           {steps.map((label, index) => (
             <Step key={label}>
-              <StepButton
-                completed={this.state.completed[index]}
-              >
-                {label}
-              </StepButton>
+              <StepLabel>{label}</StepLabel>
+              <StepContent>
+                <div>{getStepContent(index)}</div>
+                <div className={classes.actionsContainer}>
+                  <div>
+                    <Button
+                      disabled={activeStep === 0}
+                      onClick={this.handleBack}
+                      className={classes.button}
+                    >
+                        Back
+                    </Button>
+                    <Button
+                      raised
+                      color="primary"
+                      onClick={this.handleNext}
+                      className={classes.button}
+                    >
+                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                    </Button>
+                  </div>
+                </div>
+              </StepContent>
             </Step>
             ))}
         </Stepper>
-        <div>
-          {this.allStepsCompleted() ? (
-            <div>
-              <div className={classes.instructions}>
-                All steps completed - you&quot;re finished
-              </div>
-            </div>
-          ) : (
-            <div>
-              <div className={classes.instructions}>{getStepContent(activeStep)}</div>
-              <div>
-                <Button raised color="primary" onClick={this.handleNext} className={classes.button}>
-                  Next
-                </Button>
-                {activeStep !== steps.length &&
-                  (this.state.completed[this.state.activeStep] ? (
-                    <div type="caption" className={classes.completed}>
-                      Step {activeStep + 1} already completed
-                    </div>
-                  ) : (
-                    <Button raised color="primary" onClick={this.handleComplete}>
-                      {this.completedSteps() === this.totalSteps() - 1 ? 'Finish' : 'Complete Step'}
-                    </Button>
-                  ))}
-              </div>
-            </div>
-          )}
-        </div>
+        {activeStep === steps.length && (
+          <Paper square elevation={0} className={classes.resetContainer}>
+            <div>All steps completed - you&quot;re finished</div>
+            <Button onClick={this.handleReset} className={classes.button}>
+              Reset
+            </Button>
+          </Paper>
+        )}
       </div>
     );
   }
 }
 
-export default withStyles(styles)(Steps)
+
+export default withStyles(styles)(Steps);

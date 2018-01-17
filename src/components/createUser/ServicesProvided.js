@@ -17,7 +17,6 @@ const ServicesProvided = ({ serviceReducer, setServices }) => {
             value={string}
             checked={serviceReducer[string]}
             onChange={(e) => {
-                console.log(string, serviceReducer, serviceReducer[string])
               setServices(e, serviceReducer[string])
             }}
           />
