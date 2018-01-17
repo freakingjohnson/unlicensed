@@ -6,17 +6,21 @@ const initialState = {
   call: false,
   both: false,
   profilePic: '',
+  picName: '',
   email: '',
   bio: '',
 }
 
-const SET_USER = 'SET_USER'
+const SET_USER = 'SET_USER',
+  PROFILE_PIC = 'PROFILE_PIC'
 
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case 'SET_USER':
+    case SET_USER:
       return Object.assign({}, state, { [action.state]: action.payload })
+    case PROFILE_PIC:
+      return Object.assign({}, state, { profilePic: action.payload, picName: action.data })
     default:
       return state
   }
@@ -40,17 +44,8 @@ export const personalInfo = (e, checked) => {
   }
 }
 
-
-/*
-export const addToUser = (change) => {
-  const user = store.getState()
-  if (user.userId === undefined) {
-    axios.get('api').then(res => (dispatch) => {
-      dispatch({
-        type: GET_STRING,
-        payload: res.data.Id,
-      })
+export const setProfilePic = file => ({
+  type: PROFILE_PIC,
+  payload: file.preview,
+  data: file.name,
 })
-  } return user.userId
-}
-*/

@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { TextField, Checkbox } from 'material-ui'
+import { TextField, Checkbox, Avatar, withStyles } from 'material-ui'
 import { FormGroup, FormControlLabel } from 'material-ui/Form'
 import PropTypes from 'prop-types'
-import { personalInfo } from './../../ducks/reducers/userReducer'
+import Dropzone from 'react-dropzone'
+import { personalInfo, setProfilePic } from './../../ducks/reducers/userReducer'
 
 const PersonalInfo = ({
-  firstName, lastName, phone, text, call, both, email, bio, personalInfo,
+  classes, firstName, lastName, phone, text, call, both, email, bio, profilePic, picName, personalInfo, setProfilePic,
 }) => (
   <div>
     <h3>Step 1: Tell us about yourself...</h3>
@@ -34,11 +35,28 @@ const PersonalInfo = ({
           label="Both"
         />
       </FormGroup>
+      <Dropzone multiple={false} onDrop={e => setProfilePic(e[0])}>
+        {profilePic ?
+          <div>
+            <h3>{picName}</h3>
+            <Avatar src={profilePic} className={classes.avatar} />
+          </div>
+          :
+          <p>Drag and drop a picture here to use as your profile picture or click to select a file.</p>
+          }
+      </Dropzone>
       <TextField label="Email" name="email" value={email} onChange={e => personalInfo(e)} />
       <TextField multiline label="Bio" name="bio" value={bio} onChange={e => personalInfo(e)} />
     </FormGroup>
   </div>
 )
+
+const styles = {
+  avatar: {
+    height: 150,
+    width: 150,
+  },
+}
 
 const mapStateToProps = state => ({
   firstName: state.userReducer.firstName,
@@ -47,14 +65,17 @@ const mapStateToProps = state => ({
   text: state.userReducer.text,
   call: state.userReducer.call,
   both: state.userReducer.both,
+  profilePic: state.userReducer.profilePic,
+  picName: state.userReducer.picName,
   email: state.userReducer.email,
   bio: state.userReducer.bio,
 })
 
 
-export default connect(mapStateToProps, { personalInfo })(PersonalInfo)
+export default connect(mapStateToProps, { personalInfo, setProfilePic })(withStyles(styles)(PersonalInfo))
 
 PersonalInfo.propTypes = {
+  classes: PropTypes.object.isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   phone: PropTypes.string.isRequired,
@@ -64,4 +85,7 @@ PersonalInfo.propTypes = {
   email: PropTypes.string.isRequired,
   bio: PropTypes.string.isRequired,
   personalInfo: PropTypes.func.isRequired,
+  profilePic: PropTypes.string.isRequired,
+  picName: PropTypes.string.isRequired,
+  setProfilePic: PropTypes.func.isRequired,
 }
