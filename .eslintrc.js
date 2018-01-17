@@ -35,11 +35,8 @@ module.exports = {
         "no-use-before-define": 0,
         "max-len": 0,
         "linebreak-style":0,
-<<<<<<< HEAD
         "prefer-const":0,
-=======
         "no-nested-ternary": 0,
         "react/no-array-index-key": 0
->>>>>>> master
     }
 };
