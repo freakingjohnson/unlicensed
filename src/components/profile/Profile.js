@@ -25,57 +25,72 @@ const styles = theme => ({
   avatar: {
     width: 60,
     height: 60,
+    display: 'flex',
+    justifyContent: 'center',
   },
   pic: {
     maxWidth: 345,
   },
   media: {
-    height: 200,
+    height: 'auto',
+    width: '100px',
   },
 });
 
-function SimpleCard(props) {
+const jobs = [{ photo: 'http://res.cloudinary.com/dhowdfbmx/image/upload/v1513637011/kebbooilkiteq7npuojp.jpg', desc: 'photo1' },
+  { photo: 'http://res.cloudinary.com/dhowdfbmx/image/upload/v1514429192/s5vy99sbubitho5hdppe.jpg', desc: 'photo2' },
+]
+
+
+function Profile(props) {
   const { classes } = props;
 
-  return (
-    <div>
-      <div className={classes.row}>
-        <Avatar alt="profile pic" src="profile.jpg" className={classes.avatar} />
-      </div>
-
-      <Card className={classes.card}>
+  const WorkPhotoCard = jobs.map(jobDesc => (
+    <div key={jobs.photo}>
+      <Card >
+        <CardMedia>
+          <div className={classes.media}>
+            <img src={jobDesc.photo} alt="job pic" />
+          </div>
+        </CardMedia>
         <CardContent>
-          <Typography className={classes.title}>Name</Typography>
-          <Typography className={classes.title}>Services Provided</Typography>
-          <Typography className={classes.title}>desc</Typography>
-          <Typography className={classes.title}>contact info</Typography>
-          <CardActions>
-            <Button dense>Learn More</Button>
-          </CardActions>
-        </CardContent>
-      </Card>
-      <Card className={classes.pic}>
-        <CardMedia
-          className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography type="headline" component="h2">
-            Work Type
-          </Typography>
           <Typography component="p">
-            Short Desc of work
+            {jobDesc.desc}
           </Typography>
         </CardContent>
       </Card>
     </div>
-  );
+  ))
+
+  return (
+
+    <div>
+      <Avatar alt="profile pic" src="https://cdn.shopify.com/s/files/1/1325/1409/products/157-Mexico-Flag-Solo_Single_Front_grande_33205e4d-5e4f-4df4-919b-74f1d7de4f14_1024x1024.png?v=1476740848" className={classes.avatar} />
+      <Card className={classes.card}>
+        <CardContent>
+          <Typography className={classes.title}>Name</Typography>
+          <Typography className={classes.title}>Services Provided</Typography>
+          <CardActions>
+            {/* write logic that will display button if more than 3 services provided */}
+            <Button dense>More Services</Button>
+          </CardActions>
+          <Typography className={classes.title}>Desc</Typography>
+          <Typography className={classes.title}>Contact Info</Typography>
+
+        </CardContent>
+      </Card>
+      <div >
+        { WorkPhotoCard }
+      </div>
+    </div>
+
+
+  )
 }
 
 
-SimpleCard.propTypes = {
+Profile.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleCard);
+export default withStyles(styles)(Profile);
