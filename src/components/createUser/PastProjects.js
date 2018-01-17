@@ -27,7 +27,7 @@ const PastProjects = ({
           }
       </Dropzone>
       <TextField value={projectDesc} label="Description" onChange={e => setProjects(e)} />
-      <Button onClick={() => addToDescList()} >Add To Projects</Button>
+      <Button raised color="accent" onClick={() => addToDescList()} >Add To Projects</Button>
     </div>
   )
 }
