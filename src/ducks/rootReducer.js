@@ -8,7 +8,7 @@ import projectReducer from './reducers/projectReducer'
 const rootReducer = combineReducers({
   userReducer,
   serviceReducer,
-  reducer,
+  // reducer,
   resultsReducer,
   projectReducer,
 })

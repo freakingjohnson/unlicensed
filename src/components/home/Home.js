@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
 import { withStyles } from 'material-ui/styles'
+import { getUserData } from './../../ducks/reducers/resultsReducer'
+import Results from './../results/Results'
 
 const styles = {
   background: {
@@ -32,16 +35,19 @@ class Home extends React.Component {
     return (
       <div>
         { homeView }
-        <form onSubmit={(event) => {
-          this.getUsers(event)
- }}
-        >
+        <form onSubmit={event => getUserData}>
           <input className="search" type="text" onChange={this.searchHandler.bind(this)} value={this.state.search} />
           <button className="searchButton">Search</button>
         </form>
-
+        <Results />
       </div>
     )
   }
 }
-export default withStyles(styles)(Home);
+
+function mapStateToProps(state) {
+  return state
+}
+
+export default withStyles(styles)(connect(mapStateToProps, { getUserData })(Home))
+// export default withStyles(styles)(Home);
