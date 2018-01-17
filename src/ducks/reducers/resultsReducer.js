@@ -1,5 +1,4 @@
 import axios from 'axios'
-import store from './../../store'
 
 const initialState = {
   userData: undefined,
@@ -31,18 +30,3 @@ export default function reducer(state = initialState, action) {
       return state
   }
 }
-
-
-/*
-export const addToUser = (change) => {
-  const user = store.getState()
-  if (user.userId === undefined) {
-    axios.get('api').then(res => (dispatch) => {
-      dispatch({
-        type: GET_STRING,
-        payload: res.data.Id,
-      })
-})
-  } return user.userId
-}
-*/
