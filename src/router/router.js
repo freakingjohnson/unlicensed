@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Home from '../components/home/Home'
-import Results from '../components/results/ReduxResults';
+import Results from '../components/results/Results'
 import Profile from '../components/profile/Profile'
 import Steps from '../components/createUser/Steps'
 
