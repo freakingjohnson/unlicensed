@@ -35,5 +35,6 @@ module.exports = {
         "no-use-before-define": 0,
         "max-len": 0,
         "linebreak-style":0,
+        "prefer-const":0,
     }
 };

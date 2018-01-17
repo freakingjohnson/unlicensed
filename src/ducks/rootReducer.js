@@ -8,7 +8,7 @@ import serviceReducer from './reducers/serviceReducer'
 const rootReducer = combineReducers({
   userReducer,
   serviceReducer,
-  reducer,
+  // reducer,
   resultsReducer,
 })
 
