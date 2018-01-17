@@ -20,7 +20,7 @@ export default function (state = initialState, action) {
 
 export const setServices = (e, checked) => {
   const { name } = e.target
-  console.log('hit', checked)
+
   return {
     type: SET_SERVICES,
     state: name,
