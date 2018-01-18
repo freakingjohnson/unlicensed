@@ -17,39 +17,35 @@ class Home extends React.Component {
     search: '',
   }
 
- searchHandler=(e) => {
-   this.setState({ search: e.target.value })
- }
+  searchHandler(e) {
+    this.setState({ search: e.target.value })
+  }
 
+  render() {
+    const { classes, userData, getSearchData } = this.props;
 
- render() {
-   const { classes, userData, getSearchData } = this.props;
+    const homeView = (
+      <div className={classes.homeWrapper} />
+    )
+    return (
+      <div>
 
-   const homeView = (
-     <div />
-   )
-   return (
-     <div>
-       { homeView }
-       <form onSubmit={(event) => {
-         event.preventDefault()
-         getSearchData(userData, this.state.search)
-        }}
-       >
-         <input className="search" type="text" onChange={this.searchHandler} value={this.state.search} />
-         <button className="searchButton">Search</button>
-       </form>
-       <Results />
-     </div>
-   )
- }
-}
-
-Home.propTypes = {
-  classes: PropTypes.object.isRequired,
-  userData: PropTypes.array.isRequired,
-  getSearchData: PropTypes.func.isRequired,
-}
+        <form onSubmit={(event) => {
+          event.preventDefault()
+          searchData(userData, this.state.search)
+          this.setState({
+            search: '',
+          })
+          this.props.history.push('/results')
+}}
+        >
+          <input className="search" type="text" onChange={this.searchHandler.bind(this)} value={this.state.search} />
+          <button className="searchButton">Search</button>
+        </form>
+        { homeView }
+      </div>
+    )
+  }
 
 function mapStateToProps(state) {
   return {
@@ -58,4 +54,16 @@ function mapStateToProps(state) {
   }
 }
 
+const styles = {
+  background: {
+    height: '60vh',
+    width: '100vw',
+  },
+  homeWrapper: {
+    height: '60vh',
+    width: '100vw',
+  },
+}
+
 export default withStyles(styles)(connect(mapStateToProps, { getUserData, getSearchData })(Home))
+

@@ -7,6 +7,8 @@ import Avatar from 'material-ui/Avatar';
 import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography/Typography';
 import GridList from 'material-ui/GridList';
+import { getUserData, searchData } from '../../ducks/reducers/resultsReducer'
+
 import { getUserData, getUser } from '../../ducks/reducers/resultsReducer'
 
 const Results = ({ searchData, getUser }) => {
@@ -35,7 +37,7 @@ const Results = ({ searchData, getUser }) => {
 
   return (
     <div>
-      {searchData ?
+      {searchData.length > 0 ?
         <div>
           <div />
           <GridList cols={1}>
