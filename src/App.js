@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import router from './router/router'
@@ -23,5 +24,10 @@ class App extends Component {
 const mapStateToProps = state => ({
   userData: state.resultsReducer.userData,
 })
+
+static propTypes = {
+  getUserData: PropTypes.func.isRequired,
+  userData: PropTypes.array.isRequired,
+}
 
 export default withRouter(connect(mapStateToProps, { getUserData })(App))

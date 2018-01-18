@@ -3,9 +3,12 @@ import axios from 'axios'
 const initialState = {
   userData: [],
   searchData: [],
+  user: [],
 }
 
-const GET_USER_DATA = 'GET_USER_DATA'
+const GET_USER_DATA = 'GET_USER_DATA',
+  GET_SEARCH_DATA = 'GET_SEARCH_DATA',
+  SINGLE_USER = 'SINGLE_USER'
 
 export const getUserData = (userData) => {
   let results = userData
@@ -18,18 +21,28 @@ export const getUserData = (userData) => {
   }
 }
 
-const GET_SEARCH_DATA = 'GET_SEARCH_DATA'
-
-export const searchData = (userData, query) => {
-  let filtered = userData
+export const getSearchData = (userData, query) => {
+  let searchResults;
   if (userData.length > 0) {
-    filtered = userData.filter((el) => {
+    searchResults = userData.filter((el) => {
       if (el.worktype) { return el.worktype.toLowerCase().indexOf(query.toLowerCase()) > -1 }
     })
   }
   return {
     type: GET_SEARCH_DATA,
-    payload: filtered,
+    payload: searchResults,
+  }
+}
+
+export const getUser = (userId, searchData) => {
+  let user = searchData.filter((jose) => {
+    if (jose.id === userId) {
+      return jose
+    }
+  })
+  return {
+    type: SINGLE_USER,
+    payload: user,
   }
 }
 
@@ -40,6 +53,8 @@ export default function reducer(state = initialState, action) {
       return { ...state, userData: payload }
     case `${GET_SEARCH_DATA}`:
       return { ...state, searchData: payload }
+    case SINGLE_USER:
+      return { ...state, user: payload }
     default:
       return state
   }

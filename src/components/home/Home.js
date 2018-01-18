@@ -2,13 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { withStyles } from 'material-ui/styles'
-import { getUserData, searchData } from './../../ducks/reducers/resultsReducer'
+import { getUserData, getSearchData } from './../../ducks/reducers/resultsReducer'
+import Results from './../results/Results'
+
+const styles = {
+  background: {
+    height: '60vh',
+    width: '100vw',
+  },
+}
 
 class Home extends React.Component {
-  static propTypes = {
-    classes: PropTypes.object.isRequired,
-  }
-
   state= {
     search: '',
   }
@@ -18,7 +22,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { classes, userData, searchData } = this.props;
+    const { classes, userData, getSearchData } = this.props;
 
     const homeView = (
       <div className={classes.homeWrapper} />
@@ -42,7 +46,6 @@ class Home extends React.Component {
       </div>
     )
   }
-}
 
 function mapStateToProps(state) {
   return {
@@ -61,4 +64,6 @@ const styles = {
     width: '100vw',
   },
 }
-export default withStyles(styles)(connect(mapStateToProps, { getUserData, searchData })(Home))
+
+export default withStyles(styles)(connect(mapStateToProps, { getUserData, getSearchData })(Home))
+
