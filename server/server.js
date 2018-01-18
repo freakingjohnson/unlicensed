@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express'),
-  bodyParser = require('body-parser'),
   cors = require('cors'),
+  bodyParser = require('body-parser'),
   session = require('express-session'),
   massive = require('massive'),
   axios = require('axios')
@@ -16,7 +16,6 @@ const userInfo = require('./decoratorUserInfo')
 
 const getUser = require('./resultsController')
 
-
 massive(process.env.DB_CONNECTION).then((db) => {
   app.set('db', db)
 })
@@ -26,6 +25,9 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }))
+
+getUser(app)
+
 
 userInfo(app)
 
