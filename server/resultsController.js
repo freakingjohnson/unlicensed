@@ -7,6 +7,7 @@ const getUser = (req, res) => {
       res.status(200).send(body)
     })
     .catch((error) => {
+      console.log(error)
       res.status(500).send()
     })
 }

@@ -5,13 +5,6 @@ import { withStyles } from 'material-ui/styles'
 import { getUserData, getSearchData } from './../../ducks/reducers/resultsReducer'
 import Results from './../results/Results'
 
-const styles = {
-  background: {
-    height: '60vh',
-    width: '100vw',
-  },
-}
-
 class Home extends React.Component {
   state= {
     search: '',
@@ -32,7 +25,7 @@ class Home extends React.Component {
 
         <form onSubmit={(event) => {
           event.preventDefault()
-          searchData(userData, this.state.search)
+          getSearchData(userData, this.state.search)
           this.setState({
             search: '',
           })
@@ -46,6 +39,7 @@ class Home extends React.Component {
       </div>
     )
   }
+}
 
 function mapStateToProps(state) {
   return {

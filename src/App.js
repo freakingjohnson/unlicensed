@@ -8,6 +8,11 @@ import { getUserData } from './ducks/reducers/resultsReducer'
 
 
 class App extends Component {
+  static propTypes = {
+    getUserData: PropTypes.func.isRequired,
+    userData: PropTypes.array.isRequired,
+  }
+
   componentDidMount() {
     this.props.getUserData(this.props.userData)
   }
@@ -24,10 +29,5 @@ class App extends Component {
 const mapStateToProps = state => ({
   userData: state.resultsReducer.userData,
 })
-
-static propTypes = {
-  getUserData: PropTypes.func.isRequired,
-  userData: PropTypes.array.isRequired,
-}
 
 export default withRouter(connect(mapStateToProps, { getUserData })(App))
