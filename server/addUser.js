@@ -1,13 +1,11 @@
 const _ = require('underscore')
 
 const addUser = async (req, res) => {
-  console.log(req.body)
-
   const db = req.app.get('db'),
     {
       firstName, lastName, phone, call, text, both, email, profilePicUrl, bio,
     } = req.body[0],
-    { projectDesc, projectPicUrls } = req.body[2]
+    { projectDescList, projectPicUrls } = req.body[2]
 
   let phoneInfo = [phone]
 
@@ -22,9 +20,7 @@ const addUser = async (req, res) => {
   await db.add_user([firstName, lastName, phoneInfo, email, bio, profilePicUrl]).then((data) => {
     res.status(200)
   })
-  console.log(email)
   const userId = await db.get_one_user([email])
-  console.log(userId)
 
 
   const serviceList = _.omit(req.body[1], (value, key) => {
@@ -39,17 +35,16 @@ const addUser = async (req, res) => {
     services.push(key)
   }
 
-  console.log(userId)
-
   services.map((service) => {
     db.add_services([userId[0].id, service]).then((data) => {
       res.status(200)
     })
   })
 
-  const picture = _.zip(projectPicUrls, projectDesc)
+  const picture = _.zip(projectPicUrls, projectDescList)
+
   picture.map((image) => {
-    db.add_to_workphotos([userId, image[0], image[1]]).then(data => res.status(200).send(data))
+    db.add_to_workphotos([userId[0].id, image[0], image[1]]).then(data => res.status(200).send(data))
   })
 }
 
