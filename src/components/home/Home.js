@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
+import { TextField, Button } from 'material-ui'
 import { withStyles } from 'material-ui/styles'
 import { getUserData, getSearchData } from './../../ducks/reducers/resultsReducer'
-import Results from './../results/Results'
-
-const styles = {
-  background: {
-    height: '60vh',
-    width: '100vw',
-  },
-}
 
 class Home extends React.Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    userData: PropTypes.array.isRequired,
+    getSearchData: PropTypes.func.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }).isRequired,
+  }
+
   state= {
     search: '',
   }
@@ -32,27 +34,37 @@ class Home extends React.Component {
 
         <form onSubmit={(event) => {
           event.preventDefault()
-          searchData(userData, this.state.search)
+          getSearchData(userData, this.state.search)
           this.setState({
             search: '',
           })
           this.props.history.push('/results')
-}}
+        }}
         >
-          <input className="search" type="text" onChange={this.searchHandler.bind(this)} value={this.state.search} />
-          <button className="searchButton">Search</button>
+          <TextField className="search" type="text" onChange={e => this.searchHandler(e)} value={this.state.search} />
+          <Button
+            raised
+            className="searchButton"
+            onClick={() => {
+          getSearchData(userData, this.state.search)
+          this.setState({
+            search: '',
+          })
+          this.props.history.push('/results')
+          }}
+          >Search
+          </Button>
         </form>
         { homeView }
       </div>
     )
   }
-
-function mapStateToProps(state) {
-  return {
-    userData: state.resultsReducer.userData,
-    searchData: state.resultsReducer.searchData,
-  }
 }
+
+const mapStateToProps = state => ({
+  userData: state.resultsReducer.userData,
+  searchData: state.resultsReducer.searchData,
+})
 
 const styles = {
   background: {

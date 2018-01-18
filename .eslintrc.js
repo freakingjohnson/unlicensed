@@ -38,6 +38,9 @@ module.exports = {
         "prefer-const":0,
         "no-nested-ternary": 0,
         "react/no-array-index-key": 0,
-        "guard-for-in": 0
+        "guard-for-in": 0,
+        "consistent-return": 0,
+        "no-restricted-syntax": 0,
+        "array-callback-return": 0
     }
 };

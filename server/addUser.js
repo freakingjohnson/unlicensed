@@ -17,7 +17,7 @@ const addUser = async (req, res) => {
     phoneInfo.push('c')
   }
 
-  await db.add_user([firstName, lastName, phoneInfo, email, bio, profilePicUrl]).then((data) => {
+  await db.add_user([firstName, lastName, phoneInfo, email, bio, profilePicUrl]).then(() => {
     res.status(200)
   })
   const userId = await db.get_one_user([email])
@@ -36,7 +36,7 @@ const addUser = async (req, res) => {
   }
 
   services.map((service) => {
-    db.add_services([userId[0].id, service]).then((data) => {
+    db.add_services([userId[0].id, service]).then(() => {
       res.status(200)
     })
   })
