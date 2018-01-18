@@ -6,6 +6,6 @@ const userInfo = (req, res) => {
   })
 }
 
-module.exports = function (app) {
+module.exports = (app) => {
   app.get('/api/get', userInfo)
 }
