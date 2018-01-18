@@ -32,6 +32,7 @@ const Results = ({ searchData, getUser }) => {
       </Card>
     </Link>
   ))
+
   return (
     <div>
       {searchData ?
