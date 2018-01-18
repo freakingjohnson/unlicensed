@@ -1,0 +1,1 @@
+insert into workphotos(user_id, photo, photo_info) values ($1, $2, $3)

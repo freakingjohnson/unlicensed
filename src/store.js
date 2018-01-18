@@ -5,4 +5,3 @@ import promiseMiddleware from 'redux-promise-middleware'
 import rootReducer from './ducks/rootReducer'
 
 export default createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, promiseMiddleware())))
-

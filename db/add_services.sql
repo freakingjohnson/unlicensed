@@ -1,0 +1,1 @@
+insert into worktype (userid, worktype) values($1, $2)

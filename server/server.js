@@ -4,7 +4,9 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   session = require('express-session'),
   massive = require('massive'),
-  axios = require('axios')
+  userInfo = require('./decoratorUserInfo'),
+  getUser = require('./resultsController'),
+  addUser = require('./addUser')
 
 const app = express();
 
@@ -26,13 +28,10 @@ app.use(session({
   saveUninitialized: true,
 }))
 
-getUser(app)
-
-
-userInfo(app)
-
-getUser(app)
-
 app.use(express.static(`${__dirname}/../build`))
+
+getUser(app)
+userInfo(app)
+addUser(app)
 
 app.listen(process.env.SERVER_PORT, () => { console.log(`Server listening on port ${process.env.SERVER_PORT}`) })
