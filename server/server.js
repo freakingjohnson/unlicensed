@@ -11,11 +11,11 @@ const userInfo = require('./decoratorUserInfo')
 
 const getUser = require('./resultsController')
 
-getUser(app)
 
 app.use(bodyParser.json());
 
 app.use(cors())
+
 
 massive(process.env.DB_CONNECTION).then((db) => {
   app.set('db', db)
@@ -29,6 +29,7 @@ app.use(session({
 
 userInfo(app)
 
+getUser(app)
 
 app.use(express.static(`${__dirname}/../build`))
 

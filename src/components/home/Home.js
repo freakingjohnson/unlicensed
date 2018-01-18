@@ -2,15 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { withStyles } from 'material-ui/styles'
-import { getUserData } from './../../ducks/reducers/resultsReducer'
-import Results from './../results/Results'
-
-const styles = {
-  background: {
-    height: '60vh',
-    width: '100vw',
-  },
-}
+import { getUserData, searchData } from './../../ducks/reducers/resultsReducer'
 
 class Home extends React.Component {
   static propTypes = {
@@ -25,29 +17,48 @@ class Home extends React.Component {
     this.setState({ search: e.target.value })
   }
 
-
   render() {
-    const { classes } = this.props;
+    const { classes, userData, searchData } = this.props;
 
     const homeView = (
-      <div />
+      <div className={classes.homeWrapper} />
     )
     return (
       <div>
-        { homeView }
-        <form onSubmit={event => getUserData}>
+
+        <form onSubmit={(event) => {
+          event.preventDefault()
+          searchData(userData, this.state.search)
+          this.setState({
+            search: '',
+          })
+          this.props.history.push('/results')
+}}
+        >
           <input className="search" type="text" onChange={this.searchHandler.bind(this)} value={this.state.search} />
           <button className="searchButton">Search</button>
         </form>
-        <Results />
+        { homeView }
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  return state
+  return {
+    userData: state.resultsReducer.userData,
+    searchData: state.resultsReducer.searchData,
+  }
 }
 
-export default withStyles(styles)(connect(mapStateToProps, { getUserData })(Home))
-// export default withStyles(styles)(Home);
+const styles = {
+  background: {
+    height: '60vh',
+    width: '100vw',
+  },
+  homeWrapper: {
+    height: '60vh',
+    width: '100vw',
+  },
+}
+export default withStyles(styles)(connect(mapStateToProps, { getUserData, searchData })(Home))
