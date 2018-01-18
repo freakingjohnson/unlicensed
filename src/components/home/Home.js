@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { withStyles } from 'material-ui/styles'
-import { getUserData, searchData } from './../../ducks/reducers/resultsReducer'
+import { getUserData, getSearchData } from './../../ducks/reducers/resultsReducer'
 import Results from './../results/Results'
 
 const styles = {
@@ -23,7 +23,7 @@ class Home extends React.Component {
 
 
  render() {
-   const { classes, userData, searchData } = this.props;
+   const { classes, userData, getSearchData } = this.props;
 
    const homeView = (
      <div />
@@ -33,7 +33,7 @@ class Home extends React.Component {
        { homeView }
        <form onSubmit={(event) => {
          event.preventDefault()
-         searchData(userData, this.state.search)
+         getSearchData(userData, this.state.search)
         }}
        >
          <input className="search" type="text" onChange={this.searchHandler} value={this.state.search} />
@@ -48,7 +48,7 @@ class Home extends React.Component {
 Home.propTypes = {
   classes: PropTypes.object.isRequired,
   userData: PropTypes.array.isRequired,
-  searchData: PropTypes.array.isRequired,
+  getSearchData: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {
@@ -58,4 +58,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default withStyles(styles)(connect(mapStateToProps, { getUserData, searchData })(Home))
+export default withStyles(styles)(connect(mapStateToProps, { getUserData, getSearchData })(Home))

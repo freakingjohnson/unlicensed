@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import router from './router/router'
 import Navbar from './components/home/navbar'
 import { getUserData } from './ducks/reducers/resultsReducer'
@@ -30,4 +31,4 @@ App.propTypes = {
 App.defaultProps = {
   userData: undefined,
 }
-export default connect(mapStateToProps, { getUserData })(App)
+export default withRouter(connect(mapStateToProps, { getUserData })(App))
