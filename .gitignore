@@ -10,6 +10,7 @@
 /build
 
 .env
+.eslintrc.js
 
 # misc
 .DS_Store

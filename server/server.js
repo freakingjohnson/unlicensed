@@ -14,10 +14,6 @@ app.use(cors())
 
 app.use(bodyParser.json());
 
-const userInfo = require('./decoratorUserInfo')
-
-const getUser = require('./resultsController')
-
 massive(process.env.DB_CONNECTION).then((db) => {
   app.set('db', db)
 })
