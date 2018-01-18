@@ -4,14 +4,11 @@ const express = require('express'),
   cors = require('cors'),
   session = require('express-session'),
   massive = require('massive'),
-  axios = require('axios')
+  userInfo = require('./decoratorUserInfo'),
+  getUser = require('./resultsController'),
+  addUser = require('./addUser')
 
 const app = express();
-const userInfo = require('./decoratorUserInfo')
-
-const getUser = require('./resultsController')
-
-getUser(app)
 
 app.use(bodyParser.json());
 
@@ -27,34 +24,10 @@ app.use(session({
   saveUninitialized: true,
 }))
 
-userInfo(app)
-
-
 app.use(express.static(`${__dirname}/../build`))
 
+getUser(app)
+userInfo(app)
+addUser(app)
+
 app.listen(process.env.SERVER_PORT, () => { console.log(`Server listening on port ${process.env.SERVER_PORT}`) })
-
-
-/*
-decorator pattern
-
-pointless.js file:
-
-pointless: () => {
-    const db = app.get('db')
-    db.users([1, 2, 3]).then(res => {
-        res.status(200).send(res)
-    })
-}
-
-module.exports = function(app) {
-    app.get('/api/users', pointless)
-}
-
-
-server.js file:
-
-const pointless = require('./pointless')
-
-pointless(app)
-*/

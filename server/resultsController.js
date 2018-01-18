@@ -4,7 +4,6 @@ const getUser = (req, res) => {
   // console.log(req)
   db.get_user([params.id])
     .then((body) => {
-      console.log(body)
       res.status(200).send(body)
     })
     .catch((error) => {

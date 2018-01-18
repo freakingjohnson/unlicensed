@@ -35,7 +35,7 @@ const PersonalInfo = ({
           label="Both"
         />
       </FormGroup>
-      <Dropzone multiple={false} onDrop={e => setProfilePic(e[0])}>
+      <Dropzone multiple={false} accept="image/*" onDrop={e => setProfilePic(e[0])}>
         {profilePic ?
           <div>
             <h3>{picName}</h3>

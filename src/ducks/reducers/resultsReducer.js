@@ -1,19 +1,17 @@
 import axios from 'axios'
 
 const initialState = {
-  userData: undefined,
+  userData: [],
 }
 
 const GET_USER_DATA = 'GET_USER_DATA'
 
 export const getUserData = (userData) => {
   let results = userData
-  if (userData === undefined) {
-    console.log('hit')
+  if (userData.length === 0) {
     results = axios.get('api/users').then(res => res.data)
       .catch(console.log)
   }
-  console.log(results.promise)
   return {
     type: GET_USER_DATA,
     payload: results,

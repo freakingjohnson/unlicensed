@@ -6,6 +6,7 @@ import PersonalInfo from './PersonalInfo'
 import ServicesProvided from './ServicesProvided'
 import PastProjects from './PastProjects'
 import ReviewInfo from './ReviewInfo'
+import SubmitInfo from './SubmitInfo'
 
 const styles = theme => ({
   root: {
@@ -109,9 +110,7 @@ class Steps extends Component {
         {activeStep === steps.length && (
           <Paper square elevation={0} className={classes.resetContainer}>
             <div>All steps completed - you&quot;re finished</div>
-            <Button onClick={this.handleReset} className={classes.button}>
-              Reset
-            </Button>
+            <SubmitInfo />
           </Paper>
         )}
       </div>
