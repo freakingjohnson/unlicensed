@@ -7,15 +7,14 @@ const express = require('express'),
   axios = require('axios')
 
 const app = express();
-const userInfo = require('./decoratorUserInfo')
 
-const getUser = require('./resultsController')
-
-getUser(app)
+app.use(cors())
 
 app.use(bodyParser.json());
 
-app.use(cors())
+const userInfo = require('./decoratorUserInfo')
+
+const getUser = require('./resultsController')
 
 massive(process.env.DB_CONNECTION).then((db) => {
   app.set('db', db)
@@ -29,6 +28,7 @@ app.use(session({
 
 userInfo(app)
 
+getUser(app)
 
 app.use(express.static(`${__dirname}/../build`))
 
