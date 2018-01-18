@@ -19,6 +19,7 @@ export default function (state = initialState, action) {
     case SET_PROJECT_PIC:
       return {
         projectPicList: [...state.projectPicList, action.payload],
+        projectPicUrls: [...state.projectPicUrls],
         projectPicNames: [...state.projectPicNames, action.data],
         projectDesc: state.projectDesc,
         projectDescList: [...state.projectDescList],
@@ -26,6 +27,7 @@ export default function (state = initialState, action) {
     case SET_PROJECT_DESC:
       return {
         projectPicList: [...state.projectPicList],
+        projectPicUrls: [...state.projectPicUrls],
         projectPicNames: [...state.projectPicNames],
         projectDesc: action.payload,
         projectDescList: [...state.projectDescList],
@@ -33,9 +35,18 @@ export default function (state = initialState, action) {
     case SET_DESC_LIST:
       return {
         projectPicList: [...state.projectPicList],
+        projectPicUrls: [...state.projectPicUrls],
         projectPicNames: [...state.projectPicNames],
         projectDesc: '',
         projectDescList: [...state.projectDescList, state.projectDesc],
+      }
+    case SET_PIC_URL:
+      return {
+        projectPicList: [...state.projectPicList],
+        projectPicUrls: [...state.projectPicUrls, action.payload],
+        projectPicNames: [...state.projectPicNames],
+        projectDesc: '',
+        projectDescList: [...state.projectDescList],
       }
     default:
       return state
