@@ -1,12 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import router from './router/router'
-<<<<<<< HEAD
 import Navbar from './components/home/navbar'
 import { getUserData } from './ducks/reducers/resultsReducer'
-=======
-import Navbar from './components/home/Navbar'
->>>>>>> master
 
 class App extends React.Component {
   componentDidMount() {
@@ -25,4 +22,12 @@ const mapStateToProps = state => ({
   userData: state.resultsReducer.userData,
 })
 
+App.propTypes = {
+  getUserData: PropTypes.func.isRequired,
+  userData: PropTypes.array,
+}
+
+App.defaultProps = {
+  userData: undefined,
+}
 export default connect(mapStateToProps, { getUserData })(App)
