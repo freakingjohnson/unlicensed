@@ -7,25 +7,6 @@ import { List, ListItem, ListItemText } from 'material-ui';
 import MenuIcon from 'material-ui-icons/Menu'
 import { Link } from 'react-router-dom'
 
-const styles = {
-  list: {
-    width: '150px',
-    textAlign: 'center',
-  },
-  logo: {
-    width: '80px',
-    height: '90px',
-  },
-  navWrapper: {
-    height: '100px',
-    width: '375px',
-    display: 'flex',
-  },
-  imgWrapper: {
-    height: '100px',
-    width: '300px',
-  },
-};
 class NavBar extends React.Component {
     static propTypes = {
       classes: PropTypes.object.isRequired,
@@ -34,7 +15,6 @@ class NavBar extends React.Component {
     state = {
       open: false,
     }
-
 
     toggleDrawer = () => this.setState({ open: !this.state.open })
 
@@ -50,8 +30,6 @@ class NavBar extends React.Component {
             <Divider />
             <ListItem component={Link} to="/signupaspro" onClick={this.handleClose}><ListItemText primary="Signup As Pro" disableTypography /></ListItem>
           </List>
-          {/* <Divider />
-          <ListItem component={Link} to="/results" onClick={this.handleClose}><ListItemText primary="Results" disableTypography /></ListItem> */}
         </div>)
       return (
         <div className={classes.navWrapper}>
@@ -76,5 +54,25 @@ class NavBar extends React.Component {
       )
     }
 }
+
+const styles = {
+  list: {
+    width: '150px',
+    textAlign: 'center',
+  },
+  logo: {
+    width: '80px',
+    height: '90px',
+  },
+  navWrapper: {
+    height: '100px',
+    width: '375px',
+    display: 'flex',
+  },
+  imgWrapper: {
+    height: '100px',
+    width: '300px',
+  },
+};
 
 export default withStyles(styles)(NavBar);

@@ -7,7 +7,7 @@ import { setServices, services } from './../../ducks/reducers/serviceReducer'
 
 const ServicesProvided = ({ serviceReducer, setServices }) => {
   const form = services.map((service) => {
-    const string = service.replace(/\s/g, '')
+    const string = service.replace(/\s/g, '_')
     return (
       <FormControlLabel
         key={string}

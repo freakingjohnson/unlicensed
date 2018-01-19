@@ -1,11 +1,16 @@
-const _ = require('underscore')
+const _ = require('underscore'),
+  axios = require('axios')
 
 const addUser = async (req, res) => {
   const db = req.app.get('db'),
     {
-      firstName, lastName, phone, call, text, both, email, profilePicUrl, bio,
+      firstName, lastName, phone, call, text, both, email, profilePicUrl, bio, location,
     } = req.body[0],
     { projectDescList, projectPicUrls } = req.body[2]
+
+  const zipcode = await axios.get(`https://www.zipcodeapi.com/rest/${process.env.ZIPCODE_KEY}/info.json/${location}/radians`)
+
+  const workLocation = `${zipcode.data.city}, ${zipcode.data.state} ${zipcode.data.zip_code}`
 
   let phoneInfo = [phone]
 
@@ -17,7 +22,7 @@ const addUser = async (req, res) => {
     phoneInfo.push('c')
   }
 
-  await db.add_user([firstName, lastName, phoneInfo, email, bio, profilePicUrl]).then(() => {
+  await db.add_user([firstName, lastName, phoneInfo, email, bio, profilePicUrl, workLocation]).then(() => {
     res.status(200)
   })
   const userId = await db.get_one_user([email])

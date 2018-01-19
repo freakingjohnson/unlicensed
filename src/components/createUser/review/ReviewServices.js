@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table'
 
 const ReviewServices = ({
-  Plumbing, CabinetsandCoutertops, FramingandSheetrock, DrywallandInsulation, Electrical, Flooring, Painting, Landscaping, Roofing, HouseorRoomRemodel,
+  Plumbing, Cabinets_and_Coutertops, Framing_and_Sheetrock, Drywall_and_Insulation, Electrical, Flooring, Painting, Landscaping, Roofing, House_or_Room_Remodel,
 }) => (
   <div>
     <h2>Services you provide</h2>
@@ -15,17 +15,17 @@ const ReviewServices = ({
             <TableCell>Plumbing</TableCell>
           </TableRow>
           }
-        {CabinetsandCoutertops &&
+        {Cabinets_and_Coutertops &&
           <TableRow>
             <TableCell>Cabinets and Coutertops</TableCell>
           </TableRow>
           }
-        {FramingandSheetrock &&
+        {Framing_and_Sheetrock &&
           <TableRow>
             <TableCell>Framing and Sheetrock</TableCell>
           </TableRow>
           }
-        {DrywallandInsulation &&
+        {Drywall_and_Insulation &&
           <TableRow>
             <TableCell>Drywall and Insulation</TableCell>
           </TableRow>
@@ -55,7 +55,7 @@ const ReviewServices = ({
             <TableCell>Roofing</TableCell>
           </TableRow>
           }
-        {HouseorRoomRemodel &&
+        {House_or_Room_Remodel &&
           <TableRow>
             <TableCell>House or Room Remodel</TableCell>
           </TableRow>
@@ -67,15 +67,15 @@ const ReviewServices = ({
 
 const mapStateToProps = state => ({
   Plumbing: state.serviceReducer.Plumbing,
-  CabinetsandCoutertops: state.serviceReducer.CabinetsandCoutertops,
-  FramingandSheetrock: state.serviceReducer.FramingandSheetrock,
-  DrywallandInsulation: state.serviceReducer.DrywallandInsulation,
+  Cabinets_and_Coutertops: state.serviceReducer.Cabinets_and_Coutertops,
+  Framing_and_Sheetrock: state.serviceReducer.Framing_and_Sheetrock,
+  Drywall_and_Insulation: state.serviceReducer.Drywall_and_Insulation,
   Electrical: state.serviceReducer.Electrical,
   Flooring: state.serviceReducer.Flooring,
   Painting: state.serviceReducer.Painting,
   Landscaping: state.serviceReducer.Landscaping,
   Roofing: state.serviceReducer.Roofing,
-  HouseorRoomRemodel: state.serviceReducer.HouseorRoomRemodel,
+  House_or_Room_Remodel: state.serviceReducer.House_or_Room_Remodel,
 })
 
 
@@ -83,13 +83,13 @@ export default connect(mapStateToProps)(ReviewServices)
 
 ReviewServices.propTypes = {
   Plumbing: PropTypes.bool.isRequired,
-  CabinetsandCoutertops: PropTypes.bool.isRequired,
-  FramingandSheetrock: PropTypes.bool.isRequired,
-  DrywallandInsulation: PropTypes.bool.isRequired,
+  Cabinets_and_Coutertops: PropTypes.bool.isRequired,
+  Framing_and_Sheetrock: PropTypes.bool.isRequired,
+  Drywall_and_Insulation: PropTypes.bool.isRequired,
   Electrical: PropTypes.bool.isRequired,
   Flooring: PropTypes.bool.isRequired,
   Painting: PropTypes.bool.isRequired,
   Landscaping: PropTypes.bool.isRequired,
   Roofing: PropTypes.bool.isRequired,
-  HouseorRoomRemodel: PropTypes.bool.isRequired,
+  House_or_Room_Remodel: PropTypes.bool.isRequired,
 }
