@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { withStyles, Button, Typography, Avatar } from 'material-ui';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-import { getUserData } from './../../ducks/reducers/resultsReducer'
-
 
 function Profile(props) {
-  const { classes, userData } = props;
+  const { classes, user } = props;
+  console.log(user[0])
+  const selectedUser = user[0]
+  const bull = <span className={classes.bullet}>•</span>
   const WorkPhotoCard = jobs.map((jobDesc, index) => (
     <div key={index}>
       <Card >
@@ -22,39 +23,45 @@ function Profile(props) {
       </Card>
     </div>
   ))
+  const servicesOffered = (selectedUser) => {
+    const allServices = selectedUser.worktype.split('')
+    allServices.map((service, index) => (
+      <div key={index}>
+        {bull}{service}
+      </div>
+    ))
+  }
 
   return (
-
     <div>
       {
-        userData.length > 0 ?
+        selectedUser ?
           <div>
             {/* put padding around card and shadding behind a little. make padding on sides of photos as well */}
             <div className={classes.row}>
-              <Avatar alt="profile pic" src={userData[3].profile_photo} className={classes.avatar} />
+              <Avatar alt="profile pic" src={selectedUser.profile_photo} className={classes.avatar} />
             </div>
             <Card className={classes.card}>
               <CardContent>
-                <Typography className={classes.title}>{userData[3].first_name} {userData[3].last_name}</Typography>
-                {console.log(userData.length)}
-                {
-                  // userData.length will should equal service reducer results for the displayed user
-                  userData.length > 3 ?
+                <Typography className={classes.title}>{selectedUser.first_name} {selectedUser.last_name}</Typography>
+                {/* if the services are more more than 3 then display button that will display three and then the rest */}
+                {/* {
+                  allServices.length > 3 ?
                     <CardActions style={style} >
-                      {/* write logic that will display button if more than 3 services provided material ui cards has a good icon button */}
+                      write logic that will display button if more thanservices provided material ui cards has a good icon button
                       <Button style={style} dense>All Services</Button>
                     </CardActions>
                 :
                     <Typography>Work Type</Typography>
-                }
-                {/* will have to know which profile is going to be displayed and the reducers will update the past work reducer, pull from past work reducer */}
+                } */}
                 <Typography>Work Desc</Typography>
-                <Typography className={classes.title}>{userData[3].bio_info}</Typography>
-                {/* make phone, email, Prefered way of contact less dense than the user input */}
+                <Typography className={classes.title}>{selectedUser.bio_info}</Typography>
+                {/* make phone, email, Prefered way of contact less dense than the selectedUser input */}
+                {console.log(typeof selectedUser.worktype)}
                 <Typography >Contact Info</Typography>
-                <Typography className={classes.title}>Phone : {userData[3].phone.split('').splice(1, 12).join('')}</Typography>
-                <Typography className={classes.title}>Email : {userData[3].email}</Typography>
-                <Typography className={classes.title}>Prefered contact method: {contactMethod(userData)}</Typography>
+                <Typography className={classes.title}>Phone : {selectedUser.phone.split('').splice(1, 12).join('')}</Typography>
+                <Typography className={classes.title}>Email : {selectedUser.email}</Typography>
+                <Typography className={classes.title}>Prefered contact method: {contactMethod(selectedUser)}</Typography>
               </CardContent>
             </Card>
             <div >
@@ -115,21 +122,21 @@ const jobs = [{ photo: 'http://res.cloudinary.com/dhowdfbmx/image/upload/v151363
 ]
 
 const mapStateToProps = state => ({
-  userData: state.resultsReducer.userData,
+  user: state.resultsReducer.user,
 })
 
-export default connect(mapStateToProps, { getUserData })(withStyles(styles)(Profile));
+export default connect(mapStateToProps)(withStyles(styles)(Profile));
 
 Profile.propTypes = {
   classes: PropTypes.object.isRequired,
-  userData: PropTypes.array.isRequired,
+  user: PropTypes.array.isRequired,
 };
 
-const contactMethod = (userData) => {
+const contactMethod = (selectedUser) => {
   let preferedMethod = ''
-  if (userData[3].phone.replace(/[{}]/g, '').split(',')[1] === 'c') {
+  if (selectedUser.phone.replace(/[{}]/g, '').split(',')[1] === 'c') {
     preferedMethod = 'Call only'
-  } else if (userData[3].phone.replace(/[{}]/g, '').split(',')[1] === 't') {
+  } else if (selectedUser.phone.replace(/[{}]/g, '').split(',')[1] === 't') {
     preferedMethod = 'text only'
   } else {
     preferedMethod = 'call or text'
