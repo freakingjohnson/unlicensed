@@ -20,7 +20,7 @@ class Home extends React.Component {
 
   state= {
     search: '',
-    searchBy: '',
+    searchBy: 'worktype',
   }
 
   searchHandler(e) {
