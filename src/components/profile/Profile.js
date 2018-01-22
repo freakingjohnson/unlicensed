@@ -3,12 +3,17 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { withStyles, Button, Typography, Avatar } from 'material-ui';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import { revealServices } from './../../ducks/reducers/resultsReducer'
 
-function Profile(props) {
-  const { classes, user } = props;
-  console.log(user[0])
-  const selectedUser = user[0]
-  const bull = <span className={classes.bullet}>•</span>
+const Profile = ({
+  classes, userData, match, reveal, revealServices,
+}) => {
+  const selectedUser = userData.filter((user) => {
+    if (user.id === (match.params.id * 1)) {
+      return user
+    }
+  })
+
   const WorkPhotoCard = jobs.map((jobDesc, index) => (
     <div key={index}>
       <Card >
@@ -23,60 +28,61 @@ function Profile(props) {
       </Card>
     </div>
   ))
-  const servicesOffered = (selectedUser) => {
-    const allServices = selectedUser.worktype.split('')
-    allServices.map((service, index) => (
-      <div key={index}>
-        {bull}{service}
-      </div>
-    ))
-  }
+
+  const allServices = selectedUser.length > 0 && selectedUser[0].worktype.split(',').map((service, index) => (
+    <div key={index}>
+      {service}
+    </div>
+  ))
+
+  const firstServices = allServices.length > 3 && allServices.slice(0, 3)
+  const restOfServices = allServices.length > 3 && allServices.slice(3)
 
   return (
     <div>
       {
-        selectedUser ?
+        selectedUser.length > 0 ?
           <div>
             {/* put padding around card and shadding behind a little. make padding on sides of photos as well */}
             <div className={classes.row}>
-              <Avatar alt="profile pic" src={selectedUser.profile_photo} className={classes.avatar} />
+              <Avatar alt="profile pic" src={selectedUser[0].profile_photo} className={classes.avatar} />
             </div>
             <Card className={classes.card}>
               <CardContent>
-                <Typography className={classes.title}>{selectedUser.first_name} {selectedUser.last_name}</Typography>
+                <Typography className={classes.title}>{selectedUser[0].first_name} {selectedUser[0].last_name}</Typography>
                 {/* if the services are more more than 3 then display button that will display three and then the rest */}
-                {/* {
+                {
                   allServices.length > 3 ?
-                    <CardActions style={style} >
-                      write logic that will display button if more thanservices provided material ui cards has a good icon button
-                      <Button style={style} dense>All Services</Button>
-                    </CardActions>
+                    <div>
+                      <h2>Services Offered</h2>
+                      <div className={classes.title}>{firstServices}</div>
+                      <div>{reveal && restOfServices}</div>
+                      <CardActions>
+                        <Button onClick={() => revealServices(reveal)} >{reveal ? 'Less Services' : 'More Services'}</Button>
+                      </CardActions>
+                    </div>
                 :
-                    <Typography>Work Type</Typography>
-                } */}
+                    <div>
+                      <Typography>Services Offered</Typography>
+                      <div className={classes.title}>{allServices}</div>
+                    </div>
+                }
                 <Typography>Work Desc</Typography>
-                <Typography className={classes.title}>{selectedUser.bio_info}</Typography>
+                <Typography className={classes.title}>{selectedUser[0].bio_info}</Typography>
                 {/* make phone, email, Prefered way of contact less dense than the selectedUser input */}
-                {console.log(typeof selectedUser.worktype)}
                 <Typography >Contact Info</Typography>
-                <Typography className={classes.title}>Phone : {selectedUser.phone.split('').splice(1, 12).join('')}</Typography>
-                <Typography className={classes.title}>Email : {selectedUser.email}</Typography>
-                <Typography className={classes.title}>Prefered contact method: {contactMethod(selectedUser)}</Typography>
+                <Typography className={classes.title}>Location: {selectedUser[0].location}</Typography>
+                <Typography className={classes.title}>Phone: {selectedUser[0].phone.split('').splice(1, 12).join('')}</Typography>
+                <Typography className={classes.title}>Email: {selectedUser[0].email}</Typography>
+                <Typography className={classes.title}>Prefered contact method: {contactMethod(selectedUser[0])}</Typography>
               </CardContent>
             </Card>
-            <div >
-              { WorkPhotoCard }
-            </div>
+            <div>{ WorkPhotoCard }</div>
           </div> :
           <h3>loading</h3>
         }
     </div>
   )
-}
-
-const style = {
-  padding: 0,
-  margin: 0,
 }
 
 const styles = theme => ({
@@ -123,23 +129,37 @@ const jobs = [{ photo: 'http://res.cloudinary.com/dhowdfbmx/image/upload/v151363
 
 const mapStateToProps = state => ({
   user: state.resultsReducer.user,
+  userData: state.resultsReducer.userData,
+  reveal: state.resultsReducer.reveal,
 })
 
-export default connect(mapStateToProps)(withStyles(styles)(Profile));
+export default connect(mapStateToProps, { revealServices })(withStyles(styles)(Profile));
 
 Profile.propTypes = {
   classes: PropTypes.object.isRequired,
-  user: PropTypes.array.isRequired,
+  userData: PropTypes.array,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  reveal: PropTypes.bool,
+  revealServices: PropTypes.func.isRequired,
 };
+
+Profile.defaultProps = {
+  userData: ['name', 'email', 'location'],
+  reveal: false,
+}
 
 const contactMethod = (selectedUser) => {
   let preferedMethod = ''
   if (selectedUser.phone.replace(/[{}]/g, '').split(',')[1] === 'c') {
     preferedMethod = 'Call only'
   } else if (selectedUser.phone.replace(/[{}]/g, '').split(',')[1] === 't') {
-    preferedMethod = 'text only'
+    preferedMethod = 'Text only'
   } else {
-    preferedMethod = 'call or text'
+    preferedMethod = 'Call or Text'
   }
   return preferedMethod
 }

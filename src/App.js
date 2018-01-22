@@ -11,7 +11,11 @@ import { getUserData } from './ducks/reducers/resultsReducer'
 class App extends Component {
   static propTypes = {
     getUserData: PropTypes.func.isRequired,
-    userData: PropTypes.array.isRequired,
+    userData: PropTypes.array,
+  }
+
+  static defaultProps = {
+    userData: ['name', 'email', 'location'],
   }
 
   componentDidMount() {

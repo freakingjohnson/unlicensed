@@ -10,7 +10,7 @@ export default (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route path="/results" component={Results} />
-    <Route path="/profile/:id" component={Profile} />
+    <Route path="/:id/:name" component={Profile} />
     <Route path="/signupaspro" component={Steps} />
     <Route path="/privacy-policy" component={Privacy} />
   </Switch>
