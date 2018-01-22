@@ -8,11 +8,15 @@ import { getUserData, getSearchData } from './../../ducks/reducers/resultsReduce
 class Home extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    userData: PropTypes.array.isRequired,
+    userData: PropTypes.array,
     getSearchData: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }).isRequired,
+  }
+
+  static defaultProps = {
+    userData: ['name', 'email', 'location'],
   }
 
   state= {

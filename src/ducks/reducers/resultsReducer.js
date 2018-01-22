@@ -4,11 +4,13 @@ const initialState = {
   userData: [],
   searchData: [],
   user: [],
+  reveal: false,
 }
 
 const GET_USER_DATA = 'GET_USER_DATA',
   GET_SEARCH_DATA = 'GET_SEARCH_DATA',
-  SINGLE_USER = 'SINGLE_USER'
+  SINGLE_USER = 'SINGLE_USER',
+  REVEAL = 'REVEAL'
 
 export const getUserData = (userData) => {
   let results = userData
@@ -34,8 +36,8 @@ export const getSearchData = (userData, query) => {
   }
 }
 
-export const getUser = (userId, searchData) => {
-  let user = searchData.filter((jose) => {
+export const getUser = (userId, userData) => {
+  let user = userData.filter((jose) => {
     if (jose.id === userId) {
       return jose
     }
@@ -55,7 +57,14 @@ export default function reducer(state = initialState, action) {
       return { ...state, searchData: payload }
     case SINGLE_USER:
       return { ...state, user: payload }
+    case REVEAL:
+      return Object.assign({}, state, { reveal: payload })
     default:
       return state
   }
 }
+
+export const revealServices = reveal => ({
+  type: REVEAL,
+  payload: !reveal,
+})
