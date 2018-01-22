@@ -1,13 +1,16 @@
 const _ = require('underscore'),
   bcrypt = require('bcryptjs')
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 399116faeb2c69035135fdf02a7a025e37702910
 const addUser = async (req, res) => {
   const db = req.app.get('db'),
     {
       firstName, lastName, phone, call, text, both, email, userPassword, profilePicUrl, bio,
     } = req.body[0],
-    { projectDesc, projectPicUrls } = req.body[2]
+    { projectDescList, projectPicUrls } = req.body[2]
 
   let phoneInfo = [phone]
 
@@ -52,9 +55,10 @@ const addUser = async (req, res) => {
     })
   })
 
-  const picture = _.zip(projectPicUrls, projectDesc)
+  const picture = _.zip(projectPicUrls, projectDescList)
+
   picture.map((image) => {
-    db.add_to_workphotos([userId, image[0], image[1]]).then(data => res.status(200).send(data))
+    db.add_to_workphotos([userId[0].id, image[0], image[1]]).then(data => res.status(200).send(data))
   })
 }
 
