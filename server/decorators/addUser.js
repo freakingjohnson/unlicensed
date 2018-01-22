@@ -1,16 +1,16 @@
 const _ = require('underscore'),
   bcrypt = require('bcryptjs')
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 399116faeb2c69035135fdf02a7a025e37702910
 const addUser = async (req, res) => {
   const db = req.app.get('db'),
     {
       firstName, lastName, phone, call, text, both, email, userPassword, profilePicUrl, bio,
     } = req.body[0],
     { projectDescList, projectPicUrls } = req.body[2]
+
+  const zipcode = await axios.get(`https://www.zipcodeapi.com/rest/${process.env.ZIPCODE_KEY}/info.json/${location}/radians`)
+
+  const workLocation = `${zipcode.data.city}, ${zipcode.data.state} ${zipcode.data.zip_code}`
 
   let phoneInfo = [phone]
 

@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { TextField, Button } from 'material-ui'
-import { FormControl, FormHelperText } from 'material-ui/Form'
-import { MenuItem } from 'material-ui/Menu'
-import Select from 'material-ui/Select';
 import { withStyles } from 'material-ui/styles'
 import { getUserData, getSearchData } from './../../ducks/reducers/resultsReducer'
 
@@ -20,15 +17,10 @@ class Home extends React.Component {
 
   state= {
     search: '',
-    searchBy: '',
   }
 
   searchHandler(e) {
     this.setState({ search: e.target.value })
-  }
-
-  selectHandler = (e) => {
-    this.setState({ searchBy: e.target.value })
   }
 
   render() {
@@ -42,7 +34,7 @@ class Home extends React.Component {
 
         <form onSubmit={(event) => {
           event.preventDefault()
-          getSearchData(userData, this.state.search, this.state.searchBy)
+          getSearchData(userData, this.state.search)
           this.setState({
             search: '',
           })
@@ -50,23 +42,11 @@ class Home extends React.Component {
         }}
         >
           <TextField className="search" type="text" onChange={e => this.searchHandler(e)} value={this.state.search} />
-          <FormControl>
-            <Select
-              value={this.state.searchBy}
-              onChange={this.selectHandler}
-            >
-              <MenuItem value="worktype">Worktype</MenuItem>
-              <MenuItem value="name">Name </MenuItem>
-              <MenuItem value="city"> City </MenuItem>
-              <MenuItem value="zip"> Zip </MenuItem>
-            </Select>
-            <FormHelperText> Search By </FormHelperText>
-          </FormControl>
           <Button
             raised
             className="searchButton"
             onClick={() => {
-          getSearchData(userData, this.state.search, this.state.searchBy)
+          getSearchData(userData, this.state.search)
           this.setState({
             search: '',
           })
@@ -98,3 +78,4 @@ const styles = {
 }
 
 export default withStyles(styles)(connect(mapStateToProps, { getUserData, getSearchData })(Home))
+

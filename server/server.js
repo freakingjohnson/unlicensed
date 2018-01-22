@@ -4,9 +4,9 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   session = require('express-session'),
   massive = require('massive'),
-  userInfo = require('./decoratorUserInfo'),
-  getUser = require('./resultsController'),
-  addUser = require('./addUser')
+  userInfo = require('./decorators/decoratorUserInfo'),
+  getUser = require('./decorators/resultsController'),
+  addUser = require('./decorators/addUser')
 
 
 const app = express();

@@ -13,7 +13,7 @@ const GET_USER_DATA = 'GET_USER_DATA',
 export const getUserData = (userData) => {
   let results = userData
   if (userData.length === 0) {
-    results = axios.get('/api/users').then(res => res.data).catch(console.log)
+    results = axios.get('api/users').then(res => res.data).catch(console.log)
   }
   return {
     type: GET_USER_DATA,
@@ -21,13 +21,11 @@ export const getUserData = (userData) => {
   }
 }
 
-export const getSearchData = (userData, query, searchBy) => {
+export const getSearchData = (userData, query) => {
   let searchResults;
   if (userData.length > 0) {
     searchResults = userData.filter((el) => {
-      if (searchBy === 'worktype' && el.worktype) { return el.worktype.toLowerCase().indexOf(query.toLowerCase()) > -1 } else if (searchBy === 'name' && el.first_name && el.last_name) {
-        return (`${el.first_name} ${el.last_name}`).toLowerCase().indexOf(query.toLowerCase()) > -1
-      } else if (searchBy === 'city' && el.location || searchBy === 'zip' && el.location) { return el.location.toLowerCase().indexOf(query.toLowerCase()) > -1 }
+      if (el.worktype) { return el.worktype.toLowerCase().indexOf(query.toLowerCase()) > -1 }
     })
   }
   return {
@@ -58,7 +56,6 @@ export default function reducer(state = initialState, action) {
     case SINGLE_USER:
       return { ...state, user: payload }
     default:
-
       return state
   }
 }

@@ -3,14 +3,11 @@ import axios from 'axios'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Button } from 'material-ui'
-import { withRouter } from 'react-router-dom'
 
-const SubmitInfo = ({
-  userReducer, serviceReducer, projectReducer, history,
-}) => {
+const SubmitInfo = ({ userReducer, serviceReducer, projectReducer }) => {
   const profileInfo = [userReducer, serviceReducer, projectReducer]
   return (
-    <Button onClick={() => send(profileInfo, history)}>Submit</Button>
+    <Button onClick={() => send(profileInfo)}>Submit</Button>
   )
 }
 
@@ -20,20 +17,16 @@ const mapStateToProps = state => ({
   projectReducer: state.projectReducer,
 })
 
-export default withRouter(connect(mapStateToProps)(SubmitInfo))
+export default connect(mapStateToProps)(SubmitInfo)
 
-const send = (profileInfo, history) => {
+const send = (profileInfo) => {
   axios.post('api/addUser', profileInfo).then((res) => {
     console.log(res)
   })
-  history.push('/')
 }
 
 SubmitInfo.propTypes = {
   userReducer: PropTypes.object.isRequired,
   serviceReducer: PropTypes.object.isRequired,
   projectReducer: PropTypes.object.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
 }

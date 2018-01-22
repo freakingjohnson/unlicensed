@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import router from './router/router'
 import Navbar from './components/home/navbar'
-import Footer from './components/footer/footer'
 import { getUserData } from './ducks/reducers/resultsReducer'
 
 
@@ -23,7 +22,6 @@ class App extends Component {
       <div>
         <Navbar />
         { router }
-        <Footer />
       </div>
     )
   }
@@ -31,4 +29,5 @@ class App extends Component {
 const mapStateToProps = state => ({
   userData: state.resultsReducer.userData,
 })
+
 export default withRouter(connect(mapStateToProps, { getUserData })(App))

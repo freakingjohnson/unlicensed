@@ -34,7 +34,7 @@ const Results = ({ searchData, getUser }) => {
 
   return (
     <div>
-      {searchData && searchData.length > 0 ?
+      {searchData.length > 0 ?
         <div>
           <div />
           <GridList cols={1}>
