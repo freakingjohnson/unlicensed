@@ -6,6 +6,7 @@ import Profile from '../components/profile/Profile'
 import Steps from '../components/createUser/Steps'
 import nonProLogin from '../components/login/nonProLogin';
 import nonProSignup from '../components/login/nonProSignup';
+import proLogin from '../components/login/proLogin'
 
 export default (
   <Switch>
@@ -13,7 +14,8 @@ export default (
     <Route path="/results" component={Results} />
     <Route path="/profile/:id" component={Profile} />
     <Route path="/signupaspro" component={Steps} />
-    <Route path="/loginnonpro" component={nonProLogin} />
+    <Route path="/loginaspro" component={proLogin} />
     <Route path="/signup" component={nonProSignup} />
+    <Route path="/loginnonpro" component={nonProLogin} />
   </Switch>
 )
