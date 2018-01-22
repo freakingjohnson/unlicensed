@@ -7,7 +7,7 @@ import Dropzone from 'react-dropzone'
 import { personalInfo, setProfilePic } from './../../ducks/reducers/userReducer'
 
 const PersonalInfo = ({
-  classes, firstName, lastName, phone, text, call, both, email, userPassword, bio, profilePic, picName, personalInfo, setProfilePic,
+  classes, firstName, lastName, phone, text, call, both, email, userPassword, bio, profilePic, picName, personalInfo, setProfilePic, location,
 }) => (
   <div>
     <h3>Step 1: Tell us about yourself...</h3>
@@ -47,12 +47,8 @@ const PersonalInfo = ({
           }
       </Dropzone>
       <TextField label="Email" name="email" value={email} onChange={e => personalInfo(e)} />
-<<<<<<< HEAD
       <TextField label="Password" name="userPassword" value={userPassword} onChange={e => personalInfo(e)} />
       <TextField multiline label="Bio" name="bio" value={bio} onChange={e => personalInfo(e)} />
-=======
-      <TextField multiline rowsMax="5" label="Bio" name="bio" value={bio} onChange={e => personalInfo(e)} />
->>>>>>> master
     </FormGroup>
   </div>
 )
@@ -75,11 +71,8 @@ const mapStateToProps = state => ({
   picName: state.userReducer.picName,
   email: state.userReducer.email,
   bio: state.userReducer.bio,
-<<<<<<< HEAD
   userPassword: state.userReducer.userPassword,
-=======
   location: state.userReducer.location,
->>>>>>> master
 })
 
 
