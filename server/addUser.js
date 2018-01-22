@@ -1,15 +1,16 @@
-const _ = require('underscore')
+const _ = require('underscore'),
+  bcrypt = require('bcryptjs')
+
 
 const addUser = async (req, res) => {
-  console.log(req.body)
-
   const db = req.app.get('db'),
     {
-      firstName, lastName, phone, call, text, both, email, profilePicUrl, bio,
+      firstName, lastName, phone, call, text, both, email, userPassword, profilePicUrl, bio,
     } = req.body[0],
     { projectDesc, projectPicUrls } = req.body[2]
 
   let phoneInfo = [phone]
+
 
   if (both) {
     phoneInfo.push('b')
@@ -19,13 +20,19 @@ const addUser = async (req, res) => {
     phoneInfo.push('c')
   }
 
-  await db.add_user([firstName, lastName, phoneInfo, email, bio, profilePicUrl]).then((data) => {
-    res.status(200)
-  })
-  console.log(email)
-  const userId = await db.get_one_user([email])
-  console.log(userId)
+  let passwordHash = ''
 
+  await bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(userPassword, salt, (err, hash) => {
+      passwordHash = hash
+      db.add_user([firstName, lastName, phoneInfo, email, bio, profilePicUrl, passwordHash]).then(() => {
+        res.status(200)
+      })
+    });
+  });
+
+
+  const userId = await db.get_one_user([email])
 
   const serviceList = _.omit(req.body[1], (value, key) => {
     if (value === false) {
@@ -39,10 +46,8 @@ const addUser = async (req, res) => {
     services.push(key)
   }
 
-  console.log(userId)
-
   services.map((service) => {
-    db.add_services([userId[0].id, service]).then((data) => {
+    db.add_services([userId[0].id, service]).then(() => {
       res.status(200)
     })
   })

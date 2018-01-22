@@ -13,6 +13,7 @@ const initialState = {
   picName: '',
   email: '',
   bio: '',
+  userPassword: '',
 }
 
 const SET_USER = 'SET_USER',

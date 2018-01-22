@@ -56,6 +56,7 @@ export default function reducer(state = initialState, action) {
     case SINGLE_USER:
       return { ...state, user: payload }
     default:
+
       return state
   }
 }
