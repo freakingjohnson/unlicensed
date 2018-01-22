@@ -29,7 +29,7 @@ const nonProLogin = ({
     <Divider />
     <div>
       New User?
-      <Button component={Link} to="/signup">
+      <Button component={Link} to="/signupaspro">
         Sign-up
       </Button>
     </div>
