@@ -14,6 +14,7 @@ const initialState = {
   email: '',
   bio: '',
   userPassword: '',
+  location: '',
 }
 
 const SET_USER = 'SET_USER',

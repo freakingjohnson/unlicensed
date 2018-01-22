@@ -1,19 +1,26 @@
 const _ = require('underscore'),
-  bcrypt = require('bcryptjs')
+  bcrypt = require('bcryptjs'),
+  axios = require('axios')
 
 const addUser = async (req, res) => {
   const db = req.app.get('db'),
     {
-      firstName, lastName, phone, call, text, both, email, userPassword, profilePicUrl, bio,
+      firstName, lastName, phone, call, text, both, email, userPassword, profilePicUrl, bio, location,
     } = req.body[0],
     { projectDescList, projectPicUrls } = req.body[2]
 
-  const zipcode = await axios.get(`https://www.zipcodeapi.com/rest/${process.env.ZIPCODE_KEY}/info.json/${location}/radians`)
+  let status = 200
+  let response;
+
+  let zipcode = ''
+
+  if (location) {
+    zipcode = await axios.get(`https://www.zipcodeapi.com/rest/${process.env.ZIPCODE_KEY}/info.json/${location}/radians`)
+  }
 
   const workLocation = `${zipcode.data.city}, ${zipcode.data.state} ${zipcode.data.zip_code}`
 
   let phoneInfo = [phone]
-
 
   if (both) {
     phoneInfo.push('b')
@@ -23,16 +30,13 @@ const addUser = async (req, res) => {
     phoneInfo.push('c')
   }
 
-  let passwordHash = ''
-
-  await bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(userPassword, salt, (err, hash) => {
-      passwordHash = hash
-      db.add_user([firstName, lastName, phoneInfo, email, bio, profilePicUrl, passwordHash]).then(() => {
-        res.status(200)
-      })
-    });
-  });
+  await db.add_user([firstName, lastName, phoneInfo, email, bio, profilePicUrl, workLocation]).then((data) => {
+    status = 200
+    response = 'all good'
+  }).catch((err) => {
+    status = 500
+    response = err
+  })
 
 
   const userId = await db.get_one_user([email])
@@ -51,15 +55,38 @@ const addUser = async (req, res) => {
 
   services.map((service) => {
     db.add_services([userId[0].id, service]).then(() => {
-      res.status(200)
+      status = 200
+      response = 'all good'
+    }).catch((err) => {
+      status = 500
+      response = err
     })
   })
 
   const picture = _.zip(projectPicUrls, projectDescList)
 
   picture.map((image) => {
-    db.add_to_workphotos([userId[0].id, image[0], image[1]]).then(data => res.status(200).send(data))
+    db.add_to_workphotos([userId[0].id, image[0], image[1]]).then((data) => {
+      status = 200
+      response = 'all good'
+    }).catch((err) => {
+      status = 500
+      response = err
+    })
   })
+
+  bcrypt.genSalt(10, (err, salt) => bcrypt.hash(userPassword, salt, (err, hash) => {
+    let password = hash
+    db.add_password([password, userId[0].id]).then(() => {
+      status = 200
+      response = 'all good'
+    }).catch((err) => {
+      status = 500
+      response = err
+    })
+  }));
+
+  res.status(status).send(response)
 }
 
 module.exports = (app) => {
