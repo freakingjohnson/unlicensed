@@ -29,6 +29,10 @@ class NavBar extends React.Component {
             <ListItem component={Link} to="/" onClick={this.handleClose}><ListItemText primary="Home" disableTypography /> </ListItem>
             <Divider />
             <ListItem component={Link} to="/signupaspro" onClick={this.handleClose}><ListItemText primary="Signup As Pro" disableTypography /></ListItem>
+            <Divider />
+            <ListItem component={Link} to="/loginaspro" onClick={this.handleClose}><ListItemText primary="Login As Pro" disableTypography /></ListItem>
+            <Divider />
+            <ListItem component={Link} to="/loginnonpro" onClick={this.handleClose}><ListItemText primary="Non-Pro Login/Signup" disableTypography /></ListItem>
           </List>
         </div>)
       return (
