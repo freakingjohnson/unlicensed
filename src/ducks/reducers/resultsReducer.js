@@ -62,6 +62,7 @@ export default function reducer(state = initialState, action) {
     case REVEAL:
       return Object.assign({}, state, { reveal: payload })
     default:
+
       return state
   }
 }

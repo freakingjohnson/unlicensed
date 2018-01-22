@@ -35,5 +35,4 @@ class App extends Component {
 const mapStateToProps = state => ({
   userData: state.resultsReducer.userData,
 })
-
 export default withRouter(connect(mapStateToProps, { getUserData })(App))

@@ -1,10 +1,10 @@
 const _ = require('underscore'),
-  axios = require('axios')
+  bcrypt = require('bcryptjs')
 
 const addUser = async (req, res) => {
   const db = req.app.get('db'),
     {
-      firstName, lastName, phone, call, text, both, email, profilePicUrl, bio, location,
+      firstName, lastName, phone, call, text, both, email, userPassword, profilePicUrl, bio,
     } = req.body[0],
     { projectDescList, projectPicUrls } = req.body[2]
 
@@ -14,6 +14,7 @@ const addUser = async (req, res) => {
 
   let phoneInfo = [phone]
 
+
   if (both) {
     phoneInfo.push('b')
   } else if (text) {
@@ -22,11 +23,19 @@ const addUser = async (req, res) => {
     phoneInfo.push('c')
   }
 
-  await db.add_user([firstName, lastName, phoneInfo, email, bio, profilePicUrl, workLocation]).then(() => {
-    res.status(200)
-  })
-  const userId = await db.get_one_user([email])
+  let passwordHash = ''
 
+  await bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(userPassword, salt, (err, hash) => {
+      passwordHash = hash
+      db.add_user([firstName, lastName, phoneInfo, email, bio, profilePicUrl, passwordHash]).then(() => {
+        res.status(200)
+      })
+    });
+  });
+
+
+  const userId = await db.get_one_user([email])
 
   const serviceList = _.omit(req.body[1], (value, key) => {
     if (value === false) {
