@@ -4,6 +4,7 @@ import Home from '../components/home/Home'
 import Results from '../components/results/Results';
 import Profile from '../components/profile/Profile'
 import Steps from '../components/createUser/Steps'
+import Privacy from '../components/footer/privacy'
 
 export default (
   <Switch>
@@ -11,5 +12,6 @@ export default (
     <Route path="/results" component={Results} />
     <Route path="/profile/:id" component={Profile} />
     <Route path="/signupaspro" component={Steps} />
+    <Route path="/privacy-policy" component={Privacy} />
   </Switch>
 )
