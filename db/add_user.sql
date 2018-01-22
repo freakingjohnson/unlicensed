@@ -5,7 +5,8 @@ insert into users (
     email,
     bio_info,
     profile_photo,
-    location
+    user_password
+   
 )
 values (
     $1,

@@ -6,7 +6,9 @@ const express = require('express'),
   massive = require('massive'),
   userInfo = require('./decorators/decoratorUserInfo'),
   getUser = require('./decorators/resultsController'),
-  addUser = require('./decorators/addUser')
+  addUser = require('./decorators/addUser'),
+  email = require('./decorators/email')
+
 
 const app = express();
 
@@ -29,5 +31,6 @@ app.use(express.static(`${__dirname}/../build`))
 getUser(app)
 userInfo(app)
 addUser(app)
+email(app)
 
 app.listen(process.env.SERVER_PORT, () => { console.log(`Server listening on port ${process.env.SERVER_PORT}`) })

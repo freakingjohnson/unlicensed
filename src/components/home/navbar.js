@@ -52,7 +52,7 @@ class NavBar extends React.Component {
             </Drawer>
           </div>
           <div className={classes.imgWrapper}>
-            <img className={classes.logo}src="https://cdn.shopify.com/s/files/1/1325/1409/products/157-Mexico-Flag-Solo_Single_Front_grande_33205e4d-5e4f-4df4-919b-74f1d7de4f14_1024x1024.png?v=1476740848" alt="mexican flag" />
+            <img className={classes.logo}src="https://media.glassdoor.com/sql/1124953/value-services-squarelogo-1486699126101.png" alt="logo" />
           </div>
         </div>
       )

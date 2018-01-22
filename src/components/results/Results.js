@@ -6,13 +6,11 @@ import Avatar from 'material-ui/Avatar';
 import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography/Typography';
 import GridList from 'material-ui/GridList';
-import { getUser } from '../../ducks/reducers/resultsReducer'
 
-const Results = ({ searchData, getUser }) => {
+const Results = ({ searchData }) => {
   const userTile = searchData && searchData.map((user, index) => (
     <Link
-      to={`/profile/${user.id}`}
-      onClick={() => { getUser(user.id, searchData) }}
+      to={`/${user.id}/${user.first_name}-${user.last_name}`}
       key={index}
     >
       <Card>
@@ -51,9 +49,8 @@ const mapStateToProps = state => ({
   searchData: state.resultsReducer.searchData,
 })
 
-export default connect(mapStateToProps, { getUser })(Results)
+export default connect(mapStateToProps)(Results)
 
 Results.propTypes = {
   searchData: PropTypes.array.isRequired,
-  getUser: PropTypes.func.isRequired,
 }
