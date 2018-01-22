@@ -7,7 +7,8 @@ const express = require('express'),
   userInfo = require('./decorators/decoratorUserInfo'),
   getUser = require('./decorators/resultsController'),
   addUser = require('./decorators/addUser'),
-  email = require('./decorators/email')
+  email = require('./decorators/email'),
+  addNonPro = require('./decorators/addNonPro')
 
 
 const app = express();
@@ -32,5 +33,6 @@ getUser(app)
 userInfo(app)
 addUser(app)
 email(app)
+addNonPro(app)
 
 app.listen(process.env.SERVER_PORT, () => { console.log(`Server listening on port ${process.env.SERVER_PORT}`) })

@@ -9,7 +9,7 @@ const nonProLogin = ({
   email, password, setInfo,
 }) => (
   <div> Enter your email and password
-    <form name="loginForm">
+    <FormGroup>
       <TextField
         label="Email"
         name="email"
@@ -24,7 +24,7 @@ const nonProLogin = ({
         value={password}
         onChange={e => setInfo(e)}
       />
-    </form>
+    </FormGroup>
     <Button raised color="primary" disabled={!email || !password}>Login</Button>
     <Divider />
     <div>
