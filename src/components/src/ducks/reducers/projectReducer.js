@@ -18,16 +18,36 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case SET_PROJECT_PIC:
       return {
-        ...state,
         projectPicList: [...state.projectPicList, action.payload],
+        projectPicUrls: [...state.projectPicUrls],
         projectPicNames: [...state.projectPicNames, action.data],
+        projectDesc: state.projectDesc,
+        projectDescList: [...state.projectDescList],
       }
     case SET_PROJECT_DESC:
-      return { ...state, projectDesc: action.payload }
+      return {
+        projectPicList: [...state.projectPicList],
+        projectPicUrls: [...state.projectPicUrls],
+        projectPicNames: [...state.projectPicNames],
+        projectDesc: action.payload,
+        projectDescList: [...state.projectDescList],
+      }
     case SET_DESC_LIST:
-      return { ...state, projectDesc: '', projectDescList: [...state.projectDescList, state.projectDesc] }
+      return {
+        projectPicList: [...state.projectPicList],
+        projectPicUrls: [...state.projectPicUrls],
+        projectPicNames: [...state.projectPicNames],
+        projectDesc: '',
+        projectDescList: [...state.projectDescList, state.projectDesc],
+      }
     case SET_PIC_URL:
-      return { ...state, projectPicUrls: [...state.projectPicUrls, action.payload] }
+      return {
+        projectPicList: [...state.projectPicList],
+        projectPicUrls: [...state.projectPicUrls, action.payload],
+        projectPicNames: [...state.projectPicNames],
+        projectDesc: '',
+        projectDescList: [...state.projectDescList],
+      }
     default:
       return state
   }

@@ -41,6 +41,7 @@ module.exports = {
         "guard-for-in": 0,
         "consistent-return": 0,
         "no-restricted-syntax": 0,
-        "array-callback-return": 0
+        "array-callback-return": 0,
+        "camelcase": 0
     }
 };

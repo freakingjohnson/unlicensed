@@ -7,7 +7,7 @@ import Dropzone from 'react-dropzone'
 import { personalInfo, setProfilePic } from './../../ducks/reducers/userReducer'
 
 const PersonalInfo = ({
-  classes, firstName, lastName, phone, text, call, both, email, bio, profilePic, picName, location, personalInfo, setProfilePic,
+  classes, firstName, lastName, phone, text, call, both, email, bio, profilePic, picName, personalInfo, setProfilePic,
 }) => (
   <div>
     <h3>Step 1: Tell us about yourself...</h3>
@@ -35,7 +35,6 @@ const PersonalInfo = ({
           label="Both"
         />
       </FormGroup>
-      <TextField label="Zip Code" name="location" value={location} onChange={e => personalInfo(e)} />
       <Dropzone multiple={false} accept="image/*" onDrop={e => setProfilePic(e[0])}>
         {profilePic ?
           <div>
@@ -47,7 +46,7 @@ const PersonalInfo = ({
           }
       </Dropzone>
       <TextField label="Email" name="email" value={email} onChange={e => personalInfo(e)} />
-      <TextField multiline rowsMax="5" label="Bio" name="bio" value={bio} onChange={e => personalInfo(e)} />
+      <TextField multiline label="Bio" name="bio" value={bio} onChange={e => personalInfo(e)} />
     </FormGroup>
   </div>
 )
@@ -70,7 +69,6 @@ const mapStateToProps = state => ({
   picName: state.userReducer.picName,
   email: state.userReducer.email,
   bio: state.userReducer.bio,
-  location: state.userReducer.location,
 })
 
 
@@ -89,6 +87,5 @@ PersonalInfo.propTypes = {
   personalInfo: PropTypes.func.isRequired,
   profilePic: PropTypes.string.isRequired,
   picName: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
   setProfilePic: PropTypes.func.isRequired,
 }

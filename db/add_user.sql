@@ -4,7 +4,8 @@ insert into users (
     phone,
     email,
     bio_info,
-    profile_photo
+    profile_photo,
+    location
 )
 values (
     $1,
@@ -12,5 +13,6 @@ values (
     $3,
     $4,
     $5,
-    $6
+    $6,
+    $7
 );

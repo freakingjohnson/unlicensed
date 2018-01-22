@@ -3,7 +3,7 @@ export const services = ['Plumbing', 'Cabinets and Coutertops', 'Framing and She
 const initialState = {}
 
 services.forEach((string) => {
-  const service = string.replace(/\s/g, '_')
+  const service = string.replace(/\s/g, '')
   initialState[service] = false
 })
 
