@@ -8,11 +8,13 @@ import nonProLogin from '../components/login/nonProLogin';
 import nonProSignup from '../components/login/nonProSignup';
 import proLogin from '../components/login/proLogin'
 import Privacy from '../components/footer/privacy'
+import editProfile from '../components/profile/editProfile'
 
 export default (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route path="/results" component={Results} />
+    <Route path="/:id/:name/edit" component={editProfile} />
     <Route path="/:id/:name" component={Profile} />
     <Route path="/signupaspro" component={Steps} />
     <Route path="/loginaspro" component={proLogin} />
