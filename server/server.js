@@ -10,9 +10,8 @@ const express = require('express'),
   email = require('./decorators/email'),
   addNonPro = require('./decorators/addNonPro'),
   loginNonPro = require('./decorators/loginNonPro'),
-  checkForSession = require('./middlewares/checkForSession')
-  updateProInfo = require('./decorators/updateProInfo'),
-
+  checkForSession = require('./middlewares/checkForSession'),
+  updateProInfo = require('./decorators/updateProInfo')
 
 
 const app = express();
