@@ -7,6 +7,8 @@ import { MenuItem } from 'material-ui/Menu'
 import Select from 'material-ui/Select';
 import { withStyles } from 'material-ui/styles'
 import { getUserData, getSearchData } from './../../ducks/reducers/resultsReducer'
+// import Divider from 'material-ui/Divider/Divider';
+// import Results from '../results/Results';
 
 class Home extends React.Component {
   static propTypes = {
@@ -79,6 +81,8 @@ class Home extends React.Component {
           >Search
           </Button>
         </form>
+        {/* <Divider /> */}
+        {/* <Results /> */}
         { homeView }
       </div>
     )

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { TextField, Button, FormGroup, Divider } from 'material-ui'
-import { setInfo } from '../../ducks/reducers/loginReducer'
+import { setInfo, login } from '../../ducks/reducers/loginReducer'
 
 const nonProLogin = ({
-  email, password, setInfo,
+  email, password, setInfo, login, history,
 }) => (
   <div> Enter your email and password
     <FormGroup>
@@ -25,12 +25,19 @@ const nonProLogin = ({
         onChange={e => setInfo(e)}
       />
     </FormGroup>
-    <Button raised color="primary" disabled={!email || !password}>Login</Button>
+    <Button
+      raised
+      color="primary"
+      disabled={!email || !password}
+      onClick={() => login(email, password, history)}
+    >
+    Login
+    </Button>
     <Divider />
     <div>
       New User?
       <Button component={Link} to="/signup">
-        Sign-up
+        Register
       </Button>
     </div>
   </div>)
@@ -40,10 +47,14 @@ const mapStateToProps = state => ({
   password: state.loginReducer.password,
 })
 
-export default connect(mapStateToProps, { setInfo })(nonProLogin)
+export default connect(mapStateToProps, { setInfo, login })(nonProLogin)
 
 nonProLogin.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   setInfo: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 }
