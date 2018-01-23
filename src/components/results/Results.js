@@ -19,7 +19,7 @@ const Results = ({ searchData }) => {
             <Avatar src={user.profile_photo} />
        }
           title={`${user.first_name} ${user.last_name}`}
-          subheader={user.worktype}
+          subheader={user.worktype.split(', ').length > 2 ? `${user.worktype.split(', ')[0]}, ${user.worktype.split(', ')[1]}... (click to see more)` : user.worktype}
         />
         <CardContent>
           <Typography component="p">

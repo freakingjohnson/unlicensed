@@ -27,9 +27,13 @@ export const getSearchData = (userData, query, searchBy) => {
   let searchResults;
   if (userData.length > 0) {
     searchResults = userData.filter((el) => {
-      if (searchBy === 'worktype' && el.worktype) { return el.worktype.toLowerCase().indexOf(query.toLowerCase()) > -1 } else if (searchBy === 'name' && el.first_name && el.last_name) {
+      if (searchBy === 'worktype' && el.worktype) {
+        return el.worktype.toLowerCase().indexOf(query.toLowerCase()) > -1
+      } else if (searchBy === 'name' && el.first_name && el.last_name) {
         return (`${el.first_name} ${el.last_name}`).toLowerCase().indexOf(query.toLowerCase()) > -1
-      } else if ((searchBy === 'city' && el.location) || (searchBy === 'zip' && el.location)) { return el.location.toLowerCase().indexOf(query.toLowerCase()) > -1 }
+      } else if ((searchBy === 'city' && el.location) || (searchBy === 'zip' && el.location)) {
+        return el.location.toLowerCase().indexOf(query.toLowerCase()) > -1
+      }
     })
   }
   return {
