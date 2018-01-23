@@ -37,7 +37,7 @@ const nonProLogin = ({
     <div>
       New User?
       <Button component={Link} to="/signup">
-        Sign-up
+        Register
       </Button>
     </div>
   </div>)

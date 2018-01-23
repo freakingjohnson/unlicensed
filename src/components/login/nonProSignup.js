@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { TextField, Button, FormGroup } from 'material-ui'
+import { Link } from 'react-router-dom';
 import { setInfo, send } from '../../ducks/reducers/loginReducer'
 
 const nonProSignup = ({
@@ -58,6 +59,12 @@ const nonProSignup = ({
     >
     Signup
     </Button>
+    <div>
+      Already Registered?
+      <Button component={Link} to="/loginnonpro">
+        Login
+      </Button>
+    </div>
   </div>
 )
 
