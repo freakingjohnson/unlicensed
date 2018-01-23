@@ -30,7 +30,7 @@ const addUser = async (req, res) => {
     phoneInfo.push('c')
   }
 
-  await db.add_user([firstName, lastName, phoneInfo, email, bio, profilePicUrl, workLocation]).then((data) => {
+  await db.add_user([firstName, lastName, phoneInfo, email, bio, profilePicUrl, workLocation]).then(() => {
     status = 200
     response = 'all good'
   }).catch((err) => {
@@ -66,7 +66,7 @@ const addUser = async (req, res) => {
   const picture = _.zip(projectPicUrls, projectDescList)
 
   picture.map((image) => {
-    db.add_to_workphotos([userId[0].id, image[0], image[1]]).then((data) => {
+    db.add_to_workphotos([userId[0].id, image[0], image[1]]).then(() => {
       status = 200
       response = 'all good'
     }).catch((err) => {

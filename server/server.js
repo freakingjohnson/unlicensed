@@ -11,6 +11,8 @@ const express = require('express'),
   addNonPro = require('./decorators/addNonPro'),
   loginNonPro = require('./decorators/loginNonPro'),
   checkForSession = require('./middlewares/checkForSession')
+  updateProInfo = require('./decorators/updateProInfo'),
+
 
 
 const app = express();
@@ -36,6 +38,7 @@ getUser(app)
 userInfo(app)
 addUser(app)
 email(app)
+updateProInfo(app)
 addNonPro(app)
 loginNonPro(app)
 
