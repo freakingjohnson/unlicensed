@@ -1,7 +1,9 @@
 import axios from 'axios'
-import { error } from 'util';
 
 const initialState = {
+  firstName: '',
+  lastName: '',
+  zipCode: '',
   email: '',
   password: '',
   verifyPassword: '',
@@ -19,8 +21,10 @@ export const setInfo = (e) => {
   }
 }
 
-export const send = (email, password, history) => {
-  axios.post('api/addnonpro', { email, password }).then(() => {
+export const send = (firstName, lastName, zipCode, email, password, history) => {
+  axios.post('api/addnonpro', {
+    firstName, lastName, zipCode, email, password,
+  }).then(() => {
     // console.log(res)
   })
   history.push('/')

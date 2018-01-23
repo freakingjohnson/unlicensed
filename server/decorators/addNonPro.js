@@ -2,9 +2,9 @@ const bcrypt = require('bcryptjs')
 
 const addNonPro = async (req, res) => {
   const db = req.app.get('db')
-
-  await db.add_non_pro(req.body.email).then((data) => {
-    // console.log(data, 'hi')
+  const register = req.body
+  await db.add_non_pro(register.firstName, register.lastName, register.zipCode, register.email).then((data) => {
+    console.log(data, 'hi')
     res.status(200)
   }).catch((err) => {
     // console.log(err, 'err')
