@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import axios from 'axios'
 import { connect } from 'react-redux'
 import { TextField, Button, FormGroup } from 'material-ui'
-import { setInfo } from '../../ducks/reducers/loginReducer'
+import { setInfo, send } from '../../ducks/reducers/loginReducer'
 
 const nonProSignup = ({
-  email, password, verifyPassword, setInfo, history,
+  email, password, verifyPassword, setInfo, history, send,
 }) => (
   <div> Enter your email and password
     <FormGroup>
@@ -43,26 +42,20 @@ const nonProSignup = ({
   </div>
 )
 
-const send = (email, password, history) => {
-  axios.post('api/addNonPro', { email, password }).then((res) => {
-    // console.log(res)
-  })
-  history.push('/')
-}
-
 const mapStateToProps = state => ({
   email: state.loginReducer.email,
   password: state.loginReducer.password,
   verifyPassword: state.loginReducer.verifyPassword,
 })
 
-export default connect(mapStateToProps, { setInfo })(nonProSignup)
+export default connect(mapStateToProps, { setInfo, send })(nonProSignup)
 
 nonProSignup.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   verifyPassword: PropTypes.string.isRequired,
   setInfo: PropTypes.func.isRequired,
+  send: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

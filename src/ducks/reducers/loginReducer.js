@@ -1,4 +1,4 @@
-// import axios from 'axios'
+import axios from 'axios'
 
 const initialState = {
   email: '',
@@ -7,7 +7,7 @@ const initialState = {
 }
 
 const SET_INFO = 'SET_INFO',
-  SUBMIT = 'SUBMIT'
+  RESET = 'RESET'
 
 export const setInfo = (e) => {
   const { value, name } = e.target
@@ -18,12 +18,26 @@ export const setInfo = (e) => {
   }
 }
 
+export const send = (email, password, history) => {
+  axios.post('api/addnonpro', { email, password }).then(() => {
+    // console.log(res)
+  })
+  history.push('/')
+  return {
+    type: RESET,
+  }
+}
+
+export const reset = () => ({
+  type: RESET,
+})
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_INFO:
       return { ...state, [action.state]: action.payload }
-    case SUBMIT:
-      return { ...state }
+    case RESET:
+      return initialState
     default: return state
   }
 }
