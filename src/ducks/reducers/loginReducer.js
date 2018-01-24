@@ -19,9 +19,11 @@ export default function reducer(state = initialState, action) {
     case SET_INFO:
       return { ...state, [action.state]: action.payload }
     case SET_STATE_WITH_SESSION_NON_PRO:
-      return { ...state, [action.state]: action.payload, password: '' }
+      return {
+        ...state, [action.state]: action.payload, password: '', email: '',
+      }
     case RESET:
-      return state
+      return initialState
     default: return state
   }
 }
