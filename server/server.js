@@ -9,11 +9,11 @@ const express = require('express'),
   addUser = require('./decorators/addUser'),
   email = require('./decorators/email'),
   getFavorites = require('./decorators/favoritesController'),
-  createInitialSession = require('./middleware/session')
-addNonPro = require('./decorators/addNonPro'),
-loginNonPro = require('./decorators/loginNonPro'),
-checkForSession = require('./middlewares/checkForSession'),
-updateProInfo = require('./decorators/updateProInfo')
+  createInitialSession = require('./middleware/session'),
+  addNonPro = require('./decorators/addNonPro'),
+  loginNonPro = require('./decorators/loginNonPro'),
+  checkForSession = require('./middlewares/checkForSession'),
+  updateProInfo = require('./decorators/updateProInfo')
 
 
 const app = express();
