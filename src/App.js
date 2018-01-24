@@ -6,7 +6,7 @@ import router from './router/router'
 import Navbar from './components/home/navbar'
 import Footer from './components/footer/footer'
 import { getUserData } from './ducks/reducers/resultsReducer'
-import { getClientData } from './ducks/reducers/clientReducer'
+// import { getClientData } from './ducks/reducers/clientReducer'
 
 
 class App extends Component {
@@ -20,8 +20,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.getUserData(this.props.userData),
-    this.props.getClientData(this.props.clientData),
+    this.props.getUserData(this.props.userData)
+    // this.props.getClientData(this.props.clientData)
   }
 
   render() {
