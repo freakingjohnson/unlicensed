@@ -4,6 +4,7 @@ import userReducer from './reducers/userReducer'
 import serviceReducer from './reducers/serviceReducer'
 import projectReducer from './reducers/projectReducer'
 import loginReducer from './reducers/loginReducer';
+import favoritesReducer from './reducers/favoritesReducer'
 
 const rootReducer = combineReducers({
   userReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   resultsReducer,
   projectReducer,
   loginReducer,
+  favoritesReducer,
 })
 
 export default rootReducer

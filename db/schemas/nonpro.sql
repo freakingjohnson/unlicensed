@@ -1,5 +1,5 @@
 create table nonpro (
     id serial primary key,
-    email text,
-    hashpassword text,
+    email text unique,
+    hashpassword text
 )

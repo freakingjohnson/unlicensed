@@ -7,7 +7,9 @@ const express = require('express'),
   userInfo = require('./decorators/decoratorUserInfo'),
   getUser = require('./decorators/resultsController'),
   addUser = require('./decorators/addUser'),
-  email = require('./decorators/email')
+  email = require('./decorators/email'),
+  getClient = require('./decorators/clientController'),
+  createInitialSession = require('./middleware/session')
 
 
 const app = express();
@@ -26,11 +28,14 @@ app.use(session({
   saveUninitialized: true,
 }))
 
+
 app.use(express.static(`${__dirname}/../build`))
+app.use(createInitialSession)
 
 getUser(app)
 userInfo(app)
 addUser(app)
 email(app)
+getClient(app)
 
 app.listen(process.env.SERVER_PORT, () => { console.log(`Server listening on port ${process.env.SERVER_PORT}`) })
