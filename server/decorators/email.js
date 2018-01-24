@@ -17,16 +17,20 @@ let transporter = nodemailer.createTransport({
 })
 
 const sendMail = (req, res) => {
+  const {
+    proEmail, email, name, subject, phone, message,
+  } = req.body
+
   let HelperOptions = {
       from: '"Jose from JoseFinder" <josefinder30@gmail.com',
-      to: req.body.email,
-      subject: req.body.subject,
-      html: `Name: ${req.body.name} </br> Email: ${req.body.email} </br> Phone Number: ${req.body.phone} </br> Message: ${req.body.message}`,
+      to: proEmail,
+      subject,
+      html: `Name: ${name} </br> Email: ${email} </br> Phone Number: ${phone} </br> Message: ${message}`,
     },
     response,
     status = 200
 
-  transporter.sendMail(HelperOptions, (error, info) => {
+  transporter.sendMail(HelperOptions, (error) => {
     if (error) {
       response = error
       status = 500

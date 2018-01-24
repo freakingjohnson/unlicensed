@@ -10,7 +10,7 @@ import { personalInfo, setProfilePic, checkBoxes } from './../../ducks/reducers/
 
 let proLoggedIn = true
 
-const editProfile = ({
+const EditProfile = ({
   userData, userReducer, match, personalInfo, setProfilePic, checkBoxes,
 }) => {
   const selectedUser = userData.filter((user) => {
@@ -101,9 +101,9 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   checkBoxes,
 }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(editProfile)
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile)
 
-editProfile.propTypes = {
+EditProfile.propTypes = {
   userData: PropTypes.array.isRequired,
   userReducer: PropTypes.object.isRequired,
   match: PropTypes.shape({
