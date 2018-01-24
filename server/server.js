@@ -32,6 +32,7 @@ app.use(session({
 app.use(checkForSession)
 
 app.use(express.static(`${__dirname}/../build`))
+app.use(createInitialSession)
 
 getUser(app)
 userInfo(app)
