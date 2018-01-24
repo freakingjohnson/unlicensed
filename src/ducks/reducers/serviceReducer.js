@@ -12,7 +12,7 @@ const SET_SERVICES = 'SET_SERVICES'
 export default function (state = initialState, action) {
   switch (action.type) {
     case SET_SERVICES:
-      return Object.assign({}, state, { [action.state]: action.payload })
+      return { ...state, [action.state]: action.payload }
     default:
       return state
   }

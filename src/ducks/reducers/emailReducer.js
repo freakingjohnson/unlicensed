@@ -13,7 +13,7 @@ export default function emailReducer(state = initialState, action) {
 
   switch (type) {
     case EMAIL_ME:
-      return Object.assign({}, state, { [name]: payload })
+      return { ...state, [name]: payload }
     default:
       return state
   }

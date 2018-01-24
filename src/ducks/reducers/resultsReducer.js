@@ -64,7 +64,7 @@ export default function reducer(state = initialState, action) {
     case SINGLE_USER:
       return { ...state, user: payload }
     case REVEAL:
-      return Object.assign({}, state, { reveal: payload })
+      return { ...state, reveal: payload }
     default:
 
       return state
