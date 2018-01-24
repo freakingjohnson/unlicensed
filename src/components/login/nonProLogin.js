@@ -1,12 +1,13 @@
-import React from 'react';
+import React from 'react'
+import axios from 'axios'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { TextField, Button, FormGroup, Divider } from 'material-ui'
-import { setInfo, login } from '../../ducks/reducers/loginReducer'
+import { setInfo, setStateNonProInfo } from '../../ducks/reducers/loginReducer'
 
 const nonProLogin = ({
-  email, password, setInfo, login, history,
+  email, password, setInfo, history, setStateNonProInfo,
 }) => (
   <div> Enter your email and password
     <FormGroup>
@@ -29,7 +30,7 @@ const nonProLogin = ({
       raised
       color="primary"
       disabled={!email || !password}
-      onClick={() => login(email, password, history)}
+      onClick={() => login(email, password, setStateNonProInfo, history)}
     >
     Login
     </Button>
@@ -47,13 +48,28 @@ const mapStateToProps = state => ({
   password: state.loginReducer.password,
 })
 
-export default connect(mapStateToProps, { setInfo, login })(nonProLogin)
+export default connect(mapStateToProps, { setInfo, setStateNonProInfo })(nonProLogin)
+
+const login = (email, password, setStateNonProInfo, history) => {
+  axios.post('api/login', { email, password }).then((response) => {
+    console.log(response)
+    setStateNonProInfo(response.data)
+
+    if (response.status === 200) {
+      console.log(response.data)
+      alert('Logged in successfull');
+      history.push('/')
+    } else {
+      alert('Email or password was incorrect, please try again')
+    }
+  })
+}
 
 nonProLogin.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   setInfo: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
+  setStateNonProInfo: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

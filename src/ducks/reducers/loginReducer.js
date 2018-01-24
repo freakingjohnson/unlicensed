@@ -7,10 +7,24 @@ const initialState = {
   email: '',
   password: '',
   verifyPassword: '',
+  loggedIn: false,
 }
 
 const SET_INFO = 'SET_INFO',
+  SET_STATE_WITH_SESSION_NON_PRO = 'SET_STATE_WITH_SESSION_NON_PRO',
   RESET = 'RESET'
+
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
+    case SET_INFO:
+      return { ...state, [action.state]: action.payload }
+    case SET_STATE_WITH_SESSION_NON_PRO:
+      return { ...state, [action.state]: action.payload, password: '' }
+    case RESET:
+      return state
+    default: return state
+  }
+}
 
 export const setInfo = (e) => {
   const { value, name } = e.target
@@ -18,6 +32,16 @@ export const setInfo = (e) => {
     type: SET_INFO,
     state: name,
     payload: value,
+  }
+}
+
+export const setStateNonProInfo = data => (dispatch) => {
+  for (let key in data) {
+    dispatch({
+      type: SET_STATE_WITH_SESSION_NON_PRO,
+      state: key,
+      payload: data[key],
+    })
   }
 }
 
@@ -30,27 +54,5 @@ export const send = (firstName, lastName, zipCode, email, password, history) => 
   history.push('/')
   return {
     type: RESET,
-  }
-}
-
-export const login = (email, password, history) => {
-  axios.post('api/login', { email, password }).then((res) => {
-    console.log(res)
-  }).catch((error) => {
-    console.log('failed', error)
-  })
-  history.push('/')
-  return {
-    type: RESET,
-  }
-}
-
-export default function reducer(state = initialState, action) {
-  switch (action.type) {
-    case SET_INFO:
-      return { ...state, [action.state]: action.payload }
-    case RESET:
-      return initialState
-    default: return state
   }
 }
