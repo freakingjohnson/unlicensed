@@ -12,6 +12,7 @@ const Results = ({ searchData }) => {
     <Link
       to={`/${user.id}/${user.first_name}-${user.last_name}`}
       key={index}
+      style={{ textDecoration: 'none' }}
     >
       <Card>
         <CardHeader
@@ -19,10 +20,13 @@ const Results = ({ searchData }) => {
             <Avatar src={user.profile_photo} />
        }
           title={`${user.first_name} ${user.last_name}`}
-          subheader={user.worktype}
+          subheader={user.location}
         />
         <CardContent>
-          <Typography component="p">
+          <Typography type="caption" component="p">
+            Services: {user.worktype.split('_').join(' ')}
+          </Typography>
+          <Typography type="body2" component="p">
             {user.bio_info}
           </Typography>
         </CardContent>

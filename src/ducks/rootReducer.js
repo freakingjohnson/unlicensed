@@ -5,6 +5,8 @@ import serviceReducer from './reducers/serviceReducer'
 import projectReducer from './reducers/projectReducer'
 import loginReducer from './reducers/loginReducer';
 import favoritesReducer from './reducers/favoritesReducer'
+import loginReducer from './reducers/loginReducer'
+import emailReducer from './reducers/emailReducer'
 
 const rootReducer = combineReducers({
   userReducer,
@@ -13,6 +15,7 @@ const rootReducer = combineReducers({
   projectReducer,
   loginReducer,
   favoritesReducer,
+  emailReducer,
 })
 
 export default rootReducer

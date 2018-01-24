@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table'
 
 const ReviewServices = ({
-  Plumbing, Cabinets_and_Coutertops, Framing_and_Sheetrock, Drywall_and_Insulation, Electrical, Flooring, Painting, Landscaping, Roofing, House_or_Room_Remodel,
+  Plumbing, Cabinets_and_Countertops, Framing_and_Sheetrock, Drywall_and_Insulation, Electrical, Flooring, Painting, Landscaping, Roofing, House_or_Room_Remodel,
 }) => (
   <div>
     <h2>Services you provide</h2>
@@ -15,7 +15,7 @@ const ReviewServices = ({
             <TableCell>Plumbing</TableCell>
           </TableRow>
           }
-        {Cabinets_and_Coutertops &&
+        {Cabinets_and_Countertops &&
           <TableRow>
             <TableCell>Cabinets and Coutertops</TableCell>
           </TableRow>
@@ -67,7 +67,7 @@ const ReviewServices = ({
 
 const mapStateToProps = state => ({
   Plumbing: state.serviceReducer.Plumbing,
-  Cabinets_and_Coutertops: state.serviceReducer.Cabinets_and_Coutertops,
+  Cabinets_and_Countertops: state.serviceReducer.Cabinets_and_Countertops,
   Framing_and_Sheetrock: state.serviceReducer.Framing_and_Sheetrock,
   Drywall_and_Insulation: state.serviceReducer.Drywall_and_Insulation,
   Electrical: state.serviceReducer.Electrical,
@@ -83,7 +83,7 @@ export default connect(mapStateToProps)(ReviewServices)
 
 ReviewServices.propTypes = {
   Plumbing: PropTypes.bool.isRequired,
-  Cabinets_and_Coutertops: PropTypes.bool.isRequired,
+  Cabinets_and_Countertops: PropTypes.bool.isRequired,
   Framing_and_Sheetrock: PropTypes.bool.isRequired,
   Drywall_and_Insulation: PropTypes.bool.isRequired,
   Electrical: PropTypes.bool.isRequired,

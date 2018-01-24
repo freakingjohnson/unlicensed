@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom'
 import { withStyles, Button, Typography, Avatar } from 'material-ui';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import { revealServices } from './../../ducks/reducers/resultsReducer'
+import EmailMe from './EmailMe'
 
 const Profile = ({
   classes, userData, match, reveal, revealServices,
@@ -75,9 +77,14 @@ const Profile = ({
                 <Typography className={classes.title}>Phone: {selectedUser[0].phone.split('').splice(1, 12).join('')}</Typography>
                 <Typography className={classes.title}>Email: {selectedUser[0].email}</Typography>
                 <Typography className={classes.title}>Prefered contact method: {contactMethod(selectedUser[0])}</Typography>
+                {/* {loggedIn && */}
+                <Link to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >
+                  <Button>Edit Profile</Button>
+                </Link>
               </CardContent>
             </Card>
             <div>{ WorkPhotoCard }</div>
+            <EmailMe proName={`${selectedUser[0].first_name}`} proEmail={`${selectedUser[0].email}`} />
           </div> :
           <h3>loading</h3>
         }
@@ -133,7 +140,7 @@ const mapStateToProps = state => ({
   reveal: state.resultsReducer.reveal,
 })
 
-export default connect(mapStateToProps, { revealServices })(withStyles(styles)(Profile));
+export default withRouter(connect(mapStateToProps, { revealServices })(withStyles(styles)(Profile)));
 
 Profile.propTypes = {
   classes: PropTypes.object.isRequired,
