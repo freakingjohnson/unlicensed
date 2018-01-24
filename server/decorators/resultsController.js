@@ -10,7 +10,6 @@ const getUser = (req, res) => {
       res.status(500).send(error)
     })
 }
-
 module.exports = (app) => {
   app.get('/api/users', getUser)
 }
