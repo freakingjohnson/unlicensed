@@ -15,7 +15,7 @@ const PastProjects = ({
     <div>
       <h3>Step 3: Let us know what work you want to show off!</h3>
       <Dropzone onDrop={e => addToPicList(e[0])} >
-        <p>Drag and drop a picture here to use as your profile picture or click to select a file.</p>
+        <p>Drag and drop a picture here to display on your profile or click to select a file.</p>
       </Dropzone>
       <div>
         {projectPicNames.length > 0 && projectPicNames.map(name => (

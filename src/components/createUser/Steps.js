@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Stepper, { Step, StepLabel, StepContent } from 'material-ui/Stepper'
 import { Button, withStyles, Paper } from 'material-ui'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import PersonalInfo from './PersonalInfo'
 import ServicesProvided from './ServicesProvided'
 import PastProjects from './PastProjects'
@@ -47,6 +48,11 @@ function getStepContent(step) {
 class Steps extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    userPassword: PropTypes.string.isRequired,
   };
 
   state = {
@@ -72,7 +78,14 @@ class Steps extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const {
+      classes,
+      firstName,
+      lastName,
+      email,
+      userPassword,
+      location,
+    } = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;
 
@@ -95,6 +108,7 @@ class Steps extends Component {
                     </Button>
                     <Button
                       raised
+                      disabled={firstName.length < 1 || lastName.length < 1 || location.length < 5 || email.length < 1 || userPassword.length < 1}
                       color="primary"
                       onClick={this.handleNext}
                       className={classes.button}
@@ -117,6 +131,12 @@ class Steps extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  firstName: state.userReducer.firstName,
+  lastName: state.userReducer.lastName,
+  email: state.userReducer.email,
+  userPassword: state.userReducer.userPassword,
+  location: state.userReducer.location,
+})
 
-
-export default withStyles(styles)(Steps);
+export default withStyles(styles)(connect(mapStateToProps)(Steps))
