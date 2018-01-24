@@ -13,8 +13,9 @@ const PersonalInfo = ({
   <div>
     <h3>Step 1: Tell us about yourself...</h3>
     <FormGroup>
-      <TextField label="First Name" name="firstName" value={firstName} onChange={e => personalInfo(e)} />
-      <TextField label="Last Name" name="lastName" value={lastName} onChange={e => personalInfo(e)} />
+      <TextField required label="First Name" name="firstName" value={firstName} onChange={e => personalInfo(e)} />
+      <TextField required label="Last Name" name="lastName" value={lastName} onChange={e => personalInfo(e)} />
+      <TextField required label="Zip Code" name="location" value={location} onChange={e => personalInfo(e)} />
       <TextField label="Phone Number" name="phone" value={phone} onChange={e => personalInfo(e)} />
       <FormGroup row>
         <FormControlLabel
@@ -36,7 +37,6 @@ const PersonalInfo = ({
           label="Both"
         />
       </FormGroup>
-      <TextField label="Zip Code" name="location" value={location} onChange={e => personalInfo(e)} />
       <Dropzone multiple={false} accept="image/*" onDrop={e => setProfilePic(e[0])}>
         {profilePic ?
           <div>
@@ -47,8 +47,8 @@ const PersonalInfo = ({
           <p>Drag and drop a picture here to use as your profile picture or click to select a file.</p>
           }
       </Dropzone>
-      <TextField label="Email" name="email" value={email} onChange={e => personalInfo(e)} />
-      <TextField label="Password" name="userPassword" value={userPassword} onChange={e => personalInfo(e)} />
+      <TextField required label="Email" name="email" value={email} onChange={e => personalInfo(e)} />
+      <TextField required type="password" label="Password" name="userPassword" value={userPassword} onChange={e => personalInfo(e)} />
       <TextField multiline label="Bio" name="bio" value={bio} onChange={e => personalInfo(e)} />
     </FormGroup>
   </div>

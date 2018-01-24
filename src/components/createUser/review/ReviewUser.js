@@ -5,7 +5,7 @@ import { Avatar } from 'material-ui'
 import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table'
 
 const ReviewUser = ({
-  firstName, lastName, phone, text, both, profilePic, picName, email, bio,
+  firstName, lastName, phone, text, both, profilePic, picName, email, bio, location,
 }) => (
   <div>
     <h2>Personal Info</h2>
@@ -18,6 +18,10 @@ const ReviewUser = ({
         <TableRow>
           <TableCell>Last Name</TableCell>
           <TableCell>{lastName}</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Zip Code</TableCell>
+          <TableCell>{location}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>Phone Number</TableCell>
@@ -55,6 +59,7 @@ const mapStateToProps = state => ({
   picName: state.userReducer.picName,
   email: state.userReducer.email,
   bio: state.userReducer.bio,
+  location: state.userReducer.location,
 })
 
 
@@ -68,6 +73,7 @@ ReviewUser.propTypes = {
   both: PropTypes.bool.isRequired,
   email: PropTypes.string.isRequired,
   bio: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
   profilePic: PropTypes.string.isRequired,
   picName: PropTypes.string.isRequired,
 }
