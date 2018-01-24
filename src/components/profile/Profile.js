@@ -31,7 +31,7 @@ const Profile = ({
     </div>
   ))
 
-  const allServices = selectedUser.length > 0 && selectedUser[0].worktype.split(',').map((service, index) => (
+  const allServices = selectedUser.length > 0 && selectedUser[0].worktype.split('_').join(' ').split(',').map((service, index) => (
     <div key={index}>
       {service}
     </div>
