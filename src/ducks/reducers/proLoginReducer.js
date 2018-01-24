@@ -6,18 +6,18 @@ const initialState = {
   userId: '',
 }
 
-const SET_INFO_PRO = 'SET_INFO_PRO'
-const SET_STATE_WITH_SESSIOIN_PRO = 'SET_STATE_WITH_SESSIOIN_PRO'
+const SET_INFO_PRO = 'SET_INFO_PRO',
+  SET_STATE_WITH_SESSION_PRO = 'SET_STATE_WITH_SESSION_PRO'
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_INFO_PRO:
       return { ...state, [action.state]: action.payload }
-    case SET_STATE_WITH_SESSIOIN_PRO:
+    case SET_STATE_WITH_SESSION_PRO:
       return { ...state, [action.state]: action.payload, password: '' }
     default: return state
   }
-  // case SET_STATE_WITH_SESSIOIN_PRO:
+  // case SET_STATE_WITH_SESSION_PRO:
 }
 
 export const setProUserInfo = (e) => {
@@ -29,10 +29,10 @@ export const setProUserInfo = (e) => {
   }
 }
 
-export const setStateProUserInfo = data => function (dispatch) {
+export const setStateProUserInfo = data => (dispatch) => {
   for (let key in data) {
     dispatch({
-      type: SET_STATE_WITH_SESSIOIN_PRO,
+      type: SET_STATE_WITH_SESSION_PRO,
       state: key,
       payload: data[key],
     })

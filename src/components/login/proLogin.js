@@ -8,7 +8,7 @@ import { setProUserInfo, setStateProUserInfo } from '../../ducks/reducers/proLog
 
 
 const ProLogin = ({
-  email, password, setProUserInfo, setStateProUserInfo,
+  email, password, setProUserInfo, history, setStateProUserInfo,
 }) => (
   <div> Enter your email and password
     <FormGroup>
@@ -27,7 +27,14 @@ const ProLogin = ({
         onChange={e => setProUserInfo(e)}
       />
     </FormGroup>
-    <Button raised color="primary" disabled={!email || !password} onClick={() => login(email, password, setStateProUserInfo)} >Login</Button>
+    <Button
+      raised
+      color="primary"
+      disabled={!email || !password}
+      onClick={() => login(email, password, setStateProUserInfo, history)}
+    >
+    Login
+    </Button>
     <Divider />
     <div>
       New User?
@@ -44,7 +51,7 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, { setProUserInfo, setStateProUserInfo })(ProLogin)
 
-const login = (email, password, setStateProUserInfo) => {
+const login = (email, password, setStateProUserInfo, history) => {
   axios.post('api/proLogin', { email, password }).then((response) => {
     console.log(response)
     setStateProUserInfo(response.data)
@@ -52,7 +59,7 @@ const login = (email, password, setStateProUserInfo) => {
     if (response.status === 200) {
       console.log(response.data)
       alert('Logged in successfull');
-      window.location.href = `http://localhost:3000/${response.data.userId}/${response.data.userName}`
+      history.push(`/${response.data.userId}/${response.data.userName}`)
     } else {
       alert('Email or password was incorrect, please try again')
     }
@@ -63,4 +70,8 @@ ProLogin.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   setProUserInfo: PropTypes.func.isRequired,
+  setStateProUserInfo: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 }
