@@ -3,7 +3,7 @@ import axios from 'axios'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { TextField, Button, Divider } from 'material-ui'
+import { TextField, Button, Divider, FormGroup } from 'material-ui'
 import { setProUserInfo, setStateProUserInfo } from '../../ducks/reducers/proLoginReducer'
 
 
@@ -11,7 +11,7 @@ const ProLogin = ({
   email, password, setProUserInfo, setStateProUserInfo,
 }) => (
   <div> Enter your email and password
-    <form name="loginForm">
+    <FormGroup>
       <TextField
         label="Email"
         name="email"
@@ -26,7 +26,7 @@ const ProLogin = ({
         value={password}
         onChange={e => setProUserInfo(e)}
       />
-    </form>
+    </FormGroup>
     <Button raised color="primary" disabled={!email || !password} onClick={() => login(email, password, setStateProUserInfo)} >Login</Button>
     <Divider />
     <div>

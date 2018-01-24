@@ -1,4 +1,4 @@
-export const services = ['Plumbing', 'Cabinets and Coutertops', 'Framing and Sheetrock', 'Drywall and Insulation', 'Electrical', 'Flooring', 'Painting', 'Landscaping', 'Roofing', 'House or Room Remodel']
+export const services = ['Plumbing', 'Cabinets and Countertops', 'Framing and Sheetrock', 'Drywall and Insulation', 'Electrical', 'Flooring', 'Painting', 'Landscaping', 'Roofing', 'House or Room Remodel']
 
 const initialState = {}
 
@@ -12,7 +12,7 @@ const SET_SERVICES = 'SET_SERVICES'
 export default function (state = initialState, action) {
   switch (action.type) {
     case SET_SERVICES:
-      return Object.assign({}, state, { [action.state]: action.payload })
+      return { ...state, [action.state]: action.payload }
     default:
       return state
   }

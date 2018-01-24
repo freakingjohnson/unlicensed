@@ -19,39 +19,56 @@ const initialState = {
 
 const SET_USER = 'SET_USER',
   PROFILE_PIC = 'PROFILE_PIC',
-  PICTURE_URL = 'PROFILE_URL'
+  PICTURE_URL = 'PROFILE_URL',
+  TEXT = 'text',
+  CALL = 'call',
+  BOTH = 'both'
 
 
 export default function reducer(state = initialState, action) {
-  switch (action.type) {
+  const {
+    type, payload, data,
+  } = action
+
+  switch (type) {
     case SET_USER:
-      return Object.assign({}, state, { [action.state]: action.payload })
+      return Object.assign({}, state, { [data]: payload })
     case PROFILE_PIC:
-      return Object.assign({}, state, { profilePic: action.payload, picName: action.data })
+      return Object.assign({}, state, { profilePic: payload, picName: data })
     case PICTURE_URL:
-      return Object.assign({}, state, { profilePicUrl: action.payload })
+      return Object.assign({}, state, { profilePicUrl: payload })
+    case TEXT:
+      return Object.assign({}, state, { text: payload, call: false, both: false })
+    case CALL:
+      return Object.assign({}, state, { text: false, call: payload, both: false })
+    case BOTH:
+      return Object.assign({}, state, { text: false, call: false, both: payload })
     default:
       return state
   }
 }
 
-export const personalInfo = (e, checked) => {
+export const personalInfo = (e) => {
   const { value, name } = e.target
-
-  if (name === 'text' || name === 'call' || name === 'both') {
-    return {
-      type: SET_USER,
-      state: name,
-      payload: !checked,
-    }
-  }
 
   return {
     type: SET_USER,
-    state: name,
+    data: name,
     payload: value,
   }
 }
+
+export const checkBoxes = (e, checked) => {
+  const { name } = e.target
+
+  return function (dispatch) {
+    return dispatch({
+      type: name,
+      payload: !checked,
+    })
+  }
+}
+
 
 export const setProfilePic = (file) => {
   handleUpload(file)
