@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { withStyles, Button, Typography, Avatar } from 'material-ui';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import { revealServices } from './../../ducks/reducers/resultsReducer'
+import EmailMe from './EmailMe'
 
 const Profile = ({
   classes, userData, match, reveal, revealServices,
@@ -83,6 +84,7 @@ const Profile = ({
               </CardContent>
             </Card>
             <div>{ WorkPhotoCard }</div>
+            <EmailMe proName={`${selectedUser[0].first_name}`} proEmail={`${selectedUser[0].email}`} />
           </div> :
           <h3>loading</h3>
         }
