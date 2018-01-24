@@ -1,4 +1,4 @@
-export const services = ['Plumbing', 'Cabinets and Coutertops', 'Framing and Sheetrock', 'Drywall and Insulation', 'Electrical', 'Flooring', 'Painting', 'Landscaping', 'Roofing', 'House or Room Remodel']
+export const services = ['Plumbing', 'Cabinets and Countertops', 'Framing and Sheetrock', 'Drywall and Insulation', 'Electrical', 'Flooring', 'Painting', 'Landscaping', 'Roofing', 'House or Room Remodel']
 
 const initialState = {}
 
