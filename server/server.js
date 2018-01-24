@@ -8,12 +8,14 @@ const express = require('express'),
   getUser = require('./decorators/resultsController'),
   addUser = require('./decorators/addUser'),
   email = require('./decorators/email'),
-  getFavorites = require('./decorators/favoritesController'),
-  createInitialSession = require('./middleware/session'),
-  addNonPro = require('./decorators/addNonPro'),
-  loginNonPro = require('./decorators/loginNonPro'),
-  checkForSession = require('./middlewares/checkForSession'),
-  updateProInfo = require('./decorators/updateProInfo')
+  proLogin = require('./decorators/proLoginController'),
+  proSession = require('./middlewares/proSession')
+getFavorites = require('./decorators/favoritesController'),
+createInitialSession = require('./middleware/session'),
+addNonPro = require('./decorators/addNonPro'),
+loginNonPro = require('./decorators/loginNonPro'),
+checkForSession = require('./middlewares/checkForSession'),
+updateProInfo = require('./decorators/updateProInfo')
 
 
 const app = express();
@@ -31,6 +33,7 @@ app.use(session({
   saveUninitialized: true,
 }))
 
+app.use(proSession)
 app.use(checkForSession)
 
 app.use(express.static(`${__dirname}/../build`))
@@ -40,6 +43,7 @@ getUser(app)
 userInfo(app)
 addUser(app)
 email(app)
+proLogin(app)
 getFavorites(app)
 updateProInfo(app)
 addNonPro(app)

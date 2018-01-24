@@ -35,8 +35,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
-    "test:watch": "npm test -- --watch",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "nodemon --watch server"
   },
   "devDependencies": {
     "babel-jest": "^22.1.0",

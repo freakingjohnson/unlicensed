@@ -74,7 +74,7 @@ const Profile = ({
                 {/* make phone, email, Prefered way of contact less dense than the selectedUser input */}
                 <Typography >Contact Info</Typography>
                 <Typography className={classes.title}>Location: {selectedUser[0].location}</Typography>
-                <Typography className={classes.title}>Phone: {selectedUser[0].phone.split('').splice(1, 12).join('')}</Typography>
+                <Typography className={classes.title}>Phone: {selectedUser[0].phone.split('').splice(1, 20).join('')}</Typography>
                 <Typography className={classes.title}>Email: {selectedUser[0].email}</Typography>
                 <Typography className={classes.title}>Prefered contact method: {contactMethod(selectedUser[0])}</Typography>
                 {/* {loggedIn && */}
