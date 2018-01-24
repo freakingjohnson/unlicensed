@@ -8,6 +8,8 @@ const express = require('express'),
   getUser = require('./decorators/resultsController'),
   addUser = require('./decorators/addUser'),
   email = require('./decorators/email'),
+  getFavorites = require('./decorators/favoritesController'),
+  createInitialSession = require('./middleware/session'),
   addNonPro = require('./decorators/addNonPro'),
   loginNonPro = require('./decorators/loginNonPro'),
   checkForSession = require('./middlewares/checkForSession'),
@@ -38,6 +40,7 @@ getUser(app)
 userInfo(app)
 addUser(app)
 email(app)
+getFavorites(app)
 updateProInfo(app)
 addNonPro(app)
 loginNonPro(app)
