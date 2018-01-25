@@ -4,12 +4,26 @@ const initialState = {
   userData: [],
   searchData: [],
   user: [],
+  favorites: [],
 }
 
 const GET_USER_DATA = 'GET_USER_DATA',
   GET_SEARCH_DATA = 'GET_SEARCH_DATA',
   SINGLE_USER = 'SINGLE_USER',
-  REVEAL = 'REVEAL'
+  REVEAL = 'REVEAL',
+  GET_FAVORITES = 'GET_FAVORITES',
+  DELETE_FAVORITE = 'DELETE_FAVORITE',
+  ADD_FAVORITE = 'ADD_FAVORITE'
+
+
+export const getFavorites = (favorites) => {
+  let favResults = favorites
+  favResults = axios.get('/api/favorites').then(res => res.data).catch(console.log)
+  return {
+    type: GET_FAVORITES,
+    payload: favResults,
+  }
+}
 
 export const getUserData = (userData) => {
   let results = userData
@@ -63,7 +77,7 @@ export default function reducer(state = initialState, action) {
     case SINGLE_USER:
       return { ...state, user: payload }
     case REVEAL:
-      return Object.assign({}, state, { reveal: payload })
+      return { ...state, reveal: payload }
     default:
 
       return state

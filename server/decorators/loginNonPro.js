@@ -1,23 +1,24 @@
 const bcrypt = require('bcryptjs')
 
-const loginNonPro = (req, res, next) => {
+const loginNonPro = async (req, res) => {
+  console.log(req)
   const db = req.app.get('db')
   const { email, password } = req.body
-  db.get_non_pro_email([email]).then((isUser) => {
-    const matchedEmail = isUser[0].email
-    db.get_non_pro_password([matchedEmail]).then((hash) => {
-      const hashed = hash[0].hashpassword
-      bcrypt.compare(password, hashed).then((isMatch) => {
-        if (isMatch) {
-          req.session.nonpro.email = matchedEmail
-          req.session.nonpro.loggedIn = true
-          res.status(200).send(req.session.nonpro)
-        } else {
-          res.status(401).send('incorrect password')
-        }
-      }).catch((err) => { console.log('something is broken', err) })
-    }).catch(() => res.status(401).send('incorrect password 1'))
-  }).catch(() => res.status(401).send('not found user'))
+
+  await db.get_non_pro_password([email]).then((data) => {
+    bcrypt.compare(password, data[0].hashpassword).then((body) => {
+      if (body === true) {
+        req.session.nonpro.loggedIn = true
+        req.session.nonpro.userId = (data[0].id)
+        req.session.nonpro.userName = `${data[0].first_name}-${data[0].last_name}`
+        req.session.nonpro.email = (data[0].email)
+        console.log(req.session)
+      }
+      res.send(req.session.nonpro)
+    })
+  }).catch((error) => {
+    res.status(500).send(error)
+  })
 }
 
 module.exports = (app) => {

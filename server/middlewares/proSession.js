@@ -1,13 +1,14 @@
 module.exports = (req, res, next) => {
   console.log('middleware before', req.session)
-  if (!req.session.nonpro) {
-    req.session.nonpro = {
+  if (!req.session.pro) {
+    req.session.pro = {
       userName: '',
       userId: '',
       email: '',
-      loggedIn: false,
+      proLoggedIn: false,
     }
   }
   console.log('middleware after', req.session)
-  next()
+  next();
 }
+// const { session } = req;
