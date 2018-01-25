@@ -1,14 +1,30 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { withStyles } from 'material-ui'
 import Social from './social'
 import Copyright from './copyright'
-import { Link } from 'react-router-dom'
 
-const Footer = () => (
-  <div>
-    <Copyright />
+const Footer = ({ classes }) => (
+  <div className={classes.footer}>
     <Social />
-    <Link to="/privacy-policy">Privacy Policy</Link>
+    <Copyright />
+    <Link to="/privacy-policy" style={{ color: '#003e61' }}>Privacy Policy</Link>
   </div>
 )
 
-export default Footer
+const styles = {
+  footer: {
+    backgroundColor: '#706b66',
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'column',
+    height: '20vh',
+    width: '100%',
+  },
+  link: {
+
+  },
+}
+
+export default withStyles(styles)(Footer)

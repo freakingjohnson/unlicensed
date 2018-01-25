@@ -4,7 +4,6 @@ const initialState = {
   userData: [],
   searchData: [],
   user: [],
-  reveal: false,
 }
 
 const GET_USER_DATA = 'GET_USER_DATA',
@@ -70,8 +69,3 @@ export default function reducer(state = initialState, action) {
       return state
   }
 }
-
-export const revealServices = reveal => ({
-  type: REVEAL,
-  payload: !reveal,
-})

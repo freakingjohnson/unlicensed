@@ -20,23 +20,23 @@ const PersonalInfo = ({
         <FormControlLabel
           control={
             <Checkbox label="Text" name="text" checked={text} onClick={e => checkBoxes(e, text)} />
-        }
+          }
           label="Text"
         />
         <FormControlLabel
           control={
             <Checkbox label="Call" name="call" checked={call} onClick={e => checkBoxes(e, call)} />
-        }
+          }
           label="Call"
         />
         <FormControlLabel
           control={
             <Checkbox label="Both" name="both" checked={both} onClick={e => checkBoxes(e, both)} />
-        }
+          }
           label="Both"
         />
       </FormGroup>
-      <TextField label="Zip Code" name="location" value={location} onChange={e => personalInfo(e)} />
+      <TextField style={{ marginBottom: '20px', marginTop: '-20px' }} label="Zip Code" name="location" value={location} onChange={e => personalInfo(e)} />
       <Dropzone multiple={false} accept="image/*" onDrop={e => setProfilePic(e[0])}>
         {profilePic ?
           <div>
@@ -45,7 +45,7 @@ const PersonalInfo = ({
           </div>
           :
           <p>Drag and drop a picture here to use as your profile picture or click to select a file.</p>
-          }
+        }
       </Dropzone>
       <TextField label="Email" name="email" value={email} onChange={e => personalInfo(e)} />
       <TextField label="Password" name="userPassword" value={userPassword} onChange={e => personalInfo(e)} />

@@ -10,7 +10,7 @@ const SubmitInfo = ({
 }) => {
   const profileInfo = [userReducer, serviceReducer, projectReducer]
   return (
-    <Button onClick={() => send(profileInfo, history)}>Submit</Button>
+    <Button raised color="primary" onClick={() => send(profileInfo, history)}>Finish</Button>
   )
 }
 

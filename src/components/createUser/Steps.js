@@ -90,29 +90,28 @@ class Steps extends Component {
                       disabled={activeStep === 0}
                       onClick={this.handleBack}
                       className={classes.button}
+                      color="accent"
                     >
                         Back
                     </Button>
-                    <Button
-                      raised
-                      color="primary"
-                      onClick={this.handleNext}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                    </Button>
+                    {
+                    activeStep === steps.length - 1 ?
+                      <SubmitInfo /> :
+                      <Button
+                        raised
+                        color="primary"
+                        onClick={this.handleNext}
+                        className={classes.button}
+                      >
+                    Next
+                      </Button>
+                    }
                   </div>
                 </div>
               </StepContent>
             </Step>
             ))}
         </Stepper>
-        {activeStep === steps.length && (
-          <Paper square elevation={0} className={classes.resetContainer}>
-            <div>All steps completed - you&quot;re finished</div>
-            <SubmitInfo />
-          </Paper>
-        )}
       </div>
     );
   }

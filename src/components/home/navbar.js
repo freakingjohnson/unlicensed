@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Drawer from 'material-ui/Drawer';
-import Divider from 'material-ui/Divider';
-import { List, ListItem, ListItemText } from 'material-ui';
+import { List, ListItem, ListItemText, Drawer, Divider, withStyles, AppBar, Toolbar, IconButton, withTheme } from 'material-ui';
 import MenuIcon from 'material-ui-icons/Menu'
 import { Link } from 'react-router-dom'
+import Logo from './../../assets/Logo.png'
 
 class NavBar extends React.Component {
     static propTypes = {
@@ -26,57 +24,73 @@ class NavBar extends React.Component {
       const sideList = (
         <div className={classes.list}>
           <List>
-            <ListItem component={Link} to="/" onClick={this.handleClose}><ListItemText primary="Home" disableTypography /> </ListItem>
+            <ListItem button component={Link} to="/" onClick={this.handleClose}><ListItemText className={classes.listText} primary="Home" disableTypography /> </ListItem>
             <Divider />
-            <ListItem component={Link} to="/signupaspro" onClick={this.handleClose}><ListItemText primary="Signup As Pro" disableTypography /></ListItem>
+            <ListItem button component={Link} to="/signupaspro" onClick={this.handleClose}><ListItemText className={classes.listText} primary="Signup As Pro" disableTypography /></ListItem>
             <Divider />
-            <ListItem component={Link} to="/loginaspro" onClick={this.handleClose}><ListItemText primary="Login As Pro" disableTypography /></ListItem>
+            <ListItem button component={Link} to="/loginaspro" onClick={this.handleClose}><ListItemText className={classes.listText} primary="Login As Pro" disableTypography /></ListItem>
             <Divider />
-            <ListItem component={Link} to="/loginnonpro" onClick={this.handleClose}><ListItemText primary="Non-Pro Login/Signup" disableTypography /></ListItem>
+            <ListItem button component={Link} to="/loginnonpro" onClick={this.handleClose}><ListItemText className={classes.listText} primary="User Login/Signup" disableTypography /></ListItem>
           </List>
         </div>)
       return (
-        <div className={classes.navWrapper}>
-          <div >
-            <MenuIcon
-              className="navButton"
-              onClick={this.toggleDrawer}
-            />
-            <Drawer
-              className={classes.list}
-                        // docked={false}
-              open={this.state.open}
-              onClose={() => this.setState({ open: !this.state.open })}
-            >
-              {sideList}
-            </Drawer>
-          </div>
-          <div className={classes.imgWrapper}>
-            <img className={classes.logo}src="https://media.glassdoor.com/sql/1124953/value-services-squarelogo-1486699126101.png" alt="logo" />
-          </div>
+        <div className={classes.root}>
+          <AppBar position="static" >
+            <Toolbar className={classes.toolBar} >
+              <div>
+                <IconButton onClick={this.toggleDrawer} className={classes.left}>
+                  <MenuIcon className={classes.menu} />
+                </IconButton>
+                <Drawer
+                  className={classes.list}
+                  open={this.state.open}
+                  onClose={() => this.setState({ open: !this.state.open })}
+                >
+                  {sideList}
+                </Drawer>
+              </div>
+              <img className={classes.logo} src={Logo} alt="logo" />
+            </Toolbar>
+          </AppBar>
         </div>
       )
     }
 }
 
 const styles = {
+  root: {
+    width: '100%',
+    display: 'flex',
+    marginBottom: '0px',
+  },
   list: {
-    width: '150px',
+    width: '200px',
     textAlign: 'center',
   },
+  left: {
+    position: 'absolute',
+    left: 0,
+    top: '50%',
+    transform: 'translateY(-50%)',
+  },
+  listText: {
+    fontSize: '20px',
+  },
   logo: {
-    width: '80px',
-    height: '90px',
+    height: '50px',
+    mixBlendMode: 'multiply',
   },
-  navWrapper: {
-    height: '100px',
-    width: '375px',
+  toolBar: {
+    paddingLeft: '0px',
+    paddingRight: '0px',
     display: 'flex',
+    justifyContent: 'center',
+    position: 'relative',
   },
-  imgWrapper: {
-    height: '100px',
-    width: '300px',
+  menu: {
+    fontSize: '32px',
+    color: '#706b66',
   },
 };
 
-export default withStyles(styles)(NavBar);
+export default withTheme()(withStyles(styles)(NavBar));
