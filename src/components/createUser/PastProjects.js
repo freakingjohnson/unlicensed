@@ -13,9 +13,9 @@ const PastProjects = ({
   } = projectReducer
   return (
     <div>
-      <h3>Step 3: Let us know what work you want to show off!</h3>
-      <Dropzone onDrop={e => addToPicList(e[0])} >
-        <p>Drag and drop a picture here to display on your profile or click to select a file.</p>
+      <h3 style={{ marginBottom: '20px' }}>Step 3: Let us know what work you want to show off!</h3>
+      <Dropzone multiple={false} accept="image/*" onDrop={e => addToPicList(e[0])} >
+        <p>Drag and drop a picture of some of your past projects or click to select a file.</p>
       </Dropzone>
       <div>
         {projectPicNames.length > 0 && projectPicNames.map(name => (
@@ -29,7 +29,7 @@ const PastProjects = ({
             ))}
       </div>
       <TextField multiline rowsMax="5" value={projectDesc} label="Description of Project" onChange={e => setProjects(e)} />
-      <Button raised color="accent" onClick={() => addToDescList()} >Add Description</Button>
+      <Button className={classes.button} raised color="accent" onClick={() => addToDescList()} >Add Description</Button>
     </div>
   )
 }
@@ -37,6 +37,9 @@ const PastProjects = ({
 const styles = {
   image: {
     width: 120,
+  },
+  button: {
+    margin: '10px 0',
   },
 }
 

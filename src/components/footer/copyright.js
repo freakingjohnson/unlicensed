@@ -1,7 +1,16 @@
 import React from 'react'
+import { withStyles } from 'material-ui'
 
-const Copyright = () => (
-  <p> © <script>var currentYear = new Date().getFullYear();document.write(currentYear);</script>, Your Company Name, All Rights Reserved. </p>
+let currentYear = new Date().getFullYear()
+
+const Copyright = ({ classes }) => (
+  <p className={classes.copyrigt}> © {currentYear}, Builders Independent, All Rights Reserved. </p>
 )
 
-export default Copyright
+const styles = {
+  copyrigt: {
+    color: '#003e61',
+  },
+}
+
+export default withStyles(styles)(Copyright)

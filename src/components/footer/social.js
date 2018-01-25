@@ -1,34 +1,32 @@
 import React from 'react'
 import { withStyles } from 'material-ui/styles'
 
-const Social = () => (
-  <div>
+const Social = ({ classes }) => (
+  <div className={classes.wrapper}>
     <i
-      className="fa fa-facebook-official"
+      className="fa fa-facebook-official fa-2x"
     />
     <i
-      className="fa fa-github"
+      className="fa fa-github fa-2x"
     />
     <i
-      className="fa fa-instagram"
+      className="fa fa-instagram fa-2x"
     />
     <i
-      className="fa fa-linkedin"
+      className="fa fa-linkedin fa-2x"
     />
     <i
-      className="fa fa-twitter"
+      className="fa fa-twitter fa-2x"
     />
   </div>
 )
 
 const styles = {
-  icon: {
-    padding: '20px',
-    fontSize: '30px',
-    width: '30px',
-    textAlign: 'center',
-    textDecoration: 'none',
-    borderRadius: '50%',
+  wrapper: {
+    color: '#003e61',
+    display: 'flex',
+    justifyContent: 'space-around',
+    width: '65%',
   },
 }
 

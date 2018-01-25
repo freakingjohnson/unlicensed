@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom'
-import { withStyles, Button, Typography, Avatar } from 'material-ui';
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-import { revealServices } from './../../ducks/reducers/resultsReducer'
+import { withStyles, Button, Typography, Avatar, Paper } from 'material-ui';
+import Card, { CardContent } from 'material-ui/Card';
 import EmailMe from './EmailMe'
+import WorkPhotoCard from './WorkPhotoCard'
 
 const Profile = ({
-  classes, userData, match, reveal, revealServices,
+  classes, userData, match,
 }) => {
   const selectedUser = userData.filter((user) => {
     if (user.id === (match.params.id * 1)) {
@@ -16,74 +16,35 @@ const Profile = ({
     }
   })
 
-  const WorkPhotoCard = jobs.map((jobDesc, index) => (
-    <div key={index}>
-      <Card >
-        {/* image tag will be equal to projectPicName */}
-        <CardMedia className={classes.media} image={jobDesc.photo} />
-        <CardContent>
-          <Typography component="p">
-            {/* jobDesc.desc will be equal to projectDesc */}
-            {jobDesc.desc}
-          </Typography>
-        </CardContent>
-      </Card>
-    </div>
-  ))
-
-  const allServices = selectedUser.length > 0 && selectedUser[0].worktype.split('_').join(' ').split(',').map((service, index) => (
-    <div key={index}>
-      {service}
-    </div>
-  ))
-
-  const firstServices = allServices.length > 3 && allServices.slice(0, 3)
-  const restOfServices = allServices.length > 3 && allServices.slice(3)
-
   return (
     <div>
       {
         selectedUser.length > 0 ?
           <div>
-            {/* put padding around card and shadding behind a little. make padding on sides of photos as well */}
-            <div className={classes.row}>
-              <Avatar alt="profile pic" src={selectedUser[0].profile_photo} className={classes.avatar} />
+            <div>
+              <div className={classes.row}>
+                <Avatar alt="profile pic" src={selectedUser[0].profile_photo} className={classes.avatar} />
+              </div>
+              <Card className={classes.card}>
+                <Paper elevation={3} className={classes.paper}>
+                  <CardContent className={classes.cardContent}>
+                    <Typography type="display1" color="primary">{selectedUser[0].first_name} {selectedUser[0].last_name}</Typography>
+                    <Typography type="subheading">Services Offered</Typography>
+                    <Typography type="body1" color="secondary">{selectedUser[0].worktype.replace(/[_]+/g, ' ')}</Typography>
+                    <Typography type="subheading">About Me</Typography>
+                    <Typography type="body1" color="secondary">{selectedUser[0].bio_info}</Typography>
+                    <Typography type="subheading" >Contact Info</Typography>
+                    <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Location:</span> {selectedUser[0].location}</Typography>
+                    <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Phone:</span> {selectedUser[0].phone.replace(/[{}"]+/g, '').split(',')}</Typography>
+                    <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Email:</span> {selectedUser[0].email}</Typography>
+                    <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Prefered contact method:</span> {contactMethod(selectedUser[0])}</Typography>
+                    {/* {loggedIn && */}
+                    <Button raised color="accent" component={Link} to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >Edit Profile</Button>
+                  </CardContent>
+                </Paper>
+              </Card>
             </div>
-            <Card className={classes.card}>
-              <CardContent>
-                <Typography className={classes.title}>{selectedUser[0].first_name} {selectedUser[0].last_name}</Typography>
-                {/* if the services are more more than 3 then display button that will display three and then the rest */}
-                {
-                  allServices.length > 3 ?
-                    <div>
-                      <h2>Services Offered</h2>
-                      <div className={classes.title}>{firstServices}</div>
-                      <div>{reveal && restOfServices}</div>
-                      <CardActions>
-                        <Button onClick={() => revealServices(reveal)} >{reveal ? 'Less Services' : 'More Services'}</Button>
-                      </CardActions>
-                    </div>
-                :
-                    <div>
-                      <Typography>Services Offered</Typography>
-                      <div className={classes.title}>{allServices}</div>
-                    </div>
-                }
-                <Typography>Work Desc</Typography>
-                <Typography className={classes.title}>{selectedUser[0].bio_info}</Typography>
-                {/* make phone, email, Prefered way of contact less dense than the selectedUser input */}
-                <Typography >Contact Info</Typography>
-                <Typography className={classes.title}>Location: {selectedUser[0].location}</Typography>
-                <Typography className={classes.title}>Phone: {selectedUser[0].phone.split('').splice(1, 20).join('')}</Typography>
-                <Typography className={classes.title}>Email: {selectedUser[0].email}</Typography>
-                <Typography className={classes.title}>Prefered contact method: {contactMethod(selectedUser[0])}</Typography>
-                {/* {loggedIn && */}
-                <Link to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >
-                  <Button>Edit Profile</Button>
-                </Link>
-              </CardContent>
-            </Card>
-            <div>{ WorkPhotoCard }</div>
+            <WorkPhotoCard workPhotos={selectedUser[0].workphotos} photoDesc={selectedUser[0].photo_info} />
             <EmailMe proName={`${selectedUser[0].first_name}`} proEmail={`${selectedUser[0].email}`} />
           </div> :
           <h3>loading</h3>
@@ -92,25 +53,41 @@ const Profile = ({
   )
 }
 
-const styles = theme => ({
+const styles = {
   // make it so profile pic and contact info are aligned
   card: {
-    minWidth: 275,
     display: 'flex',
     justifyContent: 'center',
+    marginTop: '-80px',
+
+  },
+  cardContent: {
+    marginTop: '80px',
+    textAlign: 'center',
+  },
+  paper: {
+    width: '95%',
+    left: '2.5%',
   },
   title: {
-    marginBottom: 16,
-    fontSize: 14,
-    color: theme.palette.text.secondary,
+    marginBottom: '5px',
+    fontSize: '30px',
+    color: '#000',
+  },
+  subtitle: {
+    fontSize: '18px',
   },
   row: {
     display: 'flex',
     justifyContent: 'center',
+    backgroundImage: "url('https://images.unsplash.com/photo-1469389335181-2198b4caa734?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7b0e608846974f4f334f4d8b29edfc4e&auto=format&fit=crop&w=1566&q=80')",
+    backgroundSize: 'cover',
+
   },
   avatar: {
-    width: 60,
-    height: 60,
+    marginTop: '40px',
+    width: 170,
+    height: 170,
   },
   pic: {
     maxWidth: 345,
@@ -128,19 +105,14 @@ const styles = theme => ({
     margin: 0,
     padding: 0,
   },
-});
-
-const jobs = [{ photo: 'http://res.cloudinary.com/dhowdfbmx/image/upload/v1513637011/kebbooilkiteq7npuojp.jpg', desc: 'photo1' },
-  { photo: 'http://res.cloudinary.com/dhowdfbmx/image/upload/v1514429192/s5vy99sbubitho5hdppe.jpg', desc: 'photo2' },
-]
+};
 
 const mapStateToProps = state => ({
   user: state.resultsReducer.user,
   userData: state.resultsReducer.userData,
-  reveal: state.resultsReducer.reveal,
 })
 
-export default withRouter(connect(mapStateToProps, { revealServices })(withStyles(styles)(Profile)));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Profile)));
 
 Profile.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -150,13 +122,10 @@ Profile.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  reveal: PropTypes.bool,
-  revealServices: PropTypes.func.isRequired,
 };
 
 Profile.defaultProps = {
   userData: ['name', 'email', 'location'],
-  reveal: false,
 }
 
 const contactMethod = (selectedUser) => {
