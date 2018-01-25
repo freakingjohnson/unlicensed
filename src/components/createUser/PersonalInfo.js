@@ -15,7 +15,6 @@ const PersonalInfo = ({
     <FormGroup>
       <TextField required label="First Name" name="firstName" value={firstName} onChange={e => personalInfo(e)} />
       <TextField required label="Last Name" name="lastName" value={lastName} onChange={e => personalInfo(e)} />
-      <TextField required label="Zip Code" name="location" type="number" value={location} onChange={e => personalInfo(e)} />
       <TextField label="Phone Number" name="phone" value={phone} onChange={e => personalInfo(e)} />
       <FormGroup row>
         <FormControlLabel
@@ -37,7 +36,7 @@ const PersonalInfo = ({
           label="Both"
         />
       </FormGroup>
-      <TextField style={{ marginBottom: '20px', marginTop: '-20px' }} label="Zip Code" name="location" value={location} onChange={e => personalInfo(e)} />
+      <TextField required style={{ marginBottom: '20px', marginTop: '-20px' }} label="Zip Code" type="number" name="location" value={location} onChange={e => personalInfo(e)} />
       <Dropzone multiple={false} accept="image/*" onDrop={e => setProfilePic(e[0])}>
         {profilePic ?
           <div>
