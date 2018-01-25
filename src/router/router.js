@@ -1,14 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Home from '../components/home/Home'
-import Results from '../components/results/Results';
-import Profile from '../components/profile/Profile'
-import Steps from '../components/createUser/Steps'
-import nonProLogin from '../components/login/nonProLogin';
-import nonProSignup from '../components/login/nonProSignup';
-import proLogin from '../components/login/proLogin'
-import Privacy from '../components/footer/privacy'
-import editProfile from '../components/profile/editProfile'
+import { Home, Results, editProfile, Profile, Steps, proLogin, nonProSignup, nonProLogin, Privacy } from '../Loadable/Loadable'
+
 
 export default (
   <Switch>
