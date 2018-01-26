@@ -3,11 +3,14 @@ import axios from 'axios'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { TextField, Button, FormGroup, Divider } from 'material-ui'
+import { TextField, Button, FormGroup, Divider, withStyles } from 'material-ui'
+import Slide from 'material-ui/transitions/Slide'
 import { setInfo, setStateNonProInfo } from '../../ducks/reducers/loginReducer'
 
+const Transition = (props) => <Slide direction="left" {...props} />
+
 const nonProLogin = ({
-  email, password, setInfo, history, setStateNonProInfo,
+  email, password, setInfo, history, setStateNonProInfo, classes,
 }) => (
   <div> Enter your email and password
     <FormGroup>
@@ -28,11 +31,13 @@ const nonProLogin = ({
     </FormGroup>
     <Button
       raised
+      className={classes.button}
       color="primary"
       disabled={!email || !password}
       onClick={() => login(email, password, setStateNonProInfo, history)}
     >
     Login
+      <i className="fa fa-sign-in" style={{ marginLeft: '5px', color: '#706b66' }} aria-hidden="true"/>
     </Button>
     <Divider />
     <div>
@@ -43,12 +48,20 @@ const nonProLogin = ({
     </div>
   </div>)
 
+  const styles = {
+    button: {
+      '&:hover': {
+        transition: `${Transition}`
+      }
+    },
+  }
+
 const mapStateToProps = state => ({
   email: state.loginReducer.email,
   password: state.loginReducer.password,
 })
 
-export default connect(mapStateToProps, { setInfo, setStateNonProInfo })(nonProLogin)
+export default connect(mapStateToProps, { setInfo, setStateNonProInfo })(withStyles(styles)(nonProLogin))
 
 const login = (email, password, setStateNonProInfo, history) => {
   axios.post('api/login', { email, password }).then((response) => {
