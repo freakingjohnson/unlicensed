@@ -19,7 +19,7 @@ const styles = theme => ({
     height: 200,
     [theme.breakpoints.down('xs')]: {
       width: '100% !important', // Overrides inline-style
-      height: 100,
+      height: 200,
     },
     '&:hover': {
       zIndex: 1,
@@ -81,18 +81,18 @@ const styles = theme => ({
 
 const images = [
   {
-    url: 'http://youghal.ie/wp-content/uploads/2016/03/Plumbing.jpg',
-    title: 'Plumbing',
+    url: 'https://hips.hearstapps.com/edc.h-cdn.co/assets/15/14/1427831454-54c1447836250-miles-redd-interior-design-ed1110-07-lgn.jpg',
+    title: 'Cabinets and Countertops',
     width: '33.33%',
   },
   {
-    url: 'http://psm.ascendclient.com/wp-content/uploads/2016/10/Electrical.jpg',
-    title: 'Electrical',
+    url: 'https://cdn.decoist.com/wp-content/uploads/2015/06/Throw-pillows-add-color-to-the-neutral-living-room.jpg',
+    title: 'House or Room Remodel',
     width: '33.34%',
   },
   {
-    url: 'https://images.pexels.com/photos/8614/painting-black-paint-roller.jpg?w=1260&h=750&auto=compress&cs=tinysrgb',
-    title: 'Painting',
+    url: 'https://jlclandscapeservices.com/wp-content/uploads/2015/04/Landscape-Design-Build-Bottom-1.jpg',
+    title: 'Landscaping',
     width: '33.33%',
   },
 ];
@@ -111,7 +111,7 @@ const HomeFront = ({
       }}
         onClick={(event) => {
         event.preventDefault()
-        getSearchData(userData, image.title, 'worktype')
+        getSearchData(userData, image.title.replace(/\s/g, '_'), 'worktype')
         history.push('/results')
       }}
       >
