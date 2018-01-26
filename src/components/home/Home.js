@@ -8,6 +8,7 @@ import Select from 'material-ui/Select';
 import { withStyles } from 'material-ui/styles'
 import { getUserData, getSearchData } from './../../ducks/reducers/resultsReducer'
 import HomeFront from './HomeFront'
+import WebsiteReview from '../websiteReview/WebsiteReview'
 
 class Home extends React.Component {
   static propTypes = {
@@ -41,13 +42,10 @@ class Home extends React.Component {
       classes, userData, getSearchData, history,
     } = this.props;
 
-    const homeView = (
-      <div className={classes.homeWrapper} />
-    )
     return (
-      <div className={classes.background} >
-
-        <form onSubmit={(event) => {
+      <div>
+        <div className={classes.background} >
+          <form onSubmit={(event) => {
           event.preventDefault()
           getSearchData(userData, this.state.search, this.state.searchBy)
           this.setState({
@@ -55,42 +53,44 @@ class Home extends React.Component {
           })
           history.push('/results')
         }}
-        >
-          <FormGroup className={classes.form}>
-            <FormGroup row className={classes.insideForm}>
-              <div className={classes.textField} >
-                <TextField className="search" type="text" label="Search" onChange={e => this.searchHandler(e)} value={this.state.search} />
-              </div>
-              <div>
-                <Select
+          >
+            <FormGroup className={classes.form}>
+              <FormGroup row className={classes.insideForm}>
+                <div className={classes.textField} >
+                  <TextField className="search" type="text" label="Search" onChange={e => this.searchHandler(e)} value={this.state.search} />
+                </div>
+                <div>
+                  <Select
                   // MenuProps={classes={{paper: classes.selectMenu}}}
-                  value={this.state.searchBy}
-                  onChange={this.selectHandler}
-                >
-                  <MenuItem value="worktype">Worktype</MenuItem>
-                  <MenuItem value="name">Name </MenuItem>
-                  <MenuItem value="city"> City </MenuItem>
-                  <MenuItem value="zip"> Zip </MenuItem>
-                </Select>
-                <FormHelperText> Search By </FormHelperText>
-              </div>
-            </FormGroup>
-            <Button
-              color="primary"
-              raised
-              onClick={() => {
+                    value={this.state.searchBy}
+                    onChange={this.selectHandler}
+                  >
+                    <MenuItem value="worktype">Worktype</MenuItem>
+                    <MenuItem value="name">Name </MenuItem>
+                    <MenuItem value="city"> City </MenuItem>
+                    <MenuItem value="zip"> Zip </MenuItem>
+                  </Select>
+                  <FormHelperText> Search By </FormHelperText>
+                </div>
+              </FormGroup>
+              <Button
+                color="primary"
+                raised
+                onClick={() => {
                 getSearchData(userData, this.state.search, this.state.searchBy)
                 this.setState({
                   search: '',
                 })
                 history.push('/results')
               }}
-            >Search
-            </Button>
-            <HomeFront history={history} />
-          </FormGroup>
-        </form>
-        { homeView }
+              >Search
+              </Button>
+            </FormGroup>
+          </form>
+          <div className={classes.homeWrapper} />
+        </div>
+        <WebsiteReview />
+        <HomeFront history={history} />
       </div>
     )
   }

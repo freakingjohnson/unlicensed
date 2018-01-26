@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List, ListItem, ListItemText, Drawer, Divider, withStyles, AppBar, Toolbar, IconButton, withTheme, ListItemIcon } from 'material-ui';
-import { Menu, Home } from 'material-ui-icons'
+import { Menu } from 'material-ui-icons'
 import { Link } from 'react-router-dom'
 import Logo from './../../assets/Logo.png'
 import Icon from './../../assets/Icon.png'
@@ -26,33 +26,33 @@ class NavBar extends React.Component {
         <div className={classes.list}>
           <List>
             <ListItem className={classes.iconWrapper}>
-              <img src={Icon} alt="icon" className={classes.icon}/>
+              <img src={Icon} alt="icon" className={classes.icon} />
             </ListItem>
             <Divider />
-            <ListItem button component={Link} to="/" onClick={this.handleClose}>
+            <ListItem button className={classes.listItem} component={Link} to="/" onClick={this.handleClose}>
               <ListItemIcon>
-                <i className="fa fa-home fa-2x" style={{  marginBottom: '13px', marginRight: '-1px', color: '#003e61' }} aria-hidden="true" />
+                <i className="fa fa-home fa-lg" style={{ marginBottom: '-10px', marginRight: '-10px', color: '#003e61' }} aria-hidden="true" />
               </ListItemIcon>
               <ListItemText className={classes.listText} primary="Home" disableTypography />
             </ListItem>
             <Divider />
-            <ListItem button component={Link} to="/signupaspro" onClick={this.handleClose}>
+            <ListItem button className={classes.listItem} component={Link} to="/signupaspro" onClick={this.handleClose}>
               <ListItemIcon>
-                <i className="fa fa-user-plus fa-2x" style={{ marginBottom: '13px', marginRight: '-1px', color: '#003e61' }} aria-hidden="true" />
+                <i className="fa fa-user-plus fa-lg" style={{ marginBottom: '-10px', marginRight: '-10px', color: '#003e61' }} aria-hidden="true" />
               </ListItemIcon>
               <ListItemText className={classes.listText} primary="Become a Pro" disableTypography />
             </ListItem>
             <Divider />
-            <ListItem button component={Link} to="/loginaspro" onClick={this.handleClose}>
+            <ListItem button className={classes.listItem} component={Link} to="/loginaspro" onClick={this.handleClose}>
               <ListItemIcon>
-                <i className="fa fa-user-circle fa-2x" style={{ marginBottom: '13px', marginRight: '-1px', color: '#003e61' }} aria-hidden="true" />
+                <i className="fa fa-user-circle fa-lg" style={{ marginBottom: '-10px', marginRight: '-10px', color: '#003e61' }} aria-hidden="true" />
               </ListItemIcon>
               <ListItemText className={classes.listText} primary="Login As Pro" disableTypography />
             </ListItem>
             <Divider />
-            <ListItem button component={Link} to="/loginnonpro" onClick={this.handleClose} style={{ marginBottom: '10px' }}>
+            <ListItem button className={classes.listItem} component={Link} to="/loginnonpro" onClick={this.handleClose} style={{ marginBottom: '10px' }}>
               <ListItemIcon>
-                <i className="fa fa-user-circle-o fa-2x" style={{ marginBottom: '13px', marginRight: '-1px', color: '#003e61' }} aria-hidden="true" />
+                <i className="fa fa-user-circle-o fa-lg" style={{ marginBottom: '-10px', marginRight: '-10px', color: '#003e61' }} aria-hidden="true" />
               </ListItemIcon>
               <ListItemText className={classes.listText} primary="User Login/Signup" disableTypography />
             </ListItem>
@@ -97,6 +97,9 @@ const styles = {
     left: 0,
     top: '50%',
     transform: 'translateY(-50%)',
+  },
+  listItem: {
+    margin: '10px 0'
   },
   listText: {
     fontSize: '20px',
