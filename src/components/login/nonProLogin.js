@@ -7,7 +7,7 @@ import { TextField, Button, FormGroup, Divider } from 'material-ui'
 import { setInfo, setStateNonProInfo } from '../../ducks/reducers/loginReducer'
 
 const nonProLogin = ({
-  email, password, setInfo, history, setStateNonProInfo,
+  email, password, setInfo, history, setStateNonProInfo, loggedIn,
 }) => (
   <div> Enter your email and password
     <FormGroup>

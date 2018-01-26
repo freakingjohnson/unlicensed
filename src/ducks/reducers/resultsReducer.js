@@ -11,9 +11,9 @@ const GET_USER_DATA = 'GET_USER_DATA',
   GET_SEARCH_DATA = 'GET_SEARCH_DATA',
   SINGLE_USER = 'SINGLE_USER',
   REVEAL = 'REVEAL',
-  GET_FAVORITES = 'GET_FAVORITES',
-  DELETE_FAVORITE = 'DELETE_FAVORITE',
-  ADD_FAVORITE = 'ADD_FAVORITE'
+  GET_FAVORITES = 'GET_FAVORITES'
+  // DELETE_FAVORITE = 'DELETE_FAVORITE',
+  // ADD_FAVORITE = 'ADD_FAVORITE'
 
 
 export const getFavorites = (favorites) => {
@@ -48,6 +48,7 @@ export const getSearchData = (userData, query, searchBy) => {
         return el.location.toLowerCase().indexOf(query.toLowerCase()) > -1
       }
     })
+    // history.push('/results')
   }
   return {
     type: GET_SEARCH_DATA,
