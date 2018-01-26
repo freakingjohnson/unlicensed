@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { TextField, Button } from 'material-ui'
-import { FormControl, FormHelperText, FormGroup } from 'material-ui/Form'
+import { FormHelperText, FormGroup } from 'material-ui/Form'
 import { MenuItem } from 'material-ui/Menu'
 import Select from 'material-ui/Select';
 import { withStyles } from 'material-ui/styles'
 import { getUserData, getSearchData } from './../../ducks/reducers/resultsReducer'
+import HomeFront from './HomeFront'
 
 class Home extends React.Component {
   static propTypes = {
@@ -27,7 +28,7 @@ class Home extends React.Component {
     searchBy: 'worktype',
   }
 
-  searchHandler(e) {
+  searchHandler = (e) => {
     this.setState({ search: e.target.value })
   }
 
@@ -36,7 +37,9 @@ class Home extends React.Component {
   }
 
   render() {
-    const { classes, userData, getSearchData } = this.props;
+    const {
+      classes, userData, getSearchData, history,
+    } = this.props;
 
     const homeView = (
       <div className={classes.homeWrapper} />
@@ -50,7 +53,7 @@ class Home extends React.Component {
           this.setState({
             search: '',
           })
-          this.props.history.push('/results')
+          history.push('/results')
         }}
         >
           <FormGroup className={classes.form}>
@@ -80,10 +83,11 @@ class Home extends React.Component {
                 this.setState({
                   search: '',
                 })
-                this.props.history.push('/results')
+                history.push('/results')
               }}
             >Search
             </Button>
+            <HomeFront history={history} />
           </FormGroup>
         </form>
         { homeView }

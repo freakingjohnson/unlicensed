@@ -10,7 +10,7 @@ import { setInfo, setStateNonProInfo } from '../../ducks/reducers/loginReducer'
 const Transition = (props) => <Slide direction="left" {...props} />
 
 const nonProLogin = ({
-  email, password, setInfo, history, setStateNonProInfo, classes,
+  email, password, setInfo, history, setStateNonProInfo, classes, loggedIn,
 }) => (
   <div> Enter your email and password
     <FormGroup>
