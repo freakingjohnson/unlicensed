@@ -57,9 +57,6 @@ class NavBar extends React.Component {
               </ListItemIcon>
               <ListItemText className={classes.listText} primary="User Login/Signup" disableTypography />
             </ListItem>
-            <Divider />
-            <ListItem button component={Link} to="/loginnonpro" onClick={this.handleClose}><ListItemText className={classes.listText} primary="User Login/Signup" disableTypography /></ListItem>
-            {this.props.loggedIn && <ListItem button component={Link} to="/favorites" onClick={this.handleClose}><ListItemText className={classes.listText} primary="Favorites" disableTypography /></ListItem>}
           </List>
         </div>)
       return (
@@ -102,7 +99,7 @@ const styles = {
     transform: 'translateY(-50%)',
   },
   listItem: {
-    margin: '10px 0'
+    margin: '10px 0',
   },
   listText: {
     fontSize: '20px',
