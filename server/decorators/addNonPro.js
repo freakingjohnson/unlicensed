@@ -23,14 +23,15 @@ const addNonPro = async (req, res) => {
 
 // this is only for endpoint tests:
 
-// const deleteNonPro = (req, res, next) => {
-//   const db = req.app.get('db')
-//   const { params } = req
-//   db.delete_non_pro([params.first_name, params.last_name])
-//     .then(body => res.status(200).send())
-//     .catch((err)=>)
-// }
+const deleteNonPro = (req, res, next) => {
+  const db = req.app.get('db')
+  const { params } = req
+  db.delete_non_pro([params.first_name, params.last_name])
+    .then(body => res.status(200).send())
+    .catch(err => res.status(500).send())
+}
 
 module.exports = (app) => {
   app.post('/api/addnonpro', addNonPro)
+  app.delete('/api/deletenonpro', deleteNonPro)
 }
