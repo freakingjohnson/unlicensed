@@ -51,7 +51,6 @@ export const send = (firstName, lastName, zipCode, email, password, history) => 
   axios.post('api/addnonpro', {
     firstName, lastName, zipCode, email, password,
   }).then(() => {
-    // console.log(res)
   })
   history.push('/')
   return {

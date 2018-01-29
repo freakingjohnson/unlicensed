@@ -89,7 +89,6 @@ const handleUpload = (file) => {
     }
 
     if (response.body.secure_url !== '') {
-      console.log(response.body.secure_url)
       store.dispatch({
         type: PICTURE_URL,
         payload: response.body.secure_url,

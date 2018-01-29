@@ -6,9 +6,11 @@ import { FormHelperText, FormGroup } from 'material-ui/Form'
 import { MenuItem } from 'material-ui/Menu'
 import Select from 'material-ui/Select';
 import { withStyles } from 'material-ui/styles'
+import axios from 'axios'
 import { getUserData, getSearchData } from './../../ducks/reducers/resultsReducer'
 import HomeFront from './HomeFront'
 import WebsiteReview from '../websiteReview/WebsiteReview'
+import { resetFromLocalStorage } from './../../ducks/reducers/proLoginReducer'
 
 class Home extends React.Component {
   static propTypes = {
@@ -28,6 +30,25 @@ class Home extends React.Component {
     search: '',
     searchBy: 'worktype',
   }
+
+  componentDidMount() {
+    const { location, resetFromLocalStorage } = this.props
+    if (location.search) {
+      resetFromLocalStorage()
+      let pro = localStorage.getItem('pro')
+      pro = JSON.parse(pro)
+      console.log(pro.email)
+      this.finalizeAccount(location.search, pro.email)
+    }
+  }
+
+  finalizeAccount = (query, email) => {
+    const code = query.split('').splice(6).join('')
+    axios.post('http://localhost:4000/api/addStripe', { code, email }).then((res) => {
+      console.log(res)
+    })
+  }
+
 
   searchHandler = (e) => {
     this.setState({ search: e.target.value })
@@ -99,6 +120,7 @@ class Home extends React.Component {
 const mapStateToProps = state => ({
   userData: state.resultsReducer.userData,
   searchData: state.resultsReducer.searchData,
+  email: state.proLoginReducer.email,
 })
 
 const styles = {
@@ -135,4 +157,4 @@ const styles = {
   },
 }
 
-export default withStyles(styles)(connect(mapStateToProps, { getUserData, getSearchData })(Home))
+export default withStyles(styles)(connect(mapStateToProps, { getUserData, getSearchData, resetFromLocalStorage })(Home))

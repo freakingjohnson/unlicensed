@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs')
 
 const proLogin = async (req, res) => {
-  console.log(req)
   const db = req.app.get('db')
   const { email, password } = req.body
 
@@ -12,9 +11,10 @@ const proLogin = async (req, res) => {
         req.session.pro.userId = (data[0].id)
         req.session.pro.userName = `${data[0].first_name}-${data[0].last_name}`
         req.session.pro.email = (data[0].email)
-        console.log(req.session)
+        req.session.pro.stripeId = data[0].stripe_id
+        console.log(req.session.pro)
       }
-      res.send(req.session.pro)
+      res.status(200).send(req.session.pro)
     })
   }).catch((error) => {
     res.status(500).send(error)
