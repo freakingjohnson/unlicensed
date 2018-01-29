@@ -1,4 +1,4 @@
-select users.*,
+select id, first_name, last_name, phone, email, bio_info, profile_photo, location, stripe_id,
    array_to_string( array_agg( distinct worktype.worktype ), ', ' ) as worktype,
    array_to_string( array_agg( distinct workphotos.photo ), ', ' ) as workphotos,
    array_to_string( array_agg( distinct workphotos.photo_info ), ', ') as photo_info

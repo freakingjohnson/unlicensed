@@ -5,7 +5,6 @@ const getUser = (req, res) => {
 
   db.get_user([params.id])
     .then((body) => {
-      console.log('getUser', req.session)
       res.status(200).send(body)
     })
     .catch((error) => {
@@ -15,3 +14,4 @@ const getUser = (req, res) => {
 module.exports = (app) => {
   app.get('/api/users', getUser)
 }
+

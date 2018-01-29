@@ -108,7 +108,7 @@ const login = (email, password, setStateNonProInfo, history) => {
 
     if (response.status === 200) {
       console.log(response.data)
-      alert('Logged in successfull');
+      alert('Log in successful');
       history.push('/')
     } else {
       alert('Email or password was incorrect, please try again')

@@ -48,7 +48,6 @@ export const getSearchData = (userData, query, searchBy) => {
         return el.location.toLowerCase().indexOf(query.toLowerCase()) > -1
       }
     })
-    // history.push('/results')
   }
   return {
     type: GET_SEARCH_DATA,
@@ -73,7 +72,7 @@ export default function reducer(state = initialState, action) {
   switch (type) {
     case `${GET_USER_DATA}_FULFILLED`:
       return { ...state, userData: payload }
-    case `${GET_SEARCH_DATA}`:
+    case GET_SEARCH_DATA:
       return { ...state, searchData: payload }
     case SINGLE_USER:
       return { ...state, user: payload }
