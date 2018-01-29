@@ -157,4 +157,5 @@ const styles = {
   },
 }
 
-export default withStyles(styles)(connect(mapStateToProps, { getUserData, getSearchData, resetFromLocalStorage })(Home))
+export default connect(mapStateToProps, { getUserData, getSearchData, resetFromLocalStorage })(withStyles(styles)(Home))
+

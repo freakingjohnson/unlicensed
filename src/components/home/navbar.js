@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { List, ListItem, ListItemText, Drawer, Divider, withStyles, AppBar, Toolbar, IconButton, withTheme, ListItemIcon } from 'material-ui';
 import { Menu } from 'material-ui-icons'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import Logo from './../../assets/Logo.png'
 import Icon from './../../assets/Icon.png'
 
@@ -57,6 +58,8 @@ class NavBar extends React.Component {
               <ListItemText className={classes.listText} primary="User Login/Signup" disableTypography />
             </ListItem>
             <Divider />
+            <ListItem button component={Link} to="/loginnonpro" onClick={this.handleClose}><ListItemText className={classes.listText} primary="User Login/Signup" disableTypography /></ListItem>
+            {this.props.loggedIn && <ListItem button component={Link} to="/favorites" onClick={this.handleClose}><ListItemText className={classes.listText} primary="Favorites" disableTypography /></ListItem>}
           </List>
         </div>)
       return (
@@ -134,4 +137,8 @@ const styles = {
   },
 };
 
-export default withTheme()(withStyles(styles)(NavBar));
+const mapStateToProps = state => ({
+  loggedIn: state.loginReducer.loggedIn,
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(NavBar))

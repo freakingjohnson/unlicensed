@@ -106,7 +106,6 @@ const login = (email, password, setStateNonProInfo, history) => {
     setStateNonProInfo(response.data)
 
     if (response.status === 200) {
-      console.log(response.data)
       alert('Log in successful');
       history.push('/')
     } else {
