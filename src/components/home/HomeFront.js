@@ -113,6 +113,7 @@ const HomeFront = ({
         event.preventDefault()
         getSearchData(userData, image.title.replace(/\s/g, '_'), 'worktype')
         history.push('/results')
+        console.log(userData)
       }}
       >
         <span
@@ -147,4 +148,5 @@ HomeFront.propTypes = {
   classes: PropTypes.object.isRequired,
   userData: PropTypes.array.isRequired,
   getSearchData: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 }
