@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { TextField, Button } from 'material-ui'
-import { FormControl, FormHelperText, FormGroup } from 'material-ui/Form'
+import { FormHelperText, FormGroup } from 'material-ui/Form'
 import { MenuItem } from 'material-ui/Menu'
 import Select from 'material-ui/Select';
 import { withStyles } from 'material-ui/styles'
+import axios from 'axios'
 import { getUserData, getSearchData } from './../../ducks/reducers/resultsReducer'
+import HomeFront from './HomeFront'
+import WebsiteReview from '../websiteReview/WebsiteReview'
+import { resetFromLocalStorage } from './../../ducks/reducers/proLoginReducer'
 
 class Home extends React.Component {
   static propTypes = {
@@ -27,7 +31,26 @@ class Home extends React.Component {
     searchBy: 'worktype',
   }
 
-  searchHandler(e) {
+  componentDidMount() {
+    const { location, resetFromLocalStorage } = this.props
+    if (location.search) {
+      resetFromLocalStorage()
+      let pro = localStorage.getItem('pro')
+      pro = JSON.parse(pro)
+      console.log(pro.email)
+      this.finalizeAccount(location.search, pro.email)
+    }
+  }
+
+  finalizeAccount = (query, email) => {
+    const code = query.split('').splice(6).join('')
+    axios.post('http://localhost:4000/api/addStripe', { code, email }).then((res) => {
+      console.log(res)
+    })
+  }
+
+
+  searchHandler = (e) => {
     this.setState({ search: e.target.value })
   }
 
@@ -36,57 +59,59 @@ class Home extends React.Component {
   }
 
   render() {
-    const { classes, userData, getSearchData } = this.props;
+    const {
+      classes, userData, getSearchData, history,
+    } = this.props;
 
-    const homeView = (
-      <div className={classes.homeWrapper} />
-    )
     return (
-      <div className={classes.background} >
-
-        <form onSubmit={(event) => {
+      <div>
+        <div className={classes.background} >
+          <form onSubmit={(event) => {
           event.preventDefault()
           getSearchData(userData, this.state.search, this.state.searchBy)
           this.setState({
             search: '',
           })
-          this.props.history.push('/results')
+          history.push('/results')
         }}
-        >
-          <FormGroup className={classes.form}>
-            <FormGroup row className={classes.insideForm}>
-              <div className={classes.textField} >
-                <TextField className="search" type="text" label="Search" onChange={e => this.searchHandler(e)} value={this.state.search} />
-              </div>
-              <div>
-                <Select
+          >
+            <FormGroup className={classes.form}>
+              <FormGroup row className={classes.insideForm}>
+                <div className={classes.textField} >
+                  <TextField className="search" type="text" label="Search" onChange={e => this.searchHandler(e)} value={this.state.search} />
+                </div>
+                <div>
+                  <Select
                   // MenuProps={classes={{paper: classes.selectMenu}}}
-                  value={this.state.searchBy}
-                  onChange={this.selectHandler}
-                >
-                  <MenuItem value="worktype">Worktype</MenuItem>
-                  <MenuItem value="name">Name </MenuItem>
-                  <MenuItem value="city"> City </MenuItem>
-                  <MenuItem value="zip"> Zip </MenuItem>
-                </Select>
-                <FormHelperText> Search By </FormHelperText>
-              </div>
-            </FormGroup>
-            <Button
-              color="primary"
-              raised
-              onClick={() => {
+                    value={this.state.searchBy}
+                    onChange={this.selectHandler}
+                  >
+                    <MenuItem value="worktype">Worktype</MenuItem>
+                    <MenuItem value="name">Name </MenuItem>
+                    <MenuItem value="city"> City </MenuItem>
+                    <MenuItem value="zip"> Zip </MenuItem>
+                  </Select>
+                  <FormHelperText> Search By </FormHelperText>
+                </div>
+              </FormGroup>
+              <Button
+                color="primary"
+                raised
+                onClick={() => {
                 getSearchData(userData, this.state.search, this.state.searchBy)
                 this.setState({
                   search: '',
                 })
-                this.props.history.push('/results')
+                history.push('/results')
               }}
-            >Search
-            </Button>
-          </FormGroup>
-        </form>
-        { homeView }
+              >Search
+              </Button>
+            </FormGroup>
+          </form>
+          <div className={classes.homeWrapper} />
+        </div>
+        <WebsiteReview />
+        <HomeFront history={history} />
       </div>
     )
   }
@@ -95,6 +120,7 @@ class Home extends React.Component {
 const mapStateToProps = state => ({
   userData: state.resultsReducer.userData,
   searchData: state.resultsReducer.searchData,
+  email: state.proLoginReducer.email,
 })
 
 const styles = {
@@ -131,4 +157,5 @@ const styles = {
   },
 }
 
-export default connect(mapStateToProps, { getUserData, getSearchData })(withStyles(styles)(Home))
+export default connect(mapStateToProps, { getUserData, getSearchData, resetFromLocalStorage })(withStyles(styles)(Home))
+

@@ -3,8 +3,8 @@ const bcrypt = require('bcryptjs')
 const addNonPro = async (req, res) => {
   const db = req.app.get('db')
   const register = req.body
-  await db.add_non_pro(register.firstName, register.lastName, register.zipCode, register.email).then((data) => {
-    res.status(200)
+  await db.add_non_pro(register.firstName, register.lastName, register.zipCode, register.email).then(() => {
+    res.status(200).send(req.body)
   }).catch((err) => {
     res.status(500).send(err)
   })
@@ -20,6 +20,16 @@ const addNonPro = async (req, res) => {
     })
   }));
 }
+
+// this is only for endpoint tests:
+
+// const deleteNonPro = (req, res, next) => {
+//   const db = req.app.get('db')
+//   const { params } = req
+//   db.delete_non_pro([params.first_name, params.last_name])
+//     .then(body => res.status(200).send())
+//     .catch((err)=>)
+// }
 
 module.exports = (app) => {
   app.post('/api/addnonpro', addNonPro)

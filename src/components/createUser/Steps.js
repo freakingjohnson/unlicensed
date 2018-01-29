@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Stepper, { Step, StepLabel, StepContent } from 'material-ui/Stepper'
-import { Button, withStyles, Paper } from 'material-ui'
+import { Button, withStyles } from 'material-ui'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import PersonalInfo from './PersonalInfo'
