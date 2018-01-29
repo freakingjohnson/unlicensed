@@ -104,12 +104,11 @@ export default connect(mapStateToProps, { setProUserInfo, setStateProUserInfo })
 
 const login = (email, password, setStateProUserInfo, history) => {
   axios.post('api/proLogin', { email, password }).then((response) => {
-    console.log(response)
     setStateProUserInfo(response.data)
 
     if (response.status === 200) {
-      console.log(response.data)
       alert('Logged in successfull');
+      console.log(response.data)
       history.push(`/${response.data.userId}/${response.data.userName}`)
     } else {
       alert('Email or password was incorrect, please try again')

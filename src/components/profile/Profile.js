@@ -6,9 +6,10 @@ import { withStyles, Button, Typography, Avatar, Paper } from 'material-ui';
 import Card, { CardContent } from 'material-ui/Card';
 import EmailMe from './EmailMe'
 import WorkPhotoCard from './WorkPhotoCard'
+import Connect from './Connect'
 
 const Profile = ({
-  classes, userData, match, proLoggedIn,
+  classes, userData, match, proLoggedIn, location,
 }) => {
   const selectedUser = userData.filter((user) => {
     if (user.id === (match.params.id * 1)) {
@@ -39,8 +40,11 @@ const Profile = ({
                     <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Email:</span> {selectedUser[0].email}</Typography>
                     <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Prefered contact method:</span> {contactMethod(selectedUser[0])}</Typography>
                     { proLoggedIn &&
-                    <Button raised color="accent" component={Link} to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >Edit Profile</Button>
-                    }
+                    <div>
+                      <Button raised color="accent" component={Link} to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >Edit Profile</Button>
+                      <Connect id={match.params.id} name={match.params.name} />
+                    </div>
+                  }
                   </CardContent>
                 </Paper>
               </Card>
@@ -111,7 +115,7 @@ const styles = {
 const mapStateToProps = state => ({
   user: state.resultsReducer.user,
   userData: state.resultsReducer.userData,
-  proLoggedIn: state.proLoginReducer.proLoggedIn
+  proLoggedIn: state.proLoginReducer.proLoggedIn,
 })
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(Profile)));

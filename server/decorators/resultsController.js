@@ -1,5 +1,4 @@
 const getUser = (req, res) => {
-  console.log('first', req.session)
   const db = req.app.get('db')
   const params = req
 

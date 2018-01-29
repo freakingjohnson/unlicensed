@@ -103,7 +103,6 @@ export default connect(mapStateToProps, { setInfo, setStateNonProInfo })(withSty
 
 const login = (email, password, setStateNonProInfo, history) => {
   axios.post('api/login', { email, password }).then((response) => {
-    console.log(response)
     setStateNonProInfo(response.data)
 
     if (response.status === 200) {

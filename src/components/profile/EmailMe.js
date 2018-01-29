@@ -78,6 +78,5 @@ EmailMe.propTypes = {
 
 const sendEmail = (email) => {
   axios.post('api/sendEmail', email).then((res) => {
-    console.log(res)
   })
 }
