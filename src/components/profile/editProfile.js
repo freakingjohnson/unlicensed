@@ -118,6 +118,5 @@ EditProfile.propTypes = {
 
 const updateInfo = (info) => {
   axios.put('http://localhost:4000/api/updateUser', info).then((res) => {
-    console.log(res)
   })
 }

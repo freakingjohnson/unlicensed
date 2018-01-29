@@ -1,4 +1,4 @@
 create table favorites (
-    email text not null references nonpro(email),
+    username text not null references non_pro(email),
     userId integer not null references users(id)
 )

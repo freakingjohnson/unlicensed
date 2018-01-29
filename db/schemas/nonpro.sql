@@ -1,4 +1,4 @@
-create table nonpro (
+create table non_pro (
     id serial primary key,
     first_name text,
     last_name text,

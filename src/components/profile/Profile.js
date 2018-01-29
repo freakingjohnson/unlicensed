@@ -6,9 +6,10 @@ import { withStyles, Button, Typography, Avatar, Paper } from 'material-ui';
 import Card, { CardContent } from 'material-ui/Card';
 import EmailMe from './EmailMe'
 import WorkPhotoCard from './WorkPhotoCard'
+import FavoritesIcon from '../favorites/favoriteIcon'
 
 const Profile = ({
-  classes, userData, match,
+  classes, userData, match, proLoggedIn,
 }) => {
   const selectedUser = userData.filter((user) => {
     if (user.id === (match.params.id * 1)) {
@@ -25,9 +26,11 @@ const Profile = ({
               <div className={classes.row}>
                 <Avatar alt="profile pic" src={selectedUser[0].profile_photo} className={classes.avatar} />
               </div>
+
               <Card className={classes.card}>
                 <Paper elevation={3} className={classes.paper}>
                   <CardContent className={classes.cardContent}>
+                    <FavoritesIcon userId={selectedUser[0].id} />
                     <Typography type="display1" color="primary">{selectedUser[0].first_name} {selectedUser[0].last_name}</Typography>
                     <Typography type="subheading">Services Offered</Typography>
                     <Typography type="body1" color="secondary">{selectedUser[0].worktype.replace(/[_]+/g, ' ')}</Typography>
@@ -110,6 +113,7 @@ const styles = {
 const mapStateToProps = state => ({
   user: state.resultsReducer.user,
   userData: state.resultsReducer.userData,
+  proLoggedIn: state.proLoginReducer.proLoggedIn,
 })
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(Profile)));

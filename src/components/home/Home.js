@@ -131,4 +131,4 @@ const styles = {
   },
 }
 
-export default withStyles(styles)(connect(mapStateToProps, { getUserData, getSearchData })(Home))
+export default connect(mapStateToProps, { getUserData, getSearchData })(withStyles(styles)(Home))

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import { Home, Results, editProfile, Profile, Steps, proLogin, nonProSignup, nonProLogin, Privacy } from '../Loadable/Loadable'
+import { Home, Results, editProfile, Profile, Steps, proLogin, nonProSignup, nonProLogin, Privacy, Favorites } from '../Loadable/Loadable'
 
 
 export default (
@@ -14,5 +14,6 @@ export default (
     <Route path="/signup" component={nonProSignup} />
     <Route path="/loginnonpro" component={nonProLogin} />
     <Route path="/privacy-policy" component={Privacy} />
+    <Route path="/favorites" component={Favorites} />
   </Switch>
 )

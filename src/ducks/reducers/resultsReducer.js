@@ -10,25 +10,12 @@ const initialState = {
 const GET_USER_DATA = 'GET_USER_DATA',
   GET_SEARCH_DATA = 'GET_SEARCH_DATA',
   SINGLE_USER = 'SINGLE_USER',
-  REVEAL = 'REVEAL',
-  GET_FAVORITES = 'GET_FAVORITES',
-  DELETE_FAVORITE = 'DELETE_FAVORITE',
-  ADD_FAVORITE = 'ADD_FAVORITE'
-
-
-export const getFavorites = (favorites) => {
-  let favResults = favorites
-  favResults = axios.get('/api/favorites').then(res => res.data).catch(console.log)
-  return {
-    type: GET_FAVORITES,
-    payload: favResults,
-  }
-}
+  REVEAL = 'REVEAL'
 
 export const getUserData = (userData) => {
   let results = userData
   if (userData.length === 0) {
-    results = axios.get('/api/users').then(res => res.data).catch(console.log)
+    results = axios.get('/api/users').then(res => res.data).catch()
   }
   return {
     type: GET_USER_DATA,

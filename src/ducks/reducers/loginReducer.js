@@ -5,6 +5,7 @@ const initialState = {
   lastName: '',
   zipCode: '',
   email: '',
+  username: '',
   password: '',
   verifyPassword: '',
   loggedIn: false,
@@ -17,7 +18,9 @@ const SET_INFO = 'SET_INFO',
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_INFO:
-      return { ...state, [action.state]: action.payload }
+      return {
+        ...state, [action.state]: action.payload, username: state.email, loggedIn: true,
+      }
     case SET_STATE_WITH_SESSION_NON_PRO:
       return {
         ...state, [action.state]: action.payload, password: '', email: '',
@@ -51,7 +54,6 @@ export const send = (firstName, lastName, zipCode, email, password, history) => 
   axios.post('api/addnonpro', {
     firstName, lastName, zipCode, email, password,
   }).then(() => {
-    // console.log(res)
   })
   history.push('/')
   return {
