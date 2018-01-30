@@ -2,6 +2,8 @@
 
 The purpose of this application is to allow independant skilled laborers to connect with unskilled people who are seeking skilled services.
 
+<img src="https://github.com/wpr-30-group-project/unlicensed/blob/nathan8/src/assets/demo.gif"/>
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
