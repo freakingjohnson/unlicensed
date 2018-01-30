@@ -23,7 +23,6 @@ const EditProfile = ({
     {
       firstName, lastName, phone, text, call, both, email, bio, location, profilePic, picName, profilePicUrl,
     } = userReducer
-
   let userPhone;
   if (user) {
     userPhone = user.phone.replace(/[{}"]+/g, '').split(',')
@@ -45,7 +44,6 @@ const EditProfile = ({
       id: user.id,
     }
   }
-
   return (
     <div>
       {
@@ -118,6 +116,5 @@ EditProfile.propTypes = {
 
 const updateInfo = (info) => {
   axios.put('http://localhost:4000/api/updateUser', info).then((res) => {
-    console.log(res)
   })
 }

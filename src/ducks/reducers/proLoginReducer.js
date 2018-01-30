@@ -17,7 +17,6 @@ export default function reducer(state = initialState, action) {
       return { ...state, [action.state]: action.payload, password: '' }
     default: return state
   }
-  // case SET_STATE_WITH_SESSION_PRO:
 }
 
 export const setProUserInfo = (e) => {

@@ -1,6 +1,5 @@
 const getClient = (req, res) => {
   let clientInfo = req.session.user
-  console.log(clientInfo)
   return clientInfo
 }
 

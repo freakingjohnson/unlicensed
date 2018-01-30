@@ -6,16 +6,17 @@ import { withStyles, Button, Typography, Avatar, Paper } from 'material-ui';
 import Card, { CardContent } from 'material-ui/Card';
 import EmailMe from './EmailMe'
 import WorkPhotoCard from './WorkPhotoCard'
+import ProReview from '../proReviews/proReviewDialogBox'
+import ProReviewDisplay from '../proReviews/proReviewDisplay'
 
 const Profile = ({
-  classes, userData, match,
+  classes, userData, match, userLoggedIn,
 }) => {
   const selectedUser = userData.filter((user) => {
     if (user.id === (match.params.id * 1)) {
       return user
     }
   })
-
   return (
     <div>
       {
@@ -38,13 +39,19 @@ const Profile = ({
                     <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Phone:</span> {selectedUser[0].phone.replace(/[{}"]+/g, '').split(',')}</Typography>
                     <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Email:</span> {selectedUser[0].email}</Typography>
                     <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Prefered contact method:</span> {contactMethod(selectedUser[0])}</Typography>
-                    {/* {loggedIn && */}
                     <Button raised color="accent" component={Link} to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >Edit Profile</Button>
                   </CardContent>
                 </Paper>
               </Card>
             </div>
             <WorkPhotoCard workPhotos={selectedUser[0].workphotos} photoDesc={selectedUser[0].photo_info} />
+            {
+            userLoggedIn === true ?
+              <ProReview selectedUser={selectedUser[0]} />
+              :
+              <div />
+              }
+            <ProReviewDisplay selectedUser={selectedUser[0]} />
             <EmailMe proName={`${selectedUser[0].first_name}`} proEmail={`${selectedUser[0].email}`} />
           </div> :
           <h3>loading</h3>
@@ -54,7 +61,6 @@ const Profile = ({
 }
 
 const styles = {
-  // make it so profile pic and contact info are aligned
   card: {
     display: 'flex',
     justifyContent: 'center',
@@ -93,7 +99,6 @@ const styles = {
     maxWidth: 345,
   },
   media: {
-    // make conatiner for pic so i can set the height to fill that div.
     height: '350px',
   },
   container: {
@@ -110,6 +115,9 @@ const styles = {
 const mapStateToProps = state => ({
   user: state.resultsReducer.user,
   userData: state.resultsReducer.userData,
+  userLoggedIn: state.loginReducer.loggedIn,
+  reviews: state.resultsReducer.reviews[0],
+
 })
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(Profile)));
@@ -122,6 +130,7 @@ Profile.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  userLoggedIn: PropTypes.boolean,
 };
 
 Profile.defaultProps = {

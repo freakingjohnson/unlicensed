@@ -24,7 +24,6 @@ export default withRouter(connect(mapStateToProps)(SubmitInfo))
 
 const send = (profileInfo, history) => {
   axios.post('api/addUser', profileInfo).then((res) => {
-    console.log(res)
   })
   history.push('/')
 }

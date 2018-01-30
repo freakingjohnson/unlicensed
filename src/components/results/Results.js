@@ -83,4 +83,5 @@ export default connect(mapStateToProps)(withStyles(styles)(Results))
 
 Results.propTypes = {
   searchData: PropTypes.array.isRequired,
+  classes: PropTypes.object,
 }

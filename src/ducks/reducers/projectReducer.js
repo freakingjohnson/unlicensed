@@ -65,7 +65,6 @@ export const addToPicUrls = (file) => {
     }
 
     if (response.body.secure_url !== '') {
-      console.log(response.body.secure_url)
       store.dispatch({
         type: SET_PIC_URL,
         payload: response.body.secure_url,

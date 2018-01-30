@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs')
 
 const loginNonPro = async (req, res) => {
-  console.log(req)
   const db = req.app.get('db')
   const { email, password } = req.body
 
@@ -12,7 +11,6 @@ const loginNonPro = async (req, res) => {
         req.session.nonpro.userId = (data[0].id)
         req.session.nonpro.userName = `${data[0].first_name}-${data[0].last_name}`
         req.session.nonpro.email = (data[0].email)
-        console.log(req.session)
       }
       res.send(req.session.nonpro)
     })
