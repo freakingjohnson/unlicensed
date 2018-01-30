@@ -1,7 +1,6 @@
 import React from 'react'
-import { Checkbox } from 'material-ui'
+import { Checkbox, FormGroup, FormControlLabel } from 'material-ui'
 import { connect } from 'react-redux'
-import { FormGroup, FormControlLabel } from 'material-ui/Form'
 import PropTypes from 'prop-types'
 import { setServices, services } from './../../ducks/reducers/serviceReducer'
 

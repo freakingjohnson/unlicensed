@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import Card, { CardContent } from 'material-ui/Card';
 import { InfoOutline } from 'material-ui-icons'
-import { Typography, Avatar, withStyles, IconButton } from 'material-ui';
+import { Typography, Avatar, withStyles, IconButton, Card, CardContent } from 'material-ui';
 
 const Results = ({ searchData, classes }) => {
   const userTile = searchData && searchData.map((user, index) => (
@@ -32,9 +31,10 @@ const Results = ({ searchData, classes }) => {
       {searchData && searchData.length > 0 ?
         <div>
           <div />
+          <div>({searchData.length}) Results Found <Link to="/" >Search Again</Link></div>
           {userTile}
         </div> :
-        <div>loading</div>
+        <div>({searchData.length}) Results Found <Link to="/" >Search Again</Link></div>
      }
     </div>
   )

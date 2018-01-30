@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
-import { TextField, Button } from 'material-ui'
-import { FormHelperText, FormGroup } from 'material-ui/Form'
-import { MenuItem } from 'material-ui/Menu'
-import Select from 'material-ui/Select';
-import { withStyles } from 'material-ui/styles'
+import { TextField, Button, FormHelperText, FormGroup, MenuItem, Select, withStyles } from 'material-ui'
 import axios from 'axios'
 import { getUserData, getSearchData } from './../../ducks/reducers/resultsReducer'
 import HomeFront from './HomeFront'

@@ -1,10 +1,9 @@
-import React from 'react';
+import React from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
-import { withStyles, Button, Typography, Avatar, Paper } from 'material-ui';
-import Card, { CardContent } from 'material-ui/Card';
 import { bindActionCreators } from 'redux';
+import { withStyles, Button, Typography, Avatar, Paper, Card, CardContent } from 'material-ui'
 import EmailMe from './EmailMe'
 import WorkPhotoCard from './WorkPhotoCard'
 import FavoritesIcon from '../favorites/favoriteIcon'
@@ -13,7 +12,7 @@ import { getPaid } from './../../ducks/reducers/proLoginReducer'
 import PayMe from './PayMe'
 
 const Profile = ({
-  classes, userData, match, proLoggedIn, stripeId, getPaid, payMe,
+  classes, userData, match, proLoggedIn, stripeId, getPaid, payMe, userId,
 }) => {
   const selectedUser = userData.filter((user) => {
     if (user.id === (match.params.id * 1)) {
@@ -45,13 +44,13 @@ const Profile = ({
                     <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Phone:</span> {selectedUser[0].phone.replace(/[{}"]+/g, '').split(',')}</Typography>
                     <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Email:</span> {selectedUser[0].email}</Typography>
                     <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Prefered contact method:</span> {contactMethod(selectedUser[0])}</Typography>
-                    { proLoggedIn &&
+                    { proLoggedIn && userId === selectedUser[0].id &&
                     <div>
                       <Button raised color="accent" component={Link} to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >Edit Profile</Button>
                       { stripeId === null ? <Connect id={match.params.id} name={match.params.name} /> : <Button onClick={() => getPaid(true)}>Accept Payment</Button>}
                       <PayMe open={payMe} onClose={() => getPaid(false)} />
                     </div>
-                  }
+                    }
                   </CardContent>
                 </Paper>
               </Card>
@@ -125,6 +124,7 @@ const mapStateToProps = state => ({
   proLoggedIn: state.proLoginReducer.proLoggedIn,
   stripeId: state.proLoginReducer.stripeId,
   payMe: state.proLoginReducer.payMe,
+  userId: state.proLoginReducer.userId,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -136,6 +136,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyle
 Profile.propTypes = {
   classes: PropTypes.object.isRequired,
   userData: PropTypes.array,
+  userId: PropTypes.string.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,

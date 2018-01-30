@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Drawer, withStyles, AppBar, Toolbar, IconButton } from 'material-ui';
 import { Menu } from 'material-ui-icons'
-import { connect } from 'react-redux'
 import Logo from './../../assets/Logo.png'
 import SideList from './SideList'
 
@@ -35,7 +34,7 @@ class NavBar extends React.Component {
                   open={this.state.open}
                   onClose={() => this.setState({ open: !this.state.open })}
                 >
-                  <SideList handleClose={this.handleClose}/>
+                  <SideList handleClose={this.handleClose} />
                 </Drawer>
               </div>
               <img className={classes.logo} src={Logo} alt="logo" />
