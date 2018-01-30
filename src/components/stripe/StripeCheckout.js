@@ -47,5 +47,5 @@ Checkout.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   amount: PropTypes.number.isRequired,
-  accountId: PropTypes.number.isRequired,
+  accountId: PropTypes.string.isRequired,
 }

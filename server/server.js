@@ -17,6 +17,7 @@ const express = require('express'),
   checkForSession = require('./middlewares/checkForSession'),
   updateProInfo = require('./decorators/updateProInfo'),
   stripe = require('./decorators/stripe')
+  logout = require('./decorators/logout')
 
 
 const app = express();
@@ -50,5 +51,6 @@ updateProInfo(app)
 addNonPro(app)
 loginNonPro(app)
 stripe(app)
+logout(app)
 
 app.listen(process.env.SERVER_PORT, () => { console.log(`Server listening on port ${process.env.SERVER_PORT}`) })

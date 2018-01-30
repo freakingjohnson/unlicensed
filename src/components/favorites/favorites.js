@@ -8,12 +8,15 @@ import { Typography, Avatar, withStyles, IconButton } from 'material-ui'
 import axios from 'axios'
 
 class Favorites extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
+  static propTypes = {
+    username: PropTypes.string.isRequired,
+    userData: PropTypes.array.isRequired,
+    classes: PropTypes.object.isRequired,
+  }
+
+    state = {
       favorites: [],
     }
-  }
 
   componentDidMount = () => {
     axios.get('/api/favorites', this.props.username)
@@ -35,14 +38,18 @@ class Favorites extends Component {
       return selectedUser
     })
 
+    const { classes } = this.props
+
     favoriteTile = favoriteTile.length > 0 ? (
-      favoriteTile.map((selectedUser, i) => (
-        <Card key={selectedUser.id}>
-          <div>
-            <Avatar src={(selectedUser.profile_photo ? selectedUser.profile_photo :
+      favoriteTile.map(selectedUser => (
+        <Card key={selectedUser.id} className={classes.profileContainer}>
+          <div className={classes.cardHeader}>
+            <Avatar
+              className={classes.avatar}
+              src={(selectedUser.profile_photo ? selectedUser.profile_photo :
                           'https://t3.ftcdn.net/jpg/00/64/67/80/240_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg')}
             />
-            <div>
+            <div className={classes.userInfo}>
               <CardContent>
                 <h2 style={{ fontSize: '18px' }}>{`${selectedUser.first_name} ${selectedUser.last_name}`}</h2>
                 <h3 style={{ fontSize: '14px', maginBottom: '5px' }}>{selectedUser.location}</h3>
@@ -51,8 +58,8 @@ class Favorites extends Component {
                 </Typography>
               </CardContent>
             </div>
-            <IconButton component={Link} to={`/${selectedUser.id}/${selectedUser.first_name}-${selectedUser.last_name}`}>
-              <InfoOutline />
+            <IconButton component={Link} to={`/${selectedUser.id}/${selectedUser.first_name}-${selectedUser.last_name}`} className={classes.iconButton}>
+              <InfoOutline className={classes.icon} />
             </IconButton>
           </div>
         </Card>
@@ -69,10 +76,42 @@ class Favorites extends Component {
     )
   }
 }
+
+const styles = {
+  profileContainer: {
+    display: 'flex',
+    color: 'black',
+    padding: '15px',
+    height: '12vh',
+  },
+  avatar: {
+    height: 80,
+    width: 80,
+  },
+  cardHeader: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  userInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '5px 25px 0 10px',
+  },
+  iconButton: {
+    position: 'absolute',
+    right: '10px',
+  },
+  icon: {
+    fontSize: '45px',
+    color: '#003e61',
+    marginLeft: '10px',
+  },
+}
+
 const mapStateToProps = state => ({
   userData: state.resultsReducer.userData,
   username: state.loginReducer.username,
 })
 
-export default connect(mapStateToProps)(Favorites)
+export default connect(mapStateToProps)(withStyles(styles)(Favorites))
 

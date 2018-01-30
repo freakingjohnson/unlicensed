@@ -4,13 +4,16 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom'
 import { withStyles, Button, Typography, Avatar, Paper } from 'material-ui';
 import Card, { CardContent } from 'material-ui/Card';
+import { bindActionCreators } from 'redux';
 import EmailMe from './EmailMe'
 import WorkPhotoCard from './WorkPhotoCard'
 import FavoritesIcon from '../favorites/favoriteIcon'
 import Connect from './Connect'
+import { getPaid } from './../../ducks/reducers/proLoginReducer'
+import PayMe from './PayMe'
 
 const Profile = ({
-  classes, userData, match, proLoggedIn, location,
+  classes, userData, match, proLoggedIn, stripeId, getPaid, payMe,
 }) => {
   const selectedUser = userData.filter((user) => {
     if (user.id === (match.params.id * 1)) {
@@ -45,7 +48,8 @@ const Profile = ({
                     { proLoggedIn &&
                     <div>
                       <Button raised color="accent" component={Link} to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >Edit Profile</Button>
-                      <Connect id={match.params.id} name={match.params.name} />
+                      { stripeId === null ? <Connect id={match.params.id} name={match.params.name} /> : <Button onClick={() => getPaid(true)}>Accept Payment</Button>}
+                      <PayMe open={payMe} onClose={() => getPaid(false)} />
                     </div>
                   }
                   </CardContent>
@@ -119,9 +123,15 @@ const mapStateToProps = state => ({
   user: state.resultsReducer.user,
   userData: state.resultsReducer.userData,
   proLoggedIn: state.proLoginReducer.proLoggedIn,
+  stripeId: state.proLoginReducer.stripeId,
+  payMe: state.proLoginReducer.payMe,
 })
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(Profile)));
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getPaid,
+}, dispatch)
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Profile)));
 
 Profile.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -131,6 +141,10 @@ Profile.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  proLoggedIn: PropTypes.bool.isRequired,
+  stripeId: PropTypes.string.isRequired,
+  getPaid: PropTypes.func.isRequired,
+  payMe: PropTypes.bool.isRequired,
 };
 
 Profile.defaultProps = {

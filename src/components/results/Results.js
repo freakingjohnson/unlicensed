@@ -60,10 +60,6 @@ const styles = {
     flexDirection: 'column',
     padding: '5px 25px 0 10px',
   },
-  cardContent: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
   iconButton: {
     position: 'absolute',
     right: '10px',

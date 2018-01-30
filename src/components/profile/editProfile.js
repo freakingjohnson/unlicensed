@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextField, Checkbox, FormGroup, Button, Avatar } from 'material-ui'
+import { TextField, Checkbox, FormGroup, Button, Avatar, withStyles, Paper, Typography } from 'material-ui'
 import { FormControlLabel } from 'material-ui/Form'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -11,7 +11,7 @@ import { personalInfo, setProfilePic, checkBoxes } from './../../ducks/reducers/
 let proLoggedIn = true
 
 const EditProfile = ({
-  userData, userReducer, match, personalInfo, setProfilePic, checkBoxes,
+  userData, userReducer, match, personalInfo, setProfilePic, checkBoxes, classes,
 }) => {
   const selectedUser = userData.filter((user) => {
     if (user.id === (match.params.id * 1)) {
@@ -47,47 +47,84 @@ const EditProfile = ({
   }
 
   return (
-    <div>
+    <div className={classes.container}>
       {
     proLoggedIn && selectedUser.length > 0 &&
-    <div>
-      <FormGroup>
-        <TextField label="First Name" name="firstName" helperText={user.first_name} value={firstName} onChange={e => personalInfo(e)} />
-        <TextField label="Last Name" name="lastName" helperText={user.last_name} value={lastName} onChange={e => personalInfo(e)} />
-        <TextField label="Phone Number" name="phone" helperText={userPhone[0]} value={phone} onChange={e => personalInfo(e)} />
-        <FormGroup row>
-          <FormControlLabel
-            control={
-              <Checkbox name="call" checked={call} onClick={e => checkBoxes(e, call)} />
+    <div className={classes.wrapper}>
+      <Paper elevation={24} className={classes.paper} >
+        <Typography className={classes.title} color="primary" type="headline">Edit your profile!</Typography>
+        <FormGroup className={classes.form}>
+          <TextField label="First Name" name="firstName" helperText={user.first_name} value={firstName} onChange={e => personalInfo(e)} />
+          <TextField label="Last Name" name="lastName" helperText={user.last_name} value={lastName} onChange={e => personalInfo(e)} />
+          <TextField label="Phone Number" name="phone" helperText={userPhone[0]} value={phone} onChange={e => personalInfo(e)} />
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox name="call" checked={call} onClick={e => checkBoxes(e, call)} />
             }
-            label="Call"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox name="text" checked={text} onClick={e => checkBoxes(e, text)} />
+              label="Call"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox name="text" checked={text} onClick={e => checkBoxes(e, text)} />
             }
-            label="Text"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox name="both" checked={both} onClick={e => checkBoxes(e, both)} />
+              label="Text"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox name="both" checked={both} onClick={e => checkBoxes(e, both)} />
             }
-            label="Both"
-          />
+              label="Both"
+            />
+          </FormGroup>
+          <TextField label="Email" name="email" helperText={user.email} value={email} onChange={e => personalInfo(e)} />
+          <TextField label="Bio" name="bio" helperText={user.bio_info} value={bio} onChange={e => personalInfo(e)} />
+          <TextField label="Zip Code" name="location" helperText={user.location.split(' ')[2]} value={location} onChange={e => personalInfo(e)} />
+          {picName &&
+          <h2>{picName}</h2>}
+          <Avatar className={classes.avatar} src={profilePic ? profilePic : user.profile_photo} />
+          <Dropzone multiple={false} accept="image/*" onDrop={e => setProfilePic(e[0])} />
+          <Button className={classes.button} raised color="accent" onClick={() => updateInfo(updatedInfo)}>Save Changes</Button>
         </FormGroup>
-        <TextField label="Email" name="email" helperText={user.email} value={email} onChange={e => personalInfo(e)} />
-        <TextField label="Bio" name="bio" helperText={user.bio_info} value={bio} onChange={e => personalInfo(e)} />
-        <TextField label="Zip Code" name="location" helperText={user.location.split(' ')[2]} value={location} onChange={e => personalInfo(e)} />
-        {picName &&
-        <h2>{picName}</h2>}
-        <Avatar src={profilePic ? profilePic : user.profile_photo} />
-        <Dropzone multiple={false} accept="image/*" onDrop={e => setProfilePic(e[0])} />
-      </FormGroup>
-      <Button raised onClick={() => updateInfo(updatedInfo)}>Save Changes</Button>
+      </Paper>
     </div>
     }
     </div>
   )
+}
+
+const styles = {
+  container: {
+    background: 'radial-gradient(black, #9e9994, #cfcac4, #fffdf7)',
+    height: '149vh',
+  },
+  wrapper: {
+    display: 'flex',
+  },
+  paper: {
+    width: '90%',
+    height: '137vh',
+    marginLeft: '5%',
+    marginTop: '10%',
+  },
+  title: {
+    textAlign: 'center',
+    marginTop: '15px',
+    marginBottom: '-30px',
+  },
+  form: {
+    width: '90%',
+    marginLeft: '5%',
+    marginTop: '10%',
+  },
+  avatar: {
+    height: 100,
+    width: 100,
+    margin: '15px',
+  },
+  button: {
+    margin: '20px 0',
+  },
 }
 
 const mapStateToProps = state => ({
@@ -101,7 +138,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   checkBoxes,
 }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditProfile)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EditProfile))
 
 EditProfile.propTypes = {
   userData: PropTypes.array.isRequired,
@@ -114,9 +151,10 @@ EditProfile.propTypes = {
   personalInfo: PropTypes.func.isRequired,
   setProfilePic: PropTypes.func.isRequired,
   checkBoxes: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 }
 
 const updateInfo = (info) => {
-  axios.put('http://localhost:4000/api/updateUser', info).then((res) => {
+  axios.put('http://localhost:4000/api/updateUser', info).then(() => {
   })
 }
