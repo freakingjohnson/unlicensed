@@ -31,7 +31,7 @@ EMAIL_PASSWORD=
 STRIPE_SECRET_KEY=
 REACT_APP_STRIPE_SECRET_KEY=
 ```
-once configured install dependancies via npm
+once the .env is configured install dependancies via npm
 
 ```
 npm install
