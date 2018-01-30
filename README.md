@@ -102,8 +102,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 Special thanks to the DevMountain Mentors who made this possible:
-*[Todd Rasband](https://www.linkedin.com/in/toddrasband/)
-*[Andrew Garvin](https://www.linkedin.com/in/dandrewgarvin/)
-*[Brennon Schow](https://www.linkedin.com/in/brennonschow/)
-*[Emily Keator](https://www.linkedin.com/in/emkeator/)
-
+* **[Todd Rasband](https://www.linkedin.com/in/toddrasband/)**
+* **[Andrew Garvin](https://www.linkedin.com/in/dandrewgarvin/)**
+* **[Brennon Schow](https://www.linkedin.com/in/brennonschow/)**
+* **[Emily Keator](https://www.linkedin.com/in/emkeator/)**
