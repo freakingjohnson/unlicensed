@@ -1,6 +1,6 @@
 # Builders Independant
 
-The purpose of this application is to allow independant skilled laborers to connect with people seeking their services.
+The purpose of this application is to allow independant skilled laborers to connect with unskilled people who are seeking skilled services.
 
 ## Getting Started
 
@@ -31,7 +31,7 @@ EMAIL_PASSWORD=
 STRIPE_SECRET_KEY=
 REACT_APP_STRIPE_SECRET_KEY=
 ```
-once configured install dependancies via npm
+once the .env is configured install dependancies via npm
 
 ```
 npm install
