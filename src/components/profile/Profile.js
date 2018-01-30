@@ -9,7 +9,7 @@ import FavoritesIcon from '../favorites/favoriteIcon'
 import Connect from './Connect'
 
 const Profile = ({
-  classes, userData, match, proLoggedIn, location,
+  classes, userData, match, proLoggedIn, location, userId,
 }) => {
   const selectedUser = userData.filter((user) => {
     if (user.id === (match.params.id * 1)) {
@@ -41,12 +41,12 @@ const Profile = ({
                     <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Phone:</span> {selectedUser[0].phone.replace(/[{}"]+/g, '').split(',')}</Typography>
                     <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Email:</span> {selectedUser[0].email}</Typography>
                     <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Prefered contact method:</span> {contactMethod(selectedUser[0])}</Typography>
-                    { proLoggedIn &&
+                    { proLoggedIn && userId === selectedUser[0].id &&
                     <div>
                       <Button raised color="accent" component={Link} to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >Edit Profile</Button>
                       <Connect id={match.params.id} name={match.params.name} />
                     </div>
-                  }
+                    }
                   </CardContent>
                 </Paper>
               </Card>
@@ -118,6 +118,7 @@ const mapStateToProps = state => ({
   user: state.resultsReducer.user,
   userData: state.resultsReducer.userData,
   proLoggedIn: state.proLoginReducer.proLoggedIn,
+  userId: state.proLoginReducer.userId,
 })
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(Profile)));
@@ -125,6 +126,7 @@ export default withRouter(connect(mapStateToProps)(withStyles(styles)(Profile)))
 Profile.propTypes = {
   classes: PropTypes.object.isRequired,
   userData: PropTypes.array,
+  userId: PropTypes.string.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
