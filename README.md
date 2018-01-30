@@ -2,8 +2,6 @@
 
 The purpose of this application is to allow independant skilled laborers to connect with unskilled people who are seeking skilled services.
 
-<video src="./src/assets/quickdemo.mp4"/>
-
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
