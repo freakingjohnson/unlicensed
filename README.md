@@ -1,6 +1,6 @@
 # Builders Independant
 
-The purpose of this application is to allow independant skilled laborers to connect with people seeking their services.
+The purpose of this application is to allow independant skilled laborers to connect with unskilled people who are seeking skilled services.
 
 ## Getting Started
 
