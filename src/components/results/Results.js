@@ -32,9 +32,10 @@ const Results = ({ searchData, classes }) => {
       {searchData && searchData.length > 0 ?
         <div>
           <div />
+          <div>({searchData.length}) Results Found <Link to="/" >Search Again</Link></div>
           {userTile}
         </div> :
-        <div>loading</div>
+        <div>({searchData.length}) Results Found <Link to="/" >Search Again</Link></div>
      }
     </div>
   )
