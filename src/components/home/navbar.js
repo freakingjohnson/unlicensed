@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List, ListItem, ListItemText, Drawer, Divider, withStyles, AppBar, Toolbar, IconButton, withTheme, ListItemIcon } from 'material-ui';
+import { List, ListItem, ListItemText, Drawer, Divider, withStyles, AppBar, Toolbar, IconButton, ListItemIcon } from 'material-ui';
 import { Menu } from 'material-ui-icons'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'

@@ -1,10 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withStyles } from 'material-ui/styles'
-import ButtonBase from 'material-ui/ButtonBase';
-import Typography from 'material-ui/Typography';
-import { Link } from 'react-router-dom'
+import { ButtonBase, Typography, withStyles } from 'material-ui'
 import { getSearchData } from './../../ducks/reducers/resultsReducer'
 
 const styles = theme => ({

@@ -1,9 +1,8 @@
-import React from 'react';
+import React from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
-import { withStyles, Button, Typography, Avatar, Paper } from 'material-ui';
-import Card, { CardContent } from 'material-ui/Card';
+import { withStyles, Button, Typography, Avatar, Paper, Card, CardContent } from 'material-ui'
 import EmailMe from './EmailMe'
 import WorkPhotoCard from './WorkPhotoCard'
 import FavoritesIcon from '../favorites/favoriteIcon'

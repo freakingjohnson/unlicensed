@@ -1,6 +1,5 @@
 import React from 'react'
-import { TextField, Checkbox, FormGroup, Button, Avatar } from 'material-ui'
-import { FormControlLabel } from 'material-ui/Form'
+import { TextField, Checkbox, FormGroup, Button, Avatar, FormControlLabel } from 'material-ui'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux';
