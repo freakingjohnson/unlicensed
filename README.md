@@ -2,7 +2,11 @@
 
 The purpose of this application is to allow independant skilled laborers to connect with unskilled people who are seeking skilled services.
 
+<<<<<<< HEAD
 <img src="./src/assets/quickdemo.mp4"/>
+=======
+<video src="./src/assets/nimbus-record-video-2018-01-30-14-34-53.webm"/>
+>>>>>>> 81e4b00cdbcca7a3e28b13d153954fa0b3fa5cdb
 
 ## Getting Started
 
