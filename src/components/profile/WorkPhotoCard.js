@@ -1,6 +1,5 @@
 import React from 'react'
-import Card, { CardContent, CardMedia } from 'material-ui/Card';
-import { Typography, withStyles, Paper } from 'material-ui'
+import { Typography, withStyles, Paper, Card, CardContent, CardMedia } from 'material-ui'
 import PropTypes from 'prop-types'
 
 const WorkPhotoCard = ({ workPhotos, photoDesc, classes }) => {

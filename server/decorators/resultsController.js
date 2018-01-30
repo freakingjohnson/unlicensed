@@ -13,3 +13,4 @@ const getUser = (req, res) => {
 module.exports = (app) => {
   app.get('/api/users', getUser)
 }
+

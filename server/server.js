@@ -13,10 +13,14 @@ const express = require('express'),
   getFavorites = require('./decorators/favoritesController'),
   createInitialSession = require('./middlewares/session'),
   addNonPro = require('./decorators/addNonPro'),
+  deleteNonPro = require('./decorators/addNonPro'),
   loginNonPro = require('./decorators/loginNonPro'),
   checkForSession = require('./middlewares/checkForSession'),
   updateProInfo = require('./decorators/updateProInfo'),
-  postProReview = require('./decorators/postProReview')
+  postProReview = require('./decorators/postProReview'),
+  stripe = require('./decorators/stripe'),
+  logout = require('./decorators/logout')
+
 
 
 const app = express();
@@ -50,5 +54,8 @@ updateProInfo(app)
 addNonPro(app)
 loginNonPro(app)
 postProReview(app)
+stripe(app)
+logout(app)
+deleteNonPro(app)
 
 app.listen(process.env.SERVER_PORT, () => { console.log(`Server listening on port ${process.env.SERVER_PORT}`) })

@@ -6,7 +6,6 @@ const getClient = (req, res) => {
 
 //   db.get_client([params.session.user]).then((body) => {
 //     res.status(200).send(body)
-//     console.log(body)
 //   })
 //     .catch((error) => {
 //       res.status(500).send(error)

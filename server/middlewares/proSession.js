@@ -5,6 +5,7 @@ module.exports = (req, res, next) => {
       userId: '',
       email: '',
       proLoggedIn: false,
+      stripeId: '',
     }
   }
   next();

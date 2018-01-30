@@ -1,0 +1,1 @@
+delete from non_pro where first_name = 'Tim' and email = 'tim@homeimprovement.com'

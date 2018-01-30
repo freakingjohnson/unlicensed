@@ -1,0 +1,201 @@
+{
+	"info": {
+		"name": "jose endpoint tests",
+		"_postman_id": "a4ec0f92-fa13-e092-9de7-2b3fa53c607f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET - All users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1aa21b80-5396-4dc2-aa38-19d9526acbba",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"status code 200\", function(){",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"let response = pm.response.json()",
+							"",
+							"pm.test(\"get all users\", ()=>{",
+							"    pm.expect(response.length).to.be.above(0)",
+							"})",
+							"",
+							"pm.test(\"contains user with id 1 at index 0\", ()=>{",
+							"    pm.expect(response[0].id).to.eql(1)",
+							"})"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:4000/api/users",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST Non Pro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "314a53d0-7872-486c-90e8-ad1e202a76c1",
+						"type": "text/javascript",
+						"exec": [
+							"const res = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Tim Allen added to non_pro table', function() {",
+							"",
+							"    let firstName = 'Tim';",
+							"    let lastName = 'Taylor';",
+							"    let zipCode = '12345';",
+							"    let email = \"tim@homeimprovement.com\";",
+							"    let password = 'guest';",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body('{\"firstName\":\"Tim\",\"lastName\":\"Taylor\",\"zipCode\":\"12345\",\"email\":\"tim@homeimprovement.com\",\"password\":\"guest\"}');",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4be13106-5f90-4aee-9543-88f512291faa",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Tim\",\n    \"lastName\": \"Taylor\",\n    \"zipCode\": \"12345\",\n    \"email\": \"tim@homeimprovement.com\",\n    \"password\": \"guest\"\n}"
+				},
+				"url": {
+					"raw": "localhost:4000/api/addnonpro?firstName=Tim&lastName=Taylor&zipCode=12345&email=tim@homeimprovement.com&password=guest",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"addnonpro"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Tim",
+							"equals": true
+						},
+						{
+							"key": "lastName",
+							"value": "Taylor",
+							"equals": true
+						},
+						{
+							"key": "zipCode",
+							"value": "12345",
+							"equals": true
+						},
+						{
+							"key": "email",
+							"value": "tim@homeimprovement.com",
+							"equals": true
+						},
+						{
+							"key": "password",
+							"value": "guest",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Non pro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8644a28f-e70a-4d4e-9f40-6d49cf8afff7",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"status code 200\", function(){",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body('[]');",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:4000/api/deletenonpro",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"deletenonpro"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

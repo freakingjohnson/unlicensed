@@ -1,7 +1,7 @@
-const getFavorites = (req, res, next) => {
+const getFavorites = (req, res) => {
   const db = req.app.get('db')
-  const params = req
-  db.favorites().then((response) => {
+  const username = req.session.nonpro.email
+  db.favorites([username]).then((response) => {
     res.status(200).send(response)
   })
     .catch((error) => {
@@ -11,26 +11,20 @@ const getFavorites = (req, res, next) => {
 
 const addFavorite = (req, res) => {
   const db = req.app.get('db')
-  const { email, userId } = req.body
-  db.add_favorite(email, userId).then((response) => {
-    if (response.filter(x => x.userId === userId)[0]) {
-      res.end()
-      return
-    }
-    db.add_favorite(email, userId).then((response) => {
-      res.status(200).send(response)
-    })
-      .catch((error) => {
-        res.status(500).send(error)
-      })
+  const { username, userId } = req.body
+  db.add_favorite([username, userId]).then((response) => {
+    res.status(200).send(response)
   })
+    .catch((error) => {
+      res.status(500).send(error)
+    })
 }
 
 
 const deleteFavorite = (req, res) => {
   const db = req.app.get('db')
-  const { email, userId } = req.params
-  db.delete_favorite([email, userId]).then((response) => {
+  const { username, userId } = req.params
+  db.delete_favorite([username, userId]).then((response) => {
     res.status(200).send(response)
   })
     .catch((error) => {
@@ -40,6 +34,6 @@ const deleteFavorite = (req, res) => {
 
 module.exports = (app) => {
   app.get('/api/favorites', getFavorites)
-  app.post('/api/favorites', addFavorite)
-  app.delete('/api/favorites/:email/:userId', deleteFavorite)
+  app.post('/api/favorite', addFavorite)
+  app.delete('/api/favorite/:username/:userId', deleteFavorite)
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List, ListItem, ListItemText, Drawer, Divider, withStyles, AppBar, Toolbar, IconButton, withTheme } from 'material-ui';
-import MenuIcon from 'material-ui-icons/Menu'
-import { Link } from 'react-router-dom'
+import { Drawer, withStyles, AppBar, Toolbar, IconButton } from 'material-ui';
+import { Menu } from 'material-ui-icons'
 import Logo from './../../assets/Logo.png'
+import SideList from './SideList'
 
 class NavBar extends React.Component {
     static propTypes = {
@@ -21,32 +21,20 @@ class NavBar extends React.Component {
     render() {
       const { classes } = this.props;
 
-      const sideList = (
-        <div className={classes.list}>
-          <List>
-            <ListItem button component={Link} to="/" onClick={this.handleClose}><ListItemText className={classes.listText} primary="Home" disableTypography /> </ListItem>
-            <Divider />
-            <ListItem button component={Link} to="/signupaspro" onClick={this.handleClose}><ListItemText className={classes.listText} primary="Signup As Pro" disableTypography /></ListItem>
-            <Divider />
-            <ListItem button component={Link} to="/loginaspro" onClick={this.handleClose}><ListItemText className={classes.listText} primary="Login As Pro" disableTypography /></ListItem>
-            <Divider />
-            <ListItem button component={Link} to="/loginnonpro" onClick={this.handleClose}><ListItemText className={classes.listText} primary="User Login/Signup" disableTypography /></ListItem>
-          </List>
-        </div>)
       return (
         <div className={classes.root}>
           <AppBar position="static" >
             <Toolbar className={classes.toolBar} >
               <div>
                 <IconButton onClick={this.toggleDrawer} className={classes.left}>
-                  <MenuIcon className={classes.menu} />
+                  <Menu className={classes.menu} />
                 </IconButton>
                 <Drawer
                   className={classes.list}
                   open={this.state.open}
                   onClose={() => this.setState({ open: !this.state.open })}
                 >
-                  {sideList}
+                  <SideList handleClose={this.handleClose} />
                 </Drawer>
               </div>
               <img className={classes.logo} src={Logo} alt="logo" />
@@ -65,16 +53,12 @@ const styles = {
   },
   list: {
     width: '200px',
-    textAlign: 'center',
   },
   left: {
     position: 'absolute',
     left: 0,
     top: '50%',
     transform: 'translateY(-50%)',
-  },
-  listText: {
-    fontSize: '20px',
   },
   logo: {
     height: '50px',
@@ -93,4 +77,4 @@ const styles = {
   },
 };
 
-export default withTheme()(withStyles(styles)(NavBar));
+export default withStyles(styles)(NavBar)

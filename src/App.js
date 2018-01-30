@@ -8,7 +8,6 @@ import Navbar from './components/home/navbar'
 import Footer from './components/footer/footer'
 import { getUserData, getReviews } from './ducks/reducers/resultsReducer'
 
-
 class App extends Component {
   static propTypes = {
     getUserData: PropTypes.func.isRequired,

@@ -45,3 +45,8 @@ export const editProfile = Loadable({
   loader: () => import('../components/profile/editProfile'),
   loading: Loader,
 })
+
+export const Favorites = Loadable({
+  loader: () => import('../components/favorites/favorites'),
+  loading: Loader,
+})
