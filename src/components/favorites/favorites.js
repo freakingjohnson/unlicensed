@@ -27,6 +27,7 @@ class Favorites extends Component {
       })
   }
 
+
   render() {
     let favoriteTile = this.props.userData.filter((user) => {
       let selectedUser;
