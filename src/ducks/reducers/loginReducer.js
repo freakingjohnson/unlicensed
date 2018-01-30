@@ -17,7 +17,6 @@ const SET_INFO = 'SET_INFO',
   LOG_OUT = 'LOG_OUT'
 
 export default function reducer(state = initialState, action) {
-  console.log('not pro')
   switch (action.type) {
     case SET_INFO:
       return {

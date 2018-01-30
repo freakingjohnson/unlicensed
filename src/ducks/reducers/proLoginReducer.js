@@ -17,7 +17,6 @@ const SET_INFO_PRO = 'SET_INFO_PRO',
   LOG_OUT = 'LOG_OUT'
 
 export default function reducer(state = initialState, action) {
-  console.log('pro')
   const { data, type, payload } = action
   switch (type) {
     case SET_INFO_PRO:
@@ -70,6 +69,6 @@ export const getPaid = bool => ({
 export const logOut = () => async (dispatch) => {
   await axios.get('api/logout')
   dispatch({
-    type: LOG_OUT
+    type: LOG_OUT,
   })
 }
