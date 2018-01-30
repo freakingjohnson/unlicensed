@@ -46,7 +46,7 @@ const Profile = ({
                       <Button raised color="accent" component={Link} to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >Edit Profile</Button>
                       <Connect id={match.params.id} name={match.params.name} />
                     </div>
-                  }
+                    }
                   </CardContent>
                 </Paper>
               </Card>
