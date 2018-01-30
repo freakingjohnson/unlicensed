@@ -1,6 +1,5 @@
 import React from 'react'
-import { CircularProgress } from 'material-ui/Progress'
-import { withStyles } from 'material-ui'
+import { withStyles, CircularProgress } from 'material-ui'
 import Icon from '../../assets/Icon.png'
 
 const Loader = ({ classes }) => (

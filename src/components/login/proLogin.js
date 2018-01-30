@@ -123,4 +123,5 @@ ProLogin.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  classes: PropTypes.object.isRequired,
 }

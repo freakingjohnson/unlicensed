@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const initialState = {
   email: '',
   password: '',
@@ -5,13 +7,17 @@ const initialState = {
   userName: '',
   userId: '',
   stripeId: '',
+  payMe: false,
 }
 
 const SET_INFO_PRO = 'SET_INFO_PRO',
   SET_STATE_WITH_SESSION_PRO = 'SET_STATE_WITH_SESSION_PRO',
-  LOCAL_STORAGE = 'LOCAL_STORAGE'
+  LOCAL_STORAGE = 'LOCAL_STORAGE',
+  PAY_ME = 'PAY_ME',
+  LOG_OUT = 'LOG_OUT'
 
 export default function reducer(state = initialState, action) {
+  console.log('pro')
   const { data, type, payload } = action
   switch (type) {
     case SET_INFO_PRO:
@@ -20,6 +26,10 @@ export default function reducer(state = initialState, action) {
       return { ...state, [data]: payload, password: '' }
     case LOCAL_STORAGE:
       return { ...state, payload }
+    case PAY_ME:
+      return { ...state, payMe: payload }
+    case LOG_OUT:
+      return initialState
     default: return state
   }
   // case SET_STATE_WITH_SESSION_PRO:
@@ -49,5 +59,17 @@ export const resetFromLocalStorage = () => (dispatch) => {
   dispatch({
     type: LOCAL_STORAGE,
     payload: JSON.parse(pro),
+  })
+}
+
+export const getPaid = bool => ({
+  type: PAY_ME,
+  payload: bool,
+})
+
+export const logOut = () => async (dispatch) => {
+  await axios.get('api/logout')
+  dispatch({
+    type: LOG_OUT
   })
 }

@@ -13,9 +13,11 @@ const initialState = {
 
 const SET_INFO = 'SET_INFO',
   SET_STATE_WITH_SESSION_NON_PRO = 'SET_STATE_WITH_SESSION_NON_PRO',
-  RESET = 'RESET'
+  RESET = 'RESET',
+  LOG_OUT = 'LOG_OUT'
 
 export default function reducer(state = initialState, action) {
+  console.log('not pro')
   switch (action.type) {
     case SET_INFO:
       return {
@@ -26,6 +28,8 @@ export default function reducer(state = initialState, action) {
         ...state, [action.state]: action.payload, password: '', email: '',
       }
     case RESET:
+      return initialState
+    case LOG_OUT:
       return initialState
     default: return state
   }
