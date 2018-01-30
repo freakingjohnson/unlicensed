@@ -31,7 +31,6 @@ export default function reducer(state = initialState, action) {
       return initialState
     default: return state
   }
-  // case SET_STATE_WITH_SESSION_PRO:
 }
 
 export const setProUserInfo = (e) => {

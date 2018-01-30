@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux';
 import { withStyles, Button, Typography, Avatar, Paper, Card, CardContent } from 'material-ui'
 import EmailMe from './EmailMe'
 import WorkPhotoCard from './WorkPhotoCard'
+import ProReview from '../proReviews/proReviewDialogBox'
+import ProReviewDisplay from '../proReviews/proReviewDisplay'
 import FavoritesIcon from '../favorites/favoriteIcon'
 import Connect from './Connect'
 import { getPaid } from './../../ducks/reducers/proLoginReducer'
@@ -19,7 +21,6 @@ const Profile = ({
       return user
     }
   })
-
   return (
     <div>
       {
@@ -56,6 +57,13 @@ const Profile = ({
               </Card>
             </div>
             <WorkPhotoCard workPhotos={selectedUser[0].workphotos} photoDesc={selectedUser[0].photo_info} />
+            {
+            userLoggedIn === true ?
+              <ProReview selectedUser={selectedUser[0]} />
+              :
+              <div />
+              }
+            <ProReviewDisplay selectedUser={selectedUser[0]} />
             <EmailMe proName={`${selectedUser[0].first_name}`} proEmail={`${selectedUser[0].email}`} />
           </div> :
           <h3>loading</h3>
@@ -65,7 +73,6 @@ const Profile = ({
 }
 
 const styles = {
-  // make it so profile pic and contact info are aligned
   card: {
     display: 'flex',
     justifyContent: 'center',
@@ -104,7 +111,6 @@ const styles = {
     maxWidth: 345,
   },
   media: {
-    // make conatiner for pic so i can set the height to fill that div.
     height: '350px',
   },
   container: {
@@ -121,6 +127,8 @@ const styles = {
 const mapStateToProps = state => ({
   user: state.resultsReducer.user,
   userData: state.resultsReducer.userData,
+  userLoggedIn: state.loginReducer.loggedIn,
+  reviews: state.resultsReducer.reviews[0],
   proLoggedIn: state.proLoginReducer.proLoggedIn,
   stripeId: state.proLoginReducer.stripeId,
   payMe: state.proLoginReducer.payMe,
@@ -142,6 +150,7 @@ Profile.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  userLoggedIn: PropTypes.boolean,
   proLoggedIn: PropTypes.bool.isRequired,
   stripeId: PropTypes.string.isRequired,
   getPaid: PropTypes.func.isRequired,

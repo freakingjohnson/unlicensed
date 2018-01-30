@@ -22,7 +22,6 @@ const EditProfile = ({
     {
       firstName, lastName, phone, text, call, both, email, bio, location, profilePic, picName, profilePicUrl,
     } = userReducer
-
   let userPhone;
   if (user) {
     userPhone = user.phone.replace(/[{}"]+/g, '').split(',')
@@ -44,7 +43,6 @@ const EditProfile = ({
       id: user.id,
     }
   }
-
   return (
     <div className={classes.container}>
       {

@@ -17,8 +17,10 @@ const express = require('express'),
   loginNonPro = require('./decorators/loginNonPro'),
   checkForSession = require('./middlewares/checkForSession'),
   updateProInfo = require('./decorators/updateProInfo'),
+  postProReview = require('./decorators/postProReview'),
   stripe = require('./decorators/stripe'),
   logout = require('./decorators/logout')
+
 
 
 const app = express();
@@ -51,6 +53,7 @@ getFavorites(app)
 updateProInfo(app)
 addNonPro(app)
 loginNonPro(app)
+postProReview(app)
 stripe(app)
 logout(app)
 deleteNonPro(app)

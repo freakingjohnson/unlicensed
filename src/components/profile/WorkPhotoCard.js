@@ -6,7 +6,6 @@ const WorkPhotoCard = ({ workPhotos, photoDesc, classes }) => {
   const description = photoDesc.split(',').map((desc, index) => (
     <Typography className={classes.desc} type="subheading" color="accent" key={index}>{desc}</Typography>
   ))
-
   const photo = workPhotos.split(',').map((image, index) => (
     <div key={index}>
       <Card className={classes.card} >
