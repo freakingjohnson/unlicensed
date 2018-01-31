@@ -150,7 +150,7 @@ Profile.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  loggedIn: PropTypes.boolean.isRequired,
+  loggedIn: PropTypes.boolean,
   proLoggedIn: PropTypes.bool.isRequired,
   stripeId: PropTypes.string.isRequired,
   getPaid: PropTypes.func.isRequired,
@@ -159,6 +159,7 @@ Profile.propTypes = {
 
 Profile.defaultProps = {
   userData: ['name', 'email', 'location'],
+  loggedIn: false,
 }
 
 const contactMethod = (selectedUser) => {
