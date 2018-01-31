@@ -14,7 +14,7 @@ import { getPaid } from './../../ducks/reducers/proLoginReducer'
 import PayMe from './PayMe'
 
 const Profile = ({
-  classes, userData, match, proLoggedIn, stripeId, getPaid, payMe, userId,
+  classes, userData, match, proLoggedIn, stripeId, getPaid, payMe, userId, loggedIn,
 }) => {
   const selectedUser = userData.filter((user) => {
     if (user.id === (match.params.id * 1)) {
@@ -58,7 +58,7 @@ const Profile = ({
             </div>
             <WorkPhotoCard workPhotos={selectedUser[0].workphotos} photoDesc={selectedUser[0].photo_info} />
             {
-            userLoggedIn === true ?
+            loggedIn === true ?
               <ProReview selectedUser={selectedUser[0]} />
               :
               <div />
@@ -127,7 +127,7 @@ const styles = {
 const mapStateToProps = state => ({
   user: state.resultsReducer.user,
   userData: state.resultsReducer.userData,
-  userLoggedIn: state.loginReducer.loggedIn,
+  loggedIn: state.loginReducer.loggedIn,
   reviews: state.resultsReducer.reviews[0],
   proLoggedIn: state.proLoginReducer.proLoggedIn,
   stripeId: state.proLoginReducer.stripeId,
@@ -150,7 +150,7 @@ Profile.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  userLoggedIn: PropTypes.boolean,
+  loggedIn: PropTypes.boolean.isRequired,
   proLoggedIn: PropTypes.bool.isRequired,
   stripeId: PropTypes.string.isRequired,
   getPaid: PropTypes.func.isRequired,
