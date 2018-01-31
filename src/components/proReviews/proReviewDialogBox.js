@@ -15,6 +15,11 @@ import ReactStars from 'react-stars'
 
 class ProReviews extends Component {
   static propTypes = {
+    loginReducer: PropTypes.object.isRequired,
+    selectedUser: PropTypes.object.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }).isRequired,
   }
   constructor(props) {
     super(props)

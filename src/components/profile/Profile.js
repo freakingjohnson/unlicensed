@@ -14,7 +14,7 @@ import { getPaid } from './../../ducks/reducers/proLoginReducer'
 import PayMe from './PayMe'
 
 const Profile = ({
-  classes, userData, match, proLoggedIn, stripeId, getPaid, payMe, userId, loggedIn,
+  classes, userData, match, proLoggedIn, stripeId, getPaid, payMe, userId, loggedIn, history,
 }) => {
   const selectedUser = userData.filter((user) => {
     if (user.id === (match.params.id * 1)) {
@@ -59,7 +59,7 @@ const Profile = ({
             <WorkPhotoCard workPhotos={selectedUser[0].workphotos} photoDesc={selectedUser[0].photo_info} />
             {
             loggedIn === true ?
-              <ProReview selectedUser={selectedUser[0]} />
+              <ProReview selectedUser={selectedUser[0]} history={history} />
               :
               <div />
               }
@@ -155,6 +155,9 @@ Profile.propTypes = {
   stripeId: PropTypes.string.isRequired,
   getPaid: PropTypes.func.isRequired,
   payMe: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 Profile.defaultProps = {
