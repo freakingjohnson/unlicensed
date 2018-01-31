@@ -150,7 +150,7 @@ Profile.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  loggedIn: PropTypes.boolean,
+  loggedIn: PropTypes.bool,
   proLoggedIn: PropTypes.bool.isRequired,
   stripeId: PropTypes.string.isRequired,
   getPaid: PropTypes.func.isRequired,
