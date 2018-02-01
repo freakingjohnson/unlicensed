@@ -24,7 +24,7 @@ export default function reducer(state = initialState, action) {
     case SET_STATE_WITH_SESSION_PRO:
       return { ...state, [data]: payload, password: '' }
     case LOCAL_STORAGE:
-      return { ...state, payload }
+      return { ...state, [data]: payload }
     case PAY_ME:
       return { ...state, payMe: payload }
     case LOG_OUT:
@@ -54,10 +54,14 @@ export const setStateProUserInfo = data => (dispatch) => {
 
 export const resetFromLocalStorage = () => (dispatch) => {
   let pro = localStorage.getItem('pro')
-  dispatch({
-    type: LOCAL_STORAGE,
-    payload: JSON.parse(pro),
-  })
+  let user = JSON.parse(pro)
+  for (let key in user) {
+    dispatch({
+      type: LOCAL_STORAGE,
+      data: key,
+      payload: user[key],
+    })
+  }
 }
 
 export const getPaid = bool => ({

@@ -88,6 +88,10 @@ const handleUpload = (file) => {
       console.log(err)
     }
 
+    if (response === undefined) {
+      console.log('Too slow')
+    }
+
     if (response.body.secure_url !== '') {
       store.dispatch({
         type: PICTURE_URL,

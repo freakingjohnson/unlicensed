@@ -101,6 +101,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     '@media (min-width: 769px)': {
+      width: '100%',
       flexDirection: 'column',
     },
   },

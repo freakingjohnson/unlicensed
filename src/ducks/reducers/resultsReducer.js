@@ -15,6 +15,11 @@ const GET_USER_DATA = 'GET_USER_DATA',
   GET_FAVORITES = 'GET_FAVORITES',
   GET_REVIEWS = 'GET_REVIEWS'
 
+export const setReviews = reviews => ({
+  type: GET_REVIEWS,
+  payload: reviews,
+})
+
 export const getReviews = () => async (dispatch) => {
   let reviewResults = await axios.get('/api/reviews')
 
@@ -32,6 +37,11 @@ export const getFavorites = (favorites) => {
     payload: favResults,
   }
 }
+
+export const setUserData = user => ({
+  type: GET_USER_DATA,
+  payload: user,
+})
 
 export const getUserData = () => async (dispatch) => {
   let results = await axios.get('/api/users')
@@ -63,7 +73,7 @@ export default function reducer(state = initialState, action) {
     case REVEAL:
       return { ...state, reveal: payload }
     case GET_REVIEWS:
-      return { ...state, reviews: [...state.reviews, payload], reviewsLoaded: true }
+      return { ...state, reviews: payload, reviewsLoaded: true }
     default:
       return state
   }

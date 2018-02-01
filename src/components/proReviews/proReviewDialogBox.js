@@ -12,14 +12,12 @@ import Dialog, {
 } from 'material-ui/Dialog'
 import withStyles from 'material-ui/styles/withStyles'
 import ReactStars from 'react-stars'
+import { setReviews } from './../../ducks/reducers/resultsReducer'
 
 class ProReviews extends Component {
   static propTypes = {
     loginReducer: PropTypes.object.isRequired,
     selectedUser: PropTypes.object.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired,
-    }).isRequired,
   }
   constructor(props) {
     super(props)
@@ -47,7 +45,13 @@ class ProReviews extends Component {
     } = this.state
     axios.post('http://localhost:4000/api/proReview', {
       loggedinUserName, comment, proReceivingReviewId, rating,
-    }).then(this.props.history.push('/results'))
+    }).then((res) => {
+      this.setState({
+        open: false,
+      })
+      console.log(res.data)
+      this.props.setReviews(res.data)
+    })
   }
 
   commentHandler = (e) => {
@@ -117,4 +121,4 @@ const mapStateToProps = state => ({
 const styles = {
 
 }
-export default connect(mapStateToProps)(withStyles(styles)(ProReviews))
+export default connect(mapStateToProps, { setReviews })(withStyles(styles)(ProReviews))

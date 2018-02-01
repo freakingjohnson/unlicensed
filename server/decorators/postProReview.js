@@ -4,8 +4,8 @@ const postReview = async (req, res) => {
     loggedinUserName, comment, proReceivingReviewId, rating,
   } = req.body
 
-  await db.post_pro_review([loggedinUserName, comment, proReceivingReviewId, rating]).then(() => {
-    res.status(200).send(res.req.body)
+  await db.post_pro_review([loggedinUserName, comment, proReceivingReviewId, rating]).then((data) => {
+    res.status(200).send(data)
   }).catch((error) => {
     console.log(error)
     res.status(500).send(error)

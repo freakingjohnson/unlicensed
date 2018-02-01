@@ -17,7 +17,6 @@ class FavoritesIcon extends Component {
     const { username, userId } = this.props
     axios.get('/api/favorites', username)
       .then((res) => {
-        console.log(res.data)
         let checked = res.data.filter((fav) => {
           if (userId === fav.userid) {
             this.setState({

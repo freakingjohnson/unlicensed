@@ -13,7 +13,7 @@ const errorPayment = () => {
   alert('Payment Error')
 }
 
-const onToken = (amount, description, accountId) => token =>
+const onToken = (amount, description) => token =>
   axios.post(
     '/api/charge',
     {
@@ -21,10 +21,6 @@ const onToken = (amount, description, accountId) => token =>
       description,
       currency: CURRENCY,
       source: token.id,
-      destination: {
-        amount: (amount * 0.99),
-        account: accountId,
-      },
     },
   ).then(successPayment)
     .catch(errorPayment)
@@ -36,7 +32,7 @@ const Checkout = ({
     name={name}
     description={description}
     amount={amount}
-    token={onToken(amount, description, accountId)}
+    token={onToken(amount, description)}
     currency={CURRENCY}
     stripeKey="pk_test_8M9YJObYXy59LqBvi7oPCQJZ"
   />)

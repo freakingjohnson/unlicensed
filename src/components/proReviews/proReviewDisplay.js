@@ -35,7 +35,7 @@ class ReviewList extends React.Component {
       return (
         <List key={index} component="div" disablePadding>
           <ListItem className={classes.listItem}>
-            <ReactStars count={5} value={review.rating * 1} size={24} color="#ffd700" />
+            <ReactStars edit={false} count={5} value={review.rating * 1} size={24} color="#ffd700" />
             <div className={classes.indent}>
               <Typography type="body1">{review.comment}</Typography>
               <Typography type="caption">-{review.user_posting_review.replace(/[-]/, ' ')}</Typography>
@@ -61,7 +61,7 @@ class ReviewList extends React.Component {
                   <StarBorder />
                 </ListItemIcon>
                 <ListItemText inset primary="Reviews" />
-                <ReactStars count={5} value={Math.round((average / selectedPro.length) * 2) / 2} size={18} color="#ffd700" />
+                <ReactStars edit={false} count={5} value={Math.round((average / selectedPro.length) * 2) / 2} size={18} color="#ffd700" />
                 <div className={classes.none}>
                   {this.state.open ? <ExpandLess /> : <ExpandMore />}
                 </div>
@@ -109,7 +109,7 @@ const styles = theme => ({
 const mapStateToProps = state => ({
   proUserData: state.resultsReducer.userData,
   loginReducer: state.loginReducer,
-  reviews: state.resultsReducer.reviews[0],
+  reviews: state.resultsReducer.reviews,
 })
 
 ReviewList.propTypes = {

@@ -4,13 +4,14 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Button } from 'material-ui'
 import { withRouter } from 'react-router-dom'
+import { getUserData } from './../../ducks/reducers/resultsReducer'
 
 const SubmitInfo = ({
-  userReducer, serviceReducer, projectReducer, history,
+  userReducer, serviceReducer, projectReducer, history, setUserData,
 }) => {
   const profileInfo = [userReducer, serviceReducer, projectReducer]
   return (
-    <Button raised color="primary" onClick={() => send(profileInfo, history)}>Finish</Button>
+    <Button raised color="primary" onClick={() => send(profileInfo, history, getUserData)}>Finish</Button>
   )
 }
 
@@ -20,12 +21,13 @@ const mapStateToProps = state => ({
   projectReducer: state.projectReducer,
 })
 
-export default withRouter(connect(mapStateToProps)(SubmitInfo))
+export default withRouter(connect(mapStateToProps, { getUserData })(SubmitInfo))
 
-const send = (profileInfo, history) => {
+const send = (profileInfo, history, setUserData) => {
   axios.post('api/addUser', profileInfo).then((res) => {
+    setUserData()
+    history.push('/')
   })
-  history.push('/')
 }
 
 SubmitInfo.propTypes = {

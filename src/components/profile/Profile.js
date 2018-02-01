@@ -14,7 +14,7 @@ import { getPaid } from './../../ducks/reducers/proLoginReducer'
 import PayMe from './PayMe'
 
 const Profile = ({
-  classes, userData, match, proLoggedIn, stripeId, getPaid, payMe, userId, userLoggedIn,
+  classes, userData, match, proLoggedIn, stripeId, getPaid, payMe, userId, loggedIn,
 }) => {
   const selectedUser = userData.filter((user) => {
     if (user.id === (match.params.id * 1)) {
@@ -64,7 +64,7 @@ const Profile = ({
               <ProReviewDisplay selectedUser={selectedUser[0]} />
             </div>
             {
-              userLoggedIn &&
+              loggedIn &&
               <div className={classes.item4}>
                 <ProReview selectedUser={selectedUser[0]} />
               </div>
@@ -200,13 +200,13 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyle
 Profile.propTypes = {
   classes: PropTypes.object.isRequired,
   userData: PropTypes.array.isRequired,
-  userId: PropTypes.string.isRequired,
+  userId: PropTypes.number.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  userLoggedIn: PropTypes.bool.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
   proLoggedIn: PropTypes.bool.isRequired,
   stripeId: PropTypes.string.isRequired,
   getPaid: PropTypes.func.isRequired,

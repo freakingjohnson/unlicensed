@@ -147,6 +147,7 @@ const styles = {
     alignItems: 'center',
     '@media (min-width: 769px)': {
       flexDirection: 'column',
+      width: '100%',
     },
   },
   userInfo: {

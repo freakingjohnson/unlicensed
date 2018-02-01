@@ -15,7 +15,7 @@ You will need the following set up prior to installation:
 ```
 Cloudinary,
 Stripe,
-PostgresSql DB,
+PostgreSQL DB,
 ```
 
 ### Installing

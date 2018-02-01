@@ -53,7 +53,7 @@ const addUser = async (req, res) => {
     services.push(key)
   }
 
-  services.map((service) => {
+  await services.map((service) => {
     db.add_services([userId[0].id, service]).then(() => {
       status = 200
       response = 'all good'
@@ -65,7 +65,7 @@ const addUser = async (req, res) => {
 
   const picture = _.zip(projectPicUrls, projectDescList)
 
-  picture.map((image) => {
+  await picture.map((image) => {
     db.add_to_workphotos([userId[0].id, image[0], image[1]]).then(() => {
       status = 200
       response = 'all good'
