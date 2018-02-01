@@ -66,7 +66,6 @@ const styles = {
     height: '8vh',
   },
   work: {
-    // textShadow: '3px 2px 3px black',
     textDecoration: 'underline',
   },
   desc: {
@@ -75,7 +74,7 @@ const styles = {
   image: {
     height: '250px',
     '@media (min-width: 769px)': {
-      width: '30vw',
+      width: '500px',
       margin: '20px 0',
     },
   },
