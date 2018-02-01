@@ -87,7 +87,7 @@ const styles = {
       gridTemplateRow: '60% 40%',
       gridColumnGap: '20px',
       gridRowGap: '40px',
-      margin: '20px 20px',
+      margin: '20px',
     },
   },
   card: {
