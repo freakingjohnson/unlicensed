@@ -115,5 +115,6 @@ const mapStateToProps = state => ({
 ReviewList.propTypes = {
   classes: PropTypes.object.isRequired,
   reviews: PropTypes.array.isRequired,
+  selectedUser: PropTypes.object.isRequired,
 };
 export default connect(mapStateToProps)(withStyles(styles)(ReviewList));

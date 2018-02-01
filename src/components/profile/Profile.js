@@ -183,7 +183,7 @@ const styles = {
 const mapStateToProps = state => ({
   user: state.resultsReducer.user,
   userData: state.resultsReducer.userData,
-  userLoggedIn: state.loginReducer.loggedIn,
+  loggedIn: state.loginReducer.loggedIn,
   reviews: state.resultsReducer.reviews[0],
   proLoggedIn: state.proLoginReducer.proLoggedIn,
   stripeId: state.proLoginReducer.stripeId,
@@ -199,7 +199,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyle
 
 Profile.propTypes = {
   classes: PropTypes.object.isRequired,
-  userData: PropTypes.array,
+  userData: PropTypes.array.isRequired,
   userId: PropTypes.string.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -211,10 +211,6 @@ Profile.propTypes = {
   stripeId: PropTypes.string.isRequired,
   getPaid: PropTypes.func.isRequired,
   payMe: PropTypes.bool.isRequired,
-};
-
-Profile.defaultProps = {
-  userData: ['name', 'email', 'location'],
 }
 
 const contactMethod = (selectedUser) => {
