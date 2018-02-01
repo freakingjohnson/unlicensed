@@ -65,8 +65,8 @@ export const getPaid = bool => ({
   payload: bool,
 })
 
-export const logOut = () => async (dispatch) => {
-  await axios.get('api/logout')
+export const logOut = () => (dispatch) => {
+  axios.get('http://localhost:4000/api/logout')
   dispatch({
     type: LOG_OUT,
   })

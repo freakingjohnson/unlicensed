@@ -12,6 +12,7 @@ const getFavorites = (req, res) => {
 const addFavorite = (req, res) => {
   const db = req.app.get('db')
   const { username, userId } = req.body
+
   db.add_favorite([username, userId]).then((response) => {
     res.status(200).send(response)
   })
@@ -24,6 +25,7 @@ const addFavorite = (req, res) => {
 const deleteFavorite = (req, res) => {
   const db = req.app.get('db')
   const { username, userId } = req.params
+
   db.delete_favorite([username, userId]).then((response) => {
     res.status(200).send(response)
   })

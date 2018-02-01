@@ -5,7 +5,6 @@ const initialState = {
   lastName: '',
   zipCode: '',
   email: '',
-  username: '',
   password: '',
   verifyPassword: '',
   loggedIn: false,
@@ -20,11 +19,11 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_INFO:
       return {
-        ...state, [action.state]: action.payload, username: state.email, loggedIn: true,
+        ...state, [action.state]: action.payload,
       }
     case SET_STATE_WITH_SESSION_NON_PRO:
       return {
-        ...state, [action.state]: action.payload, password: '', email: '',
+        ...state, [action.state]: action.payload, password: '',
       }
     case RESET:
       return initialState

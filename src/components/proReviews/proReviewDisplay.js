@@ -1,49 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
-import { withStyles } from 'material-ui/styles';
+import { withStyles, Typography, Paper } from 'material-ui';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Collapse from 'material-ui/transitions/Collapse';
 import StarBorder from 'material-ui-icons/StarBorder';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
-import { Typography } from 'material-ui'
 import ReactStars from 'react-stars';
 
 
 class ReviewList extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { open: false };
-  }
+    state = {
+      open: false,
+    };
+
   handleClick = () => {
     this.setState({ open: !this.state.open });
   };
 
   render() {
-    const { classes } = this.props;
-    const selectedPro = this.props.reviews.filter((pro) => {
-      if (pro.pro_getting_reviewed === (this.props.selectedUser.id)) {
+    const { classes, reviews, selectedUser } = this.props;
+    const selectedPro = reviews && reviews.filter((pro) => {
+      if (pro.pro_getting_reviewed === (selectedUser.id)) {
         return pro
       }
     })
 
-    const reviewList = selectedPro.map((review, index) => (
-      <List key={index} component="div" disablePadding>
-        <ListItem>
-          <ReactStars count={5} value={review.rating * 1} size={15} color="#ffd700" />
-          <ListItemText primary={review.comment} />
-          <Typography type="title">{review.user_posting_review}</Typography>
-        </ListItem>
-      </List>
-    ))
+    let average = 0;
+
+    const reviewList = selectedPro && selectedPro.map((review, index) => {
+      average += (review.rating * 1)
+      return (
+        <List key={index} component="div" disablePadding>
+          <ListItem className={classes.listItem}>
+            <ReactStars count={5} value={review.rating * 1} size={24} color="#ffd700" />
+            <div className={classes.indent}>
+              <Typography type="body1">{review.comment}</Typography>
+              <Typography type="caption">-{review.user_posting_review.replace(/[-]/, ' ')}</Typography>
+            </div>
+          </ListItem>
+        </List>
+      )
+    })
+
+    const size = window.innerWidth >= 769
 
     return (
       <div>
         {
         selectedPro.length > 0 &&
-          <div className={classes.root}>
+          <Paper elevation={5} className={classes.root}>
             <List
               component="nav"
               subheader={<ListSubheader component="div" />}
@@ -53,13 +61,16 @@ class ReviewList extends React.Component {
                   <StarBorder />
                 </ListItemIcon>
                 <ListItemText inset primary="Reviews" />
-                {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                <ReactStars count={5} value={Math.round((average / selectedPro.length) * 2) / 2} size={18} color="#ffd700" />
+                <div className={classes.none}>
+                  {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                </div>
               </ListItem>
-              <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+              <Collapse in={size ? true : this.state.open} timeout="auto" unmountOnExit>
                 {reviewList}
               </Collapse>
             </List>
-          </div>
+          </Paper>
     }
       </div>
     );
@@ -71,9 +82,26 @@ const styles = theme => ({
     width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
+    '@media (min-width: 769px)': {
+      height: '45vh',
+      overflow: 'scroll',
+    },
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4,
+  },
+  listItem: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'start',
+  },
+  indent: {
+    marginLeft: '10px',
+  },
+  none: {
+    '@media (min-width: 769px)': {
+      display: 'none',
+    },
   },
 });
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextField, Button, Paper, withStyles, Typography, withTheme } from 'material-ui'
+import { TextField, Button, Paper, withStyles, Typography, withTheme, FormGroup } from 'material-ui'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import axios from 'axios'
@@ -20,13 +20,15 @@ const EmailMe = ({
   return (
     <div className={classes.wrapper}>
       <Paper elevation={3} className={classes.paper}>
-        <Typography className={classes.title} type="title" color="primary">{`Send ${proName} an Email!`}</Typography>
-        <TextField name="name" label="Your Name" value={name} onChange={e => formInfo(e)} />
-        <TextField name="phone" label="Your Phone Number" value={phone} onChange={e => formInfo(e)} />
-        <TextField name="email" label="Your Email" value={email} onChange={e => formInfo(e)} />
-        <TextField name="subject" label="Email Subject" value={subject} onChange={e => formInfo(e)} />
-        <TextField multiline rows={4} name="message" label="Message" value={message} onChange={e => formInfo(e)} />
-        <Button className={classes.button} raised color="primary" onClick={() => sendEmail(emailContent)}>Send Email</Button>
+        <FormGroup className={classes.form}>
+          <Typography className={classes.title} type="title" color="primary">{`Send ${proName} an Email!`}</Typography>
+          <TextField name="name" label="Your Name" value={name} onChange={e => formInfo(e)} />
+          <TextField name="phone" label="Your Phone Number" value={phone} onChange={e => formInfo(e)} />
+          <TextField name="email" label="Your Email" value={email} onChange={e => formInfo(e)} />
+          <TextField name="subject" label="Email Subject" value={subject} onChange={e => formInfo(e)} />
+          <TextField multiline rows={4} name="message" label="Message" value={message} onChange={e => formInfo(e)} />
+          <Button className={classes.button} raised color="primary" onClick={() => sendEmail(emailContent)}>Send Email</Button>
+        </FormGroup>
       </Paper>
     </div>
   )
@@ -37,6 +39,9 @@ const styles = {
     margin: '15px 0',
     display: 'flex',
     justifyContent: 'center',
+    '@media (min-width: 769px)': {
+      margin: '0',
+    },
   },
   paper: {
     width: '95%',
@@ -44,6 +49,17 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
+    '@media (min-width: 769px)': {
+      width: '100%',
+      right: '0%',
+    },
+  },
+  form: {
+    '@media (min-width: 769px)': {
+      width: '95%',
+      marginBottom: '2%',
+      marginLeft: '2.5%',
+    },
   },
   title: {
     textAlign: 'center',

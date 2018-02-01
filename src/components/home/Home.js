@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { TextField, Button, FormHelperText, FormGroup, MenuItem, Select, withStyles } from 'material-ui'
 import axios from 'axios'
-import { getUserData, getSearchData } from './../../ducks/reducers/resultsReducer'
+import { getUserData } from './../../ducks/reducers/resultsReducer'
 import HomeFront from './HomeFront'
 import WebsiteReview from '../websiteReview/WebsiteReview'
 import { resetFromLocalStorage } from './../../ducks/reducers/proLoginReducer'
+import HowWeWork from './HowWeWork'
 
 class Home extends React.Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     userData: PropTypes.array,
-    getSearchData: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }).isRequired,
@@ -56,25 +56,25 @@ class Home extends React.Component {
 
   render() {
     const {
-      classes, userData, getSearchData, history,
+      classes, userData, history,
     } = this.props;
+    const size = (window.innerWidth >= 769)
 
     return (
       <div>
         <div className={classes.background} >
           <form onSubmit={(event) => {
           event.preventDefault()
-          getSearchData(userData, this.state.search, this.state.searchBy)
           this.setState({
             search: '',
           })
-          history.push('/results')
+          history.push(`/results/${this.state.searchBy}/${this.state.search}`)
         }}
           >
             <FormGroup className={classes.form}>
               <FormGroup row className={classes.insideForm}>
                 <div className={classes.textField} >
-                  <TextField className="search" type="text" label="Search" onChange={e => this.searchHandler(e)} value={this.state.search} />
+                  <TextField fullWidth className="search" type="text" label="Search" onChange={e => this.searchHandler(e)} value={this.state.search} />
                 </div>
                 <div>
                   <Select
@@ -92,13 +92,13 @@ class Home extends React.Component {
               </FormGroup>
               <Button
                 color="primary"
+                className={classes.button}
                 raised
                 onClick={() => {
-                getSearchData(userData, this.state.search, this.state.searchBy)
                 this.setState({
                   search: '',
                 })
-                history.push('/results')
+                history.push(`/results/${this.state.searchBy}/${this.state.search}`)
               }}
               >Search
               </Button>
@@ -108,6 +108,7 @@ class Home extends React.Component {
         </div>
         <WebsiteReview />
         <HomeFront history={history} />
+        <HowWeWork />
       </div>
     )
   }
@@ -115,7 +116,6 @@ class Home extends React.Component {
 
 const mapStateToProps = state => ({
   userData: state.resultsReducer.userData,
-  searchData: state.resultsReducer.searchData,
   email: state.proLoginReducer.email,
 })
 
@@ -125,6 +125,10 @@ const styles = {
     backgroundSize: 'cover',
     height: '45vh',
     position: 'relative',
+    '@media (min-width: 769px)': {
+      height: '60vh',
+      backgroundPosition: '50% 40%',
+    },
   },
   form: {
     backgroundColor: 'white',
@@ -135,14 +139,26 @@ const styles = {
     left: '2.5%',
     borderRadius: '5px',
     opacity: '.75',
+    '@media (min-width: 769px)': {
+      width: '42%',
+      left: '29%',
+    },
   },
   insideForm: {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
+    '@media (min-width: 769px)': {
+      width: '85%',
+      marginLeft: '20px',
+    },
   },
   textField: {
     marginBottom: '29px',
+    '@media (min-width: 769px)': {
+      marginBottom: '36px',
+      width: '80%',
+    },
   },
   selectMenu: {
     backgroundColor: '#003e61',
@@ -153,5 +169,5 @@ const styles = {
   },
 }
 
-export default connect(mapStateToProps, { getUserData, getSearchData, resetFromLocalStorage })(withStyles(styles)(Home))
+export default connect(mapStateToProps, { getUserData, resetFromLocalStorage })(withStyles(styles)(Home))
 

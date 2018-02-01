@@ -3,15 +3,16 @@ import { List, ListItem, ListItemText, withStyles, ListItemIcon, Divider } from 
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
+import PropTypes from 'prop-types'
 import Icon from './../../assets/Icon.png'
 import { logOut } from '../../ducks/reducers/proLoginReducer'
 
 const SideList = ({
-  classes, loggedIn, proLoggedIn, userId, userName, handleClose, logOut, history,
+  classes, loggedIn, proLoggedIn, userId, userName, handleClose, logOut,
 }) => (
-  <div className={classes.list}>
+  <div>
     <List>
-      <ListItem className={classes.iconWrapper}>
+      <ListItem className={classes.iconWrapper} onClick={handleClose}>
         <img src={Icon} alt="icon" className={classes.icon} />
       </ListItem>
       <Divider />
@@ -23,7 +24,7 @@ const SideList = ({
       </ListItem>
       <Divider />
       { !loggedIn && !proLoggedIn &&
-        <div>
+        <div className={classes.container}>
           <ListItem button className={classes.listItem} component={Link} to="/signupaspro" onClick={handleClose}>
             <ListItemIcon>
               <i className="fa fa-user-plus fa-lg" style={{ marginBottom: '-10px', marginRight: '-10px', color: '#003e61' }} aria-hidden="true" />
@@ -49,7 +50,7 @@ const SideList = ({
       }
       {
         loggedIn &&
-        <div>
+        <div className={classes.container}>
           <ListItem button className={classes.listItem} component={Link} to="/favorites" onClick={handleClose}>
             <ListItemIcon>
               <i className="fa fa-heart fa-lg" style={{ marginBottom: '-10px', marginRight: '-10px', color: '#003e61' }} aria-hidden="true" />
@@ -61,7 +62,7 @@ const SideList = ({
       }
       {
         proLoggedIn &&
-        <div>
+        <div className={classes.container}>
           <ListItem button className={classes.listItem} component={Link} to={`/${userId}/${userName}`} onClick={handleClose}>
             <ListItemIcon>
               <i className="fa fa-user fa-lg" style={{ marginBottom: '-10px', marginRight: '-10px', color: '#003e61' }} aria-hidden="true" />
@@ -73,7 +74,7 @@ const SideList = ({
       }
       {
         (proLoggedIn || loggedIn) &&
-        <div>
+        <div className={classes.container}>
           <ListItem button component={Link} to="/" onClick={() => { handleClose(); logOut() }}>
             <ListItemIcon>
               <i className="fa fa-sign-out fa-lg" style={{ marginBottom: '-10px', marginRight: '-10px', color: '#003e61' }} aria-hidden="true" />
@@ -106,6 +107,7 @@ const styles = {
   },
   icon: {
     height: '35px',
+    cursor: 'pointer',
   },
 };
 
@@ -121,3 +123,13 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SideList))
+
+SideList.proptTypes = {
+  classes: PropTypes.object.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
+  proLoggedIn: PropTypes.bool.isRequired,
+  userId: PropTypes.number.isRequired,
+  userName: PropTypes.string.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  logOut: PropTypes.func.isRequired,
+}

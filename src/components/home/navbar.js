@@ -4,6 +4,7 @@ import { Drawer, withStyles, AppBar, Toolbar, IconButton } from 'material-ui';
 import { Menu } from 'material-ui-icons'
 import Logo from './../../assets/Logo.png'
 import SideList from './SideList'
+import Tools from './ToolBar'
 
 class NavBar extends React.Component {
     static propTypes = {
@@ -20,11 +21,13 @@ class NavBar extends React.Component {
 
     render() {
       const { classes } = this.props;
+      const nav = window.innerWidth >= 769
 
       return (
         <div className={classes.root}>
           <AppBar position="static" >
             <Toolbar className={classes.toolBar} >
+              {!nav &&
               <div>
                 <IconButton onClick={this.toggleDrawer} className={classes.left}>
                   <Menu className={classes.menu} />
@@ -37,6 +40,8 @@ class NavBar extends React.Component {
                   <SideList handleClose={this.handleClose} />
                 </Drawer>
               </div>
+            }
+              {nav && <Tools />}
               <img className={classes.logo} src={Logo} alt="logo" />
             </Toolbar>
           </AppBar>
@@ -63,6 +68,10 @@ const styles = {
   logo: {
     height: '50px',
     mixBlendMode: 'multiply',
+    position: 'absolute',
+    '@media (min-width: 769px)': {
+      left: 30,
+    },
   },
   toolBar: {
     paddingLeft: '0px',
@@ -70,6 +79,9 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     position: 'relative',
+    '@media (min-width: 769px)': {
+      height: '12vh',
+    },
   },
   menu: {
     fontSize: '32px',

@@ -14,21 +14,22 @@ import { getPaid } from './../../ducks/reducers/proLoginReducer'
 import PayMe from './PayMe'
 
 const Profile = ({
-  classes, userData, match, proLoggedIn, stripeId, getPaid, payMe, userId,
+  classes, userData, match, proLoggedIn, stripeId, getPaid, payMe, userId, userLoggedIn,
 }) => {
   const selectedUser = userData.filter((user) => {
     if (user.id === (match.params.id * 1)) {
       return user
     }
   })
+
   return (
     <div>
       {
         selectedUser.length > 0 ?
-          <div>
+          <div className={classes.wrapper}>
             <div>
               <div className={classes.row}>
-                <Avatar alt="profile pic" src={selectedUser[0].profile_photo} className={classes.avatar} />
+                <Avatar alt="profile pic" src={selectedUser[0].profile_photo ? selectedUser[0].profile_photo : 'https://t3.ftcdn.net/jpg/00/64/67/80/240_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg'} className={classes.avatar} />
               </div>
 
               <Card className={classes.card}>
@@ -47,8 +48,8 @@ const Profile = ({
                     <Typography type="body1" color="secondary"><span style={{ color: '#003e61' }}>Prefered contact method:</span> {contactMethod(selectedUser[0])}</Typography>
                     { proLoggedIn && userId === selectedUser[0].id &&
                     <div>
-                      <Button raised color="accent" component={Link} to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >Edit Profile</Button>
-                      { stripeId === null ? <Connect id={match.params.id} name={match.params.name} /> : <Button onClick={() => getPaid(true)}>Accept Payment</Button>}
+                      <Button className={classes.buttons} raised color="accent" component={Link} to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >Edit Profile</Button>
+                      { stripeId === null ? <Connect id={match.params.id} name={match.params.name} /> : <Button className={classes.buttons} raised color="primary" onClick={() => getPaid(true)}>Accept Payment</Button>}
                       <PayMe open={payMe} onClose={() => getPaid(false)} />
                     </div>
                     }
@@ -56,15 +57,21 @@ const Profile = ({
                 </Paper>
               </Card>
             </div>
-            <WorkPhotoCard workPhotos={selectedUser[0].workphotos} photoDesc={selectedUser[0].photo_info} />
+            <div className={classes.item1}>
+              <WorkPhotoCard selectedUser={selectedUser[0]} />
+            </div>
+            <div className={classes.item2}>
+              <ProReviewDisplay selectedUser={selectedUser[0]} />
+            </div>
             {
-            userLoggedIn === true ?
-              <ProReview selectedUser={selectedUser[0]} />
-              :
-              <div />
+              userLoggedIn &&
+              <div className={classes.item4}>
+                <ProReview selectedUser={selectedUser[0]} />
+              </div>
               }
-            <ProReviewDisplay selectedUser={selectedUser[0]} />
-            <EmailMe proName={`${selectedUser[0].first_name}`} proEmail={`${selectedUser[0].email}`} />
+            <div className={classes.item3}>
+              <EmailMe proName={`${selectedUser[0].first_name}`} proEmail={`${selectedUser[0].email}`} />
+            </div>
           </div> :
           <h3>loading</h3>
         }
@@ -73,10 +80,23 @@ const Profile = ({
 }
 
 const styles = {
+  wrapper: {
+    '@media (min-width: 769px)': {
+      display: 'grid',
+      gridTemplateColumns: '34% 33% 33%',
+      gridTemplateRow: '60% 40%',
+      gridColumnGap: '20px',
+      gridRowGap: '40px',
+      margin: '20px 20px',
+    },
+  },
   card: {
     display: 'flex',
     justifyContent: 'center',
     marginTop: '-80px',
+    '@media (min-width: 769px)': {
+      height: '60vh',
+    },
 
   },
   cardContent: {
@@ -86,6 +106,10 @@ const styles = {
   paper: {
     width: '95%',
     left: '2.5%',
+    '@media (min-width: 769px)': {
+      width: '100%',
+      left: '0%',
+    },
   },
   title: {
     marginBottom: '5px',
@@ -122,6 +146,38 @@ const styles = {
     margin: 0,
     padding: 0,
   },
+  item1: {
+    '@media (min-width: 769px)': {
+      gridColumn: '2 / 4',
+      width: '96%',
+    },
+  },
+  item2: {
+    '@media (min-width: 769px)': {
+      gridColumn: '3 / 4',
+      gridRow: '2 /3',
+      marginLeft: '25px',
+    },
+  },
+  item3: {
+    '@media (min-width: 769px)': {
+      gridColumn: '1 / 3',
+      gridRow: '2 /3',
+    },
+  },
+  item4: {
+    '@media (min-width: 769px)': {
+      gridColumn: '3 / 4',
+      gridRow: '2 /3',
+      marginTop: '75%',
+      marginLeft: '25px',
+    },
+  },
+  buttons: {
+    '@media (min-width: 769px)': {
+      margin: '5px',
+    },
+  },
 };
 
 const mapStateToProps = state => ({
@@ -150,7 +206,7 @@ Profile.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  userLoggedIn: PropTypes.boolean,
+  userLoggedIn: PropTypes.bool.isRequired,
   proLoggedIn: PropTypes.bool.isRequired,
   stripeId: PropTypes.string.isRequired,
   getPaid: PropTypes.func.isRequired,

@@ -22,9 +22,6 @@ const styles = {
     height: '20vh',
     width: '100%',
   },
-  link: {
-
-  },
 }
 
 export default withStyles(styles)(Footer)

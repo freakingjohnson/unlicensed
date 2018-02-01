@@ -2,7 +2,63 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { ButtonBase, Typography, withStyles } from 'material-ui'
-import { getSearchData } from './../../ducks/reducers/resultsReducer'
+
+const images = [
+  {
+    url: 'https://hips.hearstapps.com/edc.h-cdn.co/assets/15/14/1427831454-54c1447836250-miles-redd-interior-design-ed1110-07-lgn.jpg',
+    title: 'Cabinets and Countertops',
+    width: '33.33%',
+  },
+  {
+    url: 'https://cdn.decoist.com/wp-content/uploads/2015/06/Throw-pillows-add-color-to-the-neutral-living-room.jpg',
+    title: 'House or Room Remodel',
+    width: '33.34%',
+  },
+  {
+    url: 'https://jlclandscapeservices.com/wp-content/uploads/2015/04/Landscape-Design-Build-Bottom-1.jpg',
+    title: 'Landscaping',
+    width: '33.33%',
+  },
+];
+
+const HomeFront = ({
+  userData, classes, history,
+}) => (
+  <div className={classes.root}>
+    {images.map(image => (
+      <ButtonBase
+        focusRipple
+        key={image.title}
+        className={classes.image}
+        style={{
+        width: image.width,
+      }}
+        onClick={(event) => {
+        event.preventDefault()
+        history.push(`/results/worktype/${image.title.replace(/\s/g, '_')}`)
+        console.log(userData)
+      }}
+      >
+        <span
+          className={classes.imageSrc}
+          style={{ backgroundImage: `url(${image.url})` }}
+        />
+        <span className={classes.imageBackdrop} />
+        <span className={classes.imageButton}>
+          <Typography
+            component="span"
+            type="subheading"
+            color="inherit"
+            className={classes.imageTitle}
+          >
+            {image.title}
+            <span className={classes.imageMarked} />
+          </Typography>
+        </span>
+      </ButtonBase>
+      ))}
+  </div>
+)
 
 const styles = theme => ({
   root: {
@@ -13,7 +69,7 @@ const styles = theme => ({
   },
   image: {
     position: 'relative',
-    height: 200,
+    height: 300,
     [theme.breakpoints.down('xs')]: {
       width: '100% !important', // Overrides inline-style
       height: 200,
@@ -76,74 +132,14 @@ const styles = theme => ({
   },
 });
 
-const images = [
-  {
-    url: 'https://hips.hearstapps.com/edc.h-cdn.co/assets/15/14/1427831454-54c1447836250-miles-redd-interior-design-ed1110-07-lgn.jpg',
-    title: 'Cabinets and Countertops',
-    width: '33.33%',
-  },
-  {
-    url: 'https://cdn.decoist.com/wp-content/uploads/2015/06/Throw-pillows-add-color-to-the-neutral-living-room.jpg',
-    title: 'House or Room Remodel',
-    width: '33.34%',
-  },
-  {
-    url: 'https://jlclandscapeservices.com/wp-content/uploads/2015/04/Landscape-Design-Build-Bottom-1.jpg',
-    title: 'Landscaping',
-    width: '33.33%',
-  },
-];
-
-const HomeFront = ({
-  userData, classes, getSearchData, history,
-}) => (
-  <div className={classes.root}>
-    {images.map(image => (
-      <ButtonBase
-        focusRipple
-        key={image.title}
-        className={classes.image}
-        style={{
-        width: image.width,
-      }}
-        onClick={(event) => {
-        event.preventDefault()
-        getSearchData(userData, image.title.replace(/\s/g, '_'), 'worktype')
-        history.push('/results')
-        console.log(userData)
-      }}
-      >
-        <span
-          className={classes.imageSrc}
-          style={{ backgroundImage: `url(${image.url})` }}
-        />
-        <span className={classes.imageBackdrop} />
-        <span className={classes.imageButton}>
-          <Typography
-            component="span"
-            type="subheading"
-            color="inherit"
-            className={classes.imageTitle}
-          >
-            {image.title}
-            <span className={classes.imageMarked} />
-          </Typography>
-        </span>
-      </ButtonBase>
-      ))}
-  </div>
-)
-
-
 const mapStateToProps = state => ({
   userData: state.resultsReducer.userData,
 })
 
-export default connect(mapStateToProps, { getSearchData })(withStyles(styles)(HomeFront))
+export default connect(mapStateToProps)(withStyles(styles)(HomeFront))
 
 HomeFront.propTypes = {
   classes: PropTypes.object.isRequired,
   userData: PropTypes.array.isRequired,
-  getSearchData: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 }

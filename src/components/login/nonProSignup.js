@@ -86,17 +86,21 @@ const styles = {
     height: '62vh',
     marginLeft: '5%',
     marginTop: '10%',
-  },
-  logo: {
-    width: '90%',
-    marginLeft: '5%',
-    marginTop: '10%',
-    mixBlendMode: 'multiply',
+    '@media (min-width: 769px)': {
+      width: '60%',
+      marginLeft: '20%',
+      marginTop: '2%',
+      height: '60vh',
+    },
   },
   form: {
     width: '90%',
     marginLeft: '5%',
     marginTop: '10%',
+    '@media (min-width: 769px)': {
+      width: '60%',
+      margin: '6% 0 0 20%',
+    },
   },
   title: {
     textAlign: 'center',

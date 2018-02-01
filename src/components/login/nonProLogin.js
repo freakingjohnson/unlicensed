@@ -65,17 +65,32 @@ const styles = {
     height: '62vh',
     marginLeft: '5%',
     marginTop: '10%',
+    '@media (min-width: 769px)': {
+      width: '60%',
+      marginLeft: '20%',
+      marginTop: '2%',
+      height: '60vh',
+    },
   },
   logo: {
     width: '90%',
     marginLeft: '5%',
     marginTop: '10%',
     mixBlendMode: 'multiply',
+    '@media (min-width: 769px)': {
+      width: '40%',
+      marginTop: '4%',
+      marginLeft: '30%',
+    },
   },
   form: {
     width: '90%',
     marginLeft: '5%',
     marginTop: '10%',
+    '@media (min-width: 769px)': {
+      width: '60%',
+      margin: '6% 0 0 20%',
+    },
   },
   title: {
     textAlign: 'center',
@@ -104,6 +119,7 @@ export default connect(mapStateToProps, { setInfo, setStateNonProInfo })(withSty
 const login = (email, password, setStateNonProInfo, history) => {
   axios.post('api/login', { email, password }).then((response) => {
     setStateNonProInfo(response.data)
+    console.log(response.data)
 
     if (response.status === 200) {
       alert('Log in successful');

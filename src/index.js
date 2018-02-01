@@ -2,9 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { MuiThemeProvider, createMuiTheme } from 'material-ui'
+import { MuiThemeProvider, createMuiTheme, Reboot } from 'material-ui'
 import store from './store'
-import './index.css';
 import App from './App';
 
 const theme = createMuiTheme({
@@ -29,12 +28,15 @@ const theme = createMuiTheme({
 })
 
 ReactDOM.render(
-  <Provider store={store} >
-    <BrowserRouter>
-      <MuiThemeProvider theme={theme}>
-        <App />
-      </MuiThemeProvider>
-    </BrowserRouter>
-  </Provider>
+  <div>
+    <Reboot />
+    <Provider store={store} >
+      <BrowserRouter>
+        <MuiThemeProvider theme={theme}>
+          <App />
+        </MuiThemeProvider>
+      </BrowserRouter>
+    </Provider>
+  </div>
   , document.getElementById('root'),
 );

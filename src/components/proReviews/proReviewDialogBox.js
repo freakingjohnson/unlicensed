@@ -64,7 +64,7 @@ class ProReviews extends Component {
         {
 
           <div>
-            <Button onClick={this.handleClickOpen}>Leave Review of Pro</Button>
+            <Button raised color="accent" onClick={this.handleClickOpen}>Leave Review of Pro</Button>
             <Dialog
               open={this.state.open}
               onClose={this.handleClose}

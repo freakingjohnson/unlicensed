@@ -77,9 +77,9 @@ const addUser = async (req, res) => {
 
   bcrypt.genSalt(10, (err, salt) => bcrypt.hash(userPassword, salt, (err, hash) => {
     let password = hash
-    db.add_password([password, userId[0].id]).then(() => {
+    db.add_password([password, userId[0].id]).then((data) => {
       status = 200
-      response = 'all good'
+      response = data
     }).catch((err) => {
       status = 500
       response = err

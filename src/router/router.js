@@ -5,7 +5,7 @@ import { Home, Results, editProfile, Profile, Steps, proLogin, nonProSignup, non
 export default (
   <Switch>
     <Route exact path="/" component={Home} />
-    <Route path="/results" component={Results} />
+    <Route path="/results/:searchby/:query" component={Results} />
     <Route path="/:id/:name/edit" component={editProfile} />
     <Route path="/:id/:name" component={Profile} />
     <Route path="/signupaspro" component={Steps} />

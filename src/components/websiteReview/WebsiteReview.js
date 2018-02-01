@@ -17,6 +17,10 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    '@media (min-width: 769px)': {
+      width: '60%',
+      marginLeft: '20%',
+    },
   },
   headline: {
     fontStyle: 'italic',

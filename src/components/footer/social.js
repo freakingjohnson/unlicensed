@@ -27,6 +27,9 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-around',
     width: '65%',
+    '@media (min-width: 769px)': {
+      width: '40%',
+    },
   },
 }
 
