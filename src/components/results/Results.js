@@ -103,6 +103,7 @@ const styles = {
     '@media (min-width: 769px)': {
       width: '100%',
       flexDirection: 'column',
+      width: '100%',
     },
   },
   userInfo: {
