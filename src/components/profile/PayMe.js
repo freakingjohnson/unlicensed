@@ -69,6 +69,9 @@ const styles = {
     flexDirection: 'column',
     height: '35vh',
     width: '80vw',
+    '@media (min-width: 769px)': {
+      width: '30vw',
+    },
   },
 }
 

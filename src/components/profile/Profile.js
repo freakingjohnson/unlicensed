@@ -50,7 +50,7 @@ const Profile = ({
                     <div>
                       <Button className={classes.buttons} raised color="accent" component={Link} to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >Edit Profile</Button>
                       { stripeId === null ? <Connect id={match.params.id} name={match.params.name} /> : <Button className={classes.buttons} raised color="primary" onClick={() => getPaid(true)}>Accept Payment</Button>}
-                      <PayMe open={payMe} onClose={() => getPaid(false)} />
+                      <PayMe open onClose={() => getPaid(false)} />
                     </div>
                     }
                   </CardContent>
@@ -200,7 +200,7 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyle
 Profile.propTypes = {
   classes: PropTypes.object.isRequired,
   userData: PropTypes.array.isRequired,
-  userId: PropTypes.number.isRequired,
+  userId: PropTypes.string.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
