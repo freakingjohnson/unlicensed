@@ -50,7 +50,7 @@ const Profile = ({
                     <div>
                       <Button className={classes.buttons} raised color="accent" component={Link} to={`/${selectedUser[0].id}/${selectedUser[0].first_name}-${selectedUser[0].last_name}/edit`} >Edit Profile</Button>
                       { stripeId === null ? <Connect id={match.params.id} name={match.params.name} /> : <Button className={classes.buttons} raised color="primary" onClick={() => getPaid(true)}>Accept Payment</Button>}
-                      <PayMe open onClose={() => getPaid(false)} />
+                      <PayMe open={payMe} onClose={() => getPaid(false)} />
                     </div>
                     }
                   </CardContent>
