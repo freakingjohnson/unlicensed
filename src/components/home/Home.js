@@ -40,7 +40,7 @@ class Home extends React.Component {
 
   finalizeAccount = (query, email) => {
     const code = query.split('').splice(6).join('')
-    axios.post('http://localhost:4000/api/addStripe', { code, email }).then((res) => {
+    axios.post('/api/addStripe', { code, email }).then((res) => {
       console.log(res)
     })
   }

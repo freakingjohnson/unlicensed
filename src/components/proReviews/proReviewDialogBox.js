@@ -43,7 +43,7 @@ class ProReviews extends Component {
       proReceivingReviewId,
       rating,
     } = this.state
-    axios.post('http://localhost:4000/api/proReview', {
+    axios.post('/api/proReview', {
       loggedinUserName, comment, proReceivingReviewId, rating,
     }).then((res) => {
       this.setState({

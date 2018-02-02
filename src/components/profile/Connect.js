@@ -8,7 +8,7 @@ const Connect = ({
 }) => (
   <div>
     <Button onClick={() => store(email, proLoggedIn, userName, userId)}>
-      <a href={`https://connect.stripe.com/express/oauth/authorize?redirect_uri=http://localhost:3000/${id}/${name}&client_id=ca_CE8A2d9pdtIwopHsbTEvkKap1Hrl1ifV`}>Take credit card payments with Stripe</a>
+      <a href={`https://connect.stripe.com/express/oauth/authorize?redirect_uri=http://buildersindependent.gq/${id}/${name}&client_id=ca_CE8A2d9pdtIwopHsbTEvkKap1Hrl1ifV`}>Take credit card payments with Stripe</a>
     </Button>
   </div>
 )
