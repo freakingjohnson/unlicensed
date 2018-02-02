@@ -29,14 +29,14 @@ class FavoritesIcon extends Component {
 
   handleCheck = (username, userId) => {
     if (this.state.checked === false) {
-      axios.post('http://localhost:4000/api/favorite', { username, userId })
+      axios.post('/api/favorite', { username, userId })
         .then(() => {
           this.setState({
             checked: !this.state.checked,
           })
         })
     } else {
-      axios.delete(`http://localhost:4000/api/favorite/${username}/${userId}`)
+      axios.delete(`/api/favorite/${username}/${userId}`)
         .then(() => {
           this.setState({
             checked: !this.state.checked,
