@@ -93,6 +93,6 @@ EmailMe.propTypes = {
 }
 
 const sendEmail = (email) => {
-  axios.post('api/sendEmail', email).then((res) => {
+  axios.post('/api/sendEmail', email).then((res) => {
   })
 }

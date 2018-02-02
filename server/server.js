@@ -21,8 +21,6 @@ const express = require('express'),
   stripe = require('./decorators/stripe'),
   logout = require('./decorators/logout')
 
-
-
 const app = express();
 
 app.use(cors())
